@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile - Digital Queue</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f5f7fa;
+    color:#14213d;
+    min-height:100vh;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    background:#0d47a1;
+    color:white;
+    min-height:100px;
+    padding:12px 35px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    text-decoration:none;
+    color:white;
+}
+
+.logo{
+    width:62px;
+    height:68px;
+    object-fit:contain;
+}
+
+.brand h2{
+    font-size:20px;
+}
+
+.brand h3{
+    font-size:17px;
+    margin-top:3px;
+}
+
+.brand p{
+    font-size:12px;
+    margin-top:3px;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+/* SEARCH */
+
+.search-box{
+    width:310px;
+    height:40px;
+    background:white;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    padding:0 10px;
+}
+
+.search-box input{
+    border:none;
+    outline:none;
+    width:100%;
+    font-size:14px;
+}
+
+.search-box button{
+    border:none;
+    background:none;
+    cursor:pointer;
+    font-size:18px;
+}
+
+/* LANGUAGE */
+
+.language-select{
+    height:40px;
+    border:none;
+    border-radius:6px;
+    padding:0 10px;
+    cursor:pointer;
+}
+
+/* NOTIFICATION */
+
+.notification-wrapper{
+    position:relative;
+}
+
+.notification-btn{
+    width:42px;
+    height:40px;
+    border:none;
+    border-radius:6px;
+    background:white;
+    color:#0d47a1;
+    cursor:pointer;
+    font-size:18px;
+    position:relative;
+}
+
+.badge{
+    position:absolute;
+    top:-5px;
+    right:-4px;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#d32f2f;
+    color:white;
+    display:grid;
+    place-items:center;
+    font-size:10px;
+}
+
+.notification-panel{
+    display:none;
+    position:absolute;
+    right:0;
+    top:48px;
+    width:310px;
+    background:white;
+    color:#14213d;
+    border-radius:8px;
+    box-shadow:0 8px 25px rgba(0,0,0,.2);
+    z-index:100;
+}
+
+.notification-panel.show{
+    display:block;
+}
+
+.notification-header{
+    padding:14px;
+    font-weight:bold;
+    border-bottom:1px solid #eee;
+}
+
+.notification-item{
+    padding:13px;
+    border-bottom:1px solid #eee;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.notification-item:last-child{
+    border-bottom:none;
+}
+
+/* PROFILE BUTTON */
+
+.profile-btn{
+    height:40px;
+    border:none;
+    border-radius:6px;
+    background:white;
+    color:#0d47a1;
+    padding:0 14px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.profile-btn:hover{
+    background:#e8f1ff;
+}
+
+/* ================= NAVIGATION ================= */
+
+nav{
+    background:white;
+    box-shadow:0 2px 7px rgba(0,0,0,.08);
+    display:flex;
+    overflow-x:auto;
+}
+
+nav a{
+    color:#14213d;
+    text-decoration:none;
+    padding:17px 20px;
+    white-space:nowrap;
+    font-size:14px;
+}
+
+nav a:hover{
+    color:#0d47a1;
+    background:#f5f8ff;
+}
+
+/* ================= PROFILE TOP ================= */
+
+.profile-top{
+    background:#0d47a1;
+    color:white;
+    text-align:center;
+    padding:38px 20px;
+    position:relative;
+}
+
+.back-btn{
+    position:absolute;
+    left:28px;
+    top:25px;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.8);
+    background:transparent;
+    color:white;
+    font-size:27px;
+    cursor:pointer;
+}
+
+.back-btn:hover{
+    background:rgba(255,255,255,.15);
+}
+
+.avatar{
+    width:105px;
+    height:105px;
+    border-radius:50%;
+    background:white;
+    color:#0d47a1;
+    display:grid;
+    place-items:center;
+    margin:auto;
+    font-size:48px;
+    border:4px solid #e8f1ff;
+}
+
+.profile-top h1{
+    margin-top:13px;
+    font-size:27px;
+}
+
+.profile-top p{
+    margin-top:5px;
+    font-size:14px;
+}
+
+/* ================= MAIN ================= */
+
+main{
+    max-width:1050px;
+    margin:auto;
+    padding:35px 22px 55px;
+}
+
+.section-title{
+    font-size:22px;
+    margin-bottom:15px;
+}
+
+.card{
+    background:white;
+    border:1px solid #e1e6ee;
+    border-radius:12px;
+    box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+
+.info-row{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:18px 20px;
+    border-bottom:1px solid #eee;
+}
+
+.info-row:last-child{
+    border-bottom:none;
+}
+
+.info-icon{
+    width:45px;
+    height:45px;
+    flex:none;
+    border-radius:50%;
+    background:#e8f1ff;
+    display:grid;
+    place-items:center;
+    font-size:20px;
+}
+
+.info-text{
+    flex:1;
+}
+
+.info-label{
+    color:#667085;
+    font-size:13px;
+    margin-bottom:6px;
+}
+
+.info-text input,
+.info-text textarea{
+    width:100%;
+    border:1px solid #d0d5dd;
+    border-radius:6px;
+    padding:10px;
+    outline:none;
+    color:#14213d;
+    font-size:15px;
+}
+
+.info-text textarea{
+    min-height:70px;
+    resize:vertical;
+}
+
+.info-text input:focus,
+.info-text textarea:focus{
+    border-color:#0d47a1;
+}
+
+.settings{
+    margin-top:32px;
+}
+
+.setting-item{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:18px 20px;
+    border-bottom:1px solid #eee;
+    cursor:pointer;
+}
+
+.setting-item:last-child{
+    border-bottom:none;
+}
+
+.setting-item:hover{
+    background:#f5f8ff;
+}
+
+.setting-icon{
+    width:35px;
+    text-align:center;
+    font-size:20px;
+}
+
+.setting-name{
+    flex:1;
+    font-weight:500;
+}
+
+.arrow{
+    color:#777;
+    font-size:22px;
+}
+
+.buttons{
+    display:flex;
+    gap:14px;
+    margin-top:25px;
+}
+
+.save-btn,
+.logout-btn{
+    border:none;
+    border-radius:7px;
+    padding:14px 20px;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:15px;
+}
+
+.save-btn{
+    background:#0d47a1;
+    flex:2;
+}
+
+.logout-btn{
+    background:#c62828;
+    flex:1;
+}
+
+.save-btn:hover{
+    background:#1565c0;
+}
+
+.logout-btn:hover{
+    background:#b71c1c;
+}
+
+.message{
+    text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+    min-height:20px;
+}
+
+.success{
+    color:#1b5e20;
+}
+
+.error{
+    color:#b71c1c;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    background:#0d47a1;
+    color:white;
+    padding:35px 7% 18px;
+}
+
+.footer-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr 1fr;
+    gap:30px;
+}
+
+.footer-column h3{
+    font-size:15px;
+    margin-bottom:10px;
+}
+
+.footer-column p,
+.footer-column a{
+    color:#dce8fa;
+    font-size:13px;
+    line-height:1.9;
+    text-decoration:none;
+    display:block;
+}
+
+.footer-column a:hover{
+    text-decoration:underline;
+}
+
+.footer-bottom{
+    max-width:1200px;
+    margin:25px auto 0;
+    padding-top:15px;
+    border-top:1px solid rgba(255,255,255,.3);
+    text-align:center;
+    font-size:12px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+    header{
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .brand{
+        justify-content:center;
+    }
+
+    .header-right{
+        justify-content:center;
+        flex-wrap:wrap;
+    }
+
+    .search-box{
+        width:100%;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    .profile-top{
+        padding-top:80px;
+    }
+
+    .info-row{
+        align-items:flex-start;
+    }
+
+    .buttons{
+        flex-direction:column;
+    }
+
+    .save-btn,
+    .logout-btn{
+        flex:none;
+        width:100%;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .notification-panel{
+        position:fixed;
+        left:15px;
+        right:15px;
+        top:115px;
+        width:auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <a href="index.html" class="brand">
+
+        <img
+            src="digital-queue-logo.png"
+            class="logo"
+            alt="Digital Queue Logo"
+            onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg';">
+
+        <div>
+            <h2 id="governmentText">Government of India</h2>
+            <h3 id="brandText">Digital Queue</h3>
+            <p id="taglineText">Easy. Quick. Transparent.</p>
+        </div>
+
+    </a>
+
+
+    <div class="header-right">
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Search services, documents, offices..."
+                autocomplete="off">
+
+            <button
+                type="button"
+                onclick="performSearch()"
+                aria-label="Search">
+
+                🔍
+
+            </button>
+
+        </div>
+
+
+        <!-- NOTIFICATIONS -->
+
+        <div class="notification-wrapper">
+
+            <button
+                class="notification-btn"
+                type="button"
+                onclick="toggleNotifications(event)"
+                aria-label="Notifications">
+
+                🔔
+
+                <span class="badge">
+                    3
+                </span>
+
+            </button>
+
+
+            <div
+                class="notification-panel"
+                id="notificationPanel">
+
+                <div
+                    class="notification-header"
+                    id="notificationTitle">
+                    Notifications
+                </div>
+
+                <div class="notification-item">
+                    🔔
+                    <span id="notification1">
+                        Your application status has been updated.
+                    </span>
+                </div>
+
+                <div class="notification-item">
+                    📍
+                    <span id="notification2">
+                        Queue confirmation is required before visiting the office.
+                    </span>
+                </div>
+
+                <div class="notification-item">
+                    ℹ️
+                    <span id="notification3">
+                        Check your queue status for updates.
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- LANGUAGE -->
+
+        <select
+            id="languageSelect"
+            class="language-select"
+            onchange="changeLanguage(this.value)"
+            aria-label="Language">
+
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="gu">ગુજરાતી</option>
+
+        </select>
+
+
+        <!-- PROFILE -->
+
+        <button
+            class="profile-btn"
+            type="button"
+            onclick="openProfile()">
+
+            👤
+            <span id="profileButtonText">
+                Profile
+            </span>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- ================= NAVIGATION ================= -->
+
+<nav>
+
+    <a href="index.html" id="navHome">
+        ⌂ &nbsp; Home
+    </a>
+
+    <a href="service.html" id="navServices">
+        ▣ &nbsp; Services
+    </a>
+
+    <a href="myapplication.html" id="navApplications">
+        ▤ &nbsp; My Applications
+    </a>
+
+    <a href="queue.html" id="navQueue">
+        ☷ &nbsp; Queue Status
+    </a>
+
+    <a href="offinfo.html" id="navOffices">
+        🏛 &nbsp; Offices
+    </a>
+
+</nav>
+
+
+<!-- ================= PROFILE HEADER ================= -->
+
+<section class="profile-top">
+
+    <button
+        class="back-btn"
+        type="button"
+        onclick="goHome()"
+        aria-label="Back to Home">
+
+        ‹
+
+    </button>
+
+
+    <div class="avatar">
+        👤
+    </div>
+
+
+    <h1 id="profileName">
+        User
+    </h1>
+
+
+    <p id="profileSubtitle">
+        My Profile
+    </p>
+
+</section>
+
+
+<!-- ================= PROFILE CONTENT ================= -->
+
+<main>
+
+    <h2
+        class="section-title"
+        id="personalTitle">
+        Personal Information
+    </h2>
+
+
+    <div class="card">
+
+        <!-- NAME -->
+
+        <div class="info-row">
+
+            <div class="info-icon">
+                👤
+            </div>
+
+            <div class="info-text">
+
+                <div
+                    class="info-label"
+                    id="nameLabel">
+                    Name
+                </div>
+
+                <input
+                    id="nameInput"
+                    type="text"
+                    placeholder="Enter your name">
+
+            </div>
+
+        </div>
+
+
+        <!-- MOBILE -->
+
+        <div class="info-row">
+
+            <div class="info-icon">
+                📱
+            </div>
+
+            <div class="info-text">
+
+                <div
+                    class="info-label"
+                    id="mobileLabel">
+                    Mobile Number
+                </div>
+
+                <input
+                    id="mobileInput"
+                    type="tel"
+                    maxlength="10"
+                    inputmode="numeric"
+                    placeholder="Enter mobile number">
+
+            </div>
+
+        </div>
+
+
+        <!-- EMAIL -->
+
+        <div class="info-row">
+
+            <div class="info-icon">
+                ✉️
+            </div>
+
+            <div class="info-text">
+
+                <div
+                    class="info-label"
+                    id="emailLabel">
+                    Email
+                </div>
+
+                <input
+                    id="emailInput"
+                    type="email"
+                    placeholder="Enter your email">
+
+            </div>
+
+        </div>
+
+
+        <!-- ADDRESS -->
+
+        <div class="info-row">
+
+            <div class="info-icon">
+                📍
+            </div>
+
+            <div class="info-text">
+
+                <div
+                    class="info-label"
+                    id="addressLabel">
+                    Address
+                </div>
+
+                <textarea
+                    id="addressInput"
+                    placeholder="Enter your address"></textarea>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SETTINGS -->
+
+    <div class="settings">
+
+        <h2
+            class="section-title"
+            id="settingsTitle">
+            Settings
+        </h2>
+
+
+        <div class="card">
+
+            <div
+                class="setting-item"
+                onclick="editProfile()">
+
+                <div class="setting-icon">
+                    ✏️
+                </div>
+
+                <div
+                    class="setting-name"
+                    id="editText">
+                    Edit Profile
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+
+            <div
+                class="setting-item"
+                onclick="changePassword()">
+
+                <div class="setting-icon">
+                    🔒
+                </div>
+
+                <div
+                    class="setting-name"
+                    id="passwordText">
+                    Change Password
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BUTTONS -->
+
+    <div class="buttons">
+
+        <button
+            class="save-btn"
+            type="button"
+            onclick="saveProfile()"
+            id="saveButton">
+
+            Save Changes
+
+        </button>
+
+
+        <button
+            class="logout-btn"
+            type="button"
+            onclick="logout()"
+            id="logoutButton">
+
+            Logout
+
+        </button>
+
+    </div>
+
+
+    <div
+        class="message"
+        id="message">
+    </div>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-grid">
+
+        <div class="footer-column">
+
+            <h3>
+                Digital Queue
+            </h3>
+
+            <p id="footerDescription">
+                A digital platform designed to make
+                government services easier, faster
+                and more transparent.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3 id="quickTitle">
+                Quick Links
+            </h3>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="service.html">
+                Services
+            </a>
+
+            <a href="myapplication.html">
+                My Applications
+            </a>
+
+            <a href="queue.html">
+                Queue Status
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3 id="serviceTitle">
+                Services
+            </h3>
+
+            <a href="service.html">
+                Aadhaar
+            </a>
+
+            <a href="service.html">
+                PAN Card
+            </a>
+
+            <a href="service.html">
+                Certificates
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3 id="supportTitle">
+                Support
+            </h3>
+
+            <a href="offinfo.html">
+                Offices
+            </a>
+
+            <a href="profile.html">
+                Profile
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+        © 2026 Digital Queue. All Rights Reserved.
+    </div>
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   AUTHENTICATION
+===================================================== */
+
+function checkLogin(){
+
+    if(
+        localStorage.getItem("isLoggedIn")
+        !== "true"
+    ){
+
+        window.location.replace(
+            "login.html"
+        );
+
+        return false;
+
+    }
+
+    return true;
+
+}
+
+
+/* =====================================================
+   PROFILE BUTTON
+===================================================== */
+
+function openProfile(){
+
+    if(checkLogin()){
+
+        window.location.href =
+            "profile.html";
+
+    }
+
+}
+
+
+/* =====================================================
+   HOME BUTTON
+===================================================== */
+
+function goHome(){
+
+    window.location.href =
+        "index.html";
+
+}
+
+
+/* =====================================================
+   LOAD PROFILE
+===================================================== */
+
+function loadProfile(){
+
+    const name =
+        localStorage.getItem("userName")
+        || "";
+
+    const mobile =
+        localStorage.getItem("userMobile")
+        || "";
+
+    const email =
+        localStorage.getItem("userEmail")
+        || "";
+
+    const address =
+        localStorage.getItem("userAddress")
+        || "";
+
+
+    document.getElementById(
+        "profileName"
+    ).textContent =
+        name || "User";
+
+
+    document.getElementById(
+        "nameInput"
+    ).value =
+        name;
+
+
+    document.getElementById(
+        "mobileInput"
+    ).value =
+        mobile;
+
+
+    document.getElementById(
+        "emailInput"
+    ).value =
+        email;
+
+
+    document.getElementById(
+        "addressInput"
+    ).value =
+        address;
+
+}
+
+
+/* =====================================================
+   SAVE PROFILE
+===================================================== */
+
+function saveProfile(){
+
+    const name =
+        document.getElementById(
+            "nameInput"
+        ).value.trim();
+
+    const mobile =
+        document.getElementById(
+            "mobileInput"
+        ).value.trim();
+
+    const email =
+        document.getElementById(
+            "emailInput"
+        ).value.trim();
+
+    const address =
+        document.getElementById(
+            "addressInput"
+        ).value.trim();
+
+
+    if(!name){
+
+        showMessage(
+            "Please enter your name.",
+            true
+        );
+
+        return;
+
+    }
+
+
+    if(
+        mobile &&
+        !/^[0-9]{10}$/.test(mobile)
+    ){
+
+        showMessage(
+            "Please enter a valid 10-digit mobile number.",
+            true
+        );
+
+        return;
+
+    }
+
+
+    if(
+        email &&
+        !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)
+    ){
+
+        showMessage(
+            "Please enter a valid email address.",
+            true
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "userName",
+        name
+    );
+
+    localStorage.setItem(
+        "userMobile",
+        mobile
+    );
+
+    localStorage.setItem(
+        "userEmail",
+        email
+    );
+
+    localStorage.setItem(
+        "userAddress",
+        address
+    );
+
+
+    document.getElementById(
+        "profileName"
+    ).textContent =
+        name;
+
+
+    showMessage(
+        "Profile saved successfully.",
+        false
+    );
+
+}
+
+
+/* =====================================================
+   EDIT PROFILE
+===================================================== */
+
+function editProfile(){
+
+    document.getElementById(
+        "nameInput"
+    ).focus();
+
+    showMessage(
+        "You can edit your information now.",
+        false
+    );
+
+}
+
+
+/* =====================================================
+   CHANGE PASSWORD
+===================================================== */
+
+function changePassword(){
+
+    showMessage(
+        "Password change will be connected to the backend.",
+        false
+    );
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout(){
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to logout?"
+        );
+
+    if(!confirmed){
+        return;
+    }
+
+
+    localStorage.removeItem(
+        "isLoggedIn"
+    );
+
+    localStorage.removeItem(
+        "userName"
+    );
+
+    localStorage.removeItem(
+        "userMobile"
+    );
+
+    localStorage.removeItem(
+        "userEmail"
+    );
+
+    localStorage.removeItem(
+        "userAddress"
+    );
+
+
+    window.location.replace(
+        "login.html"
+    );
+
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+function showMessage(
+    text,
+    isError
+){
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+    message.textContent =
+        text;
+
+    message.className =
+        "message " +
+        (
+            isError
+            ? "error"
+            : "success"
+        );
+
+
+    setTimeout(
+        function(){
+
+            message.textContent =
+                "";
+
+            message.className =
+                "message";
+
+        },
+        3000
+    );
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function performSearch(){
+
+    const search =
+        document.getElementById(
+            "searchInput"
+        ).value.trim();
+
+
+    if(!search){
+
+        document.getElementById(
+            "searchInput"
+        ).focus();
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "service.html?search=" +
+        encodeURIComponent(search);
+
+}
+
+
+document
+.getElementById("searchInput")
+.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            performSearch();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+function toggleNotifications(event){
+
+    if(event){
+        event.stopPropagation();
+    }
+
+
+    document
+    .getElementById(
+        "notificationPanel"
+    )
+    .classList.toggle("show");
+
+}
+
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const panel =
+            document.getElementById(
+                "notificationPanel"
+            );
+
+        const wrapper =
+            document.querySelector(
+                ".notification-wrapper"
+            );
+
+
+        if(
+            panel &&
+            wrapper &&
+            !wrapper.contains(event.target)
+        ){
+
+            panel.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   LANGUAGE
+===================================================== */
+
+const translations = {
+
+    en:{
+        language:"English",
+        government:"Government of India",
+        brand:"Digital Queue",
+        tagline:"Easy. Quick. Transparent.",
+        search:"Search services, documents, offices...",
+        notifications:"Notifications",
+        notification1:"Your application status has been updated.",
+        notification2:"Queue confirmation is required before visiting the office.",
+        notification3:"Check your queue status for updates.",
+        home:"Home",
+        services:"Services",
+        apps:"My Applications",
+        queue:"Queue Status",
+        offices:"Offices",
+        profile:"Profile",
+        myProfile:"My Profile",
+        personal:"Personal Information",
+        name:"Name",
+        mobile:"Mobile Number",
+        email:"Email",
+        address:"Address",
+        settings:"Settings",
+        edit:"Edit Profile",
+        password:"Change Password",
+        save:"Save Changes",
+        logout:"Logout",
+        quick:"Quick Links",
+        serviceTitle:"Services",
+        support:"Support",
+        footer:"A digital platform designed to make government services easier, faster and more transparent."
+    },
+
+    hi:{
+        language:"हिन्दी",
+        government:"भारत सरकार",
+        brand:"डिजिटल क्यू",
+        tagline:"आसान। तेज़। पारदर्शी।",
+        search:"सेवाएँ, दस्तावेज़, कार्यालय खोजें...",
+        notifications:"सूचनाएँ",
+        notification1:"आपके आवेदन की स्थिति अपडेट की गई है।",
+        notification2:"कार्यालय जाने से पहले कतार की पुष्टि आवश्यक है।",
+        notification3:"अपनी कतार स्थिति के अपडेट देखें।",
+        home:"होम",
+        services:"सेवाएँ",
+        apps:"मेरे आवेदन",
+        queue:"कतार स्थिति",
+        offices:"कार्यालय",
+        profile:"प्रोफ़ाइल",
+        myProfile:"मेरी प्रोफ़ाइल",
+        personal:"व्यक्तिगत जानकारी",
+        name:"नाम",
+        mobile:"मोबाइल नंबर",
+        email:"ईमेल",
+        address:"पता",
+        settings:"सेटिंग्स",
+        edit:"प्रोफ़ाइल संपादित करें",
+        password:"पासवर्ड बदलें",
+        save:"परिवर्तन सहेजें",
+        logout:"लॉगआउट",
+        quick:"त्वरित लिंक",
+        serviceTitle:"सेवाएँ",
+        support:"सहायता",
+        footer:"सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए एक डिजिटल प्लेटफॉर्म।"
+    },
+
+    gu:{
+        language:"ગુજરાતી",
+        government:"ભારત સરકાર",
+        brand:"ડિજિટલ કતાર",
+        tagline:"સરળ. ઝડપી. પારદર્શક.",
+        search:"સેવાઓ, દસ્તાવેજો, કચેરીઓ શોધો...",
+        notifications:"સૂચનાઓ",
+        notification1:"તમારી અરજીની સ્થિતિ અપડેટ કરવામાં આવી છે.",
+        notification2:"કચેરીની મુલાકાત પહેલાં કતારની પુષ્ટિ જરૂરી છે.",
+        notification3:"તમારી કતાર સ્થિતિના અપડેટ્સ જુઓ.",
+        home:"હોમ",
+        services:"સેવાઓ",
+        apps:"મારી અરજીઓ",
+        queue:"કતાર સ્થિતિ",
+        offices:"કચેરીઓ",
+        profile:"પ્રોફાઇલ",
+        myProfile:"મારી પ્રોફાઇલ",
+        personal:"વ્યક્તિગત માહિતી",
+        name:"નામ",
+        mobile:"મોબાઇલ નંબર",
+        email:"ઇમેઇલ",
+        address:"સરનામું",
+        settings:"સેટિંગ્સ",
+        edit:"પ્રોફાઇલ સંપાદિત કરો",
+        password:"પાસવર્ડ બદલો",
+        save:"ફેરફારો સાચવો",
+        logout:"લૉગઆઉટ",
+        quick:"ઝડપી લિંક્સ",
+        serviceTitle:"સેવાઓ",
+        support:"સહાય",
+        footer:"સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ."
+    }
+
+};
+
+
+function changeLanguage(lang){
+
+    localStorage.setItem(
+        "selectedLanguage",
+        lang
+    );
+
+    applyLanguage();
+
+}
+
+
+function applyLanguage(){
+
+    const lang =
+        localStorage.getItem(
+            "selectedLanguage"
+        ) || "en";
+
+
+    const t =
+        translations[lang] ||
+        translations.en;
+
+
+    document.documentElement.lang =
+        lang;
+
+
+    document.getElementById(
+        "languageSelect"
+    ).value =
+        lang;
+
+
+    document.getElementById(
+        "governmentText"
+    ).textContent =
+        t.government;
+
+
+    document.getElementById(
+        "brandText"
+    ).textContent =
+        t.brand;
+
+
+    document.getElementById(
+        "taglineText"
+    ).textContent =
+        t.tagline;
+
+
+    document.getElementById(
+        "searchInput"
+    ).placeholder =
+        t.search;
+
+
+    document.getElementById(
+        "notificationTitle"
+    ).textContent =
+        t.notifications;
+
+
+    document.getElementById(
+        "notification1"
+    ).textContent =
+        t.notification1;
+
+
+    document.getElementById(
+        "notification2"
+    ).textContent =
+        t.notification2;
+
+
+    document.getElementById(
+        "notification3"
+    ).textContent =
+        t.notification3;
+
+
+    document.getElementById(
+        "navHome"
+    ).innerHTML =
+        "⌂ &nbsp; " + t.home;
+
+
+    document.getElementById(
+        "navServices"
+    ).innerHTML =
+        "▣ &nbsp; " + t.services;
+
+
+    document.getElementById(
+        "navApplications"
+    ).innerHTML =
+        "▤ &nbsp; " + t.apps;
+
+
+    document.getElementById(
+        "navQueue"
+    ).innerHTML =
+        "☷ &nbsp; " + t.queue;
+
+
+    document.getElementById(
+        "navOffices"
+    ).innerHTML =
+        "🏛 &nbsp; " + t.offices;
+
+
+    document.getElementById(
+        "profileButtonText"
+    ).textContent =
+        t.profile;
+
+
+    document.getElementById(
+        "profileSubtitle"
+    ).textContent =
+        t.myProfile;
+
+
+    document.getElementById(
+        "personalTitle"
+    ).textContent =
+        t.personal;
+
+
+    document.getElementById(
+        "nameLabel"
+    ).textContent =
+        t.name;
+
+
+    document.getElementById(
+        "mobileLabel"
+    ).textContent =
+        t.mobile;
+
+
+    document.getElementById(
+        "emailLabel"
+    ).textContent =
+        t.email;
+
+
+    document.getElementById(
+        "addressLabel"
+    ).textContent =
+        t.address;
+
+
+    document.getElementById(
+        "settingsTitle"
+    ).textContent =
+        t.settings;
+
+
+    document.getElementById(
+        "editText"
+    ).textContent =
+        t.edit;
+
+
+    document.getElementById(
+        "passwordText"
+    ).textContent =
+        t.password;
+
+
+    document.getElementById(
+        "saveButton"
+    ).textContent =
+        t.save;
+
+
+    document.getElementById(
+        "logoutButton"
+    ).textContent =
+        t.logout;
+
+
+    document.getElementById(
+        "quickTitle"
+    ).textContent =
+        t.quick;
+
+
+    document.getElementById(
+        "serviceTitle"
+    ).textContent =
+        t.serviceTitle;
+
+
+    document.getElementById(
+        "supportTitle"
+    ).textContent =
+        t.support;
+
+
+    document.getElementById(
+        "footerDescription"
+    ).textContent =
+        t.footer;
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        if(!checkLogin()){
+            return;
+        }
+
+        loadProfile();
+        applyLanguage();
+
+    }
+);
+
+</script>
+
+</body>
+</html>

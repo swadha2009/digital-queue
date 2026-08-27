@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Application Form - Digital Queue</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f5f7fa;color:#14213d;min-height:100vh}
+a{text-decoration:none;color:inherit}
+
+/* HEADER */
+header{
+    background:#0d47a1;color:#fff;min-height:100px;padding:12px 35px;
+    display:flex;align-items:center;justify-content:space-between;gap:20px
+}
+.brand{display:flex;align-items:center;gap:14px;color:#fff}
+.logo{width:62px;height:68px;object-fit:contain}
+.brand h2{font-size:20px}
+.brand h3{font-size:17px;margin-top:3px}
+.brand p{font-size:12px;margin-top:3px}
+
+.header-right{display:flex;align-items:center;gap:10px}
+.search-box{
+    width:310px;height:40px;background:#fff;border-radius:6px;
+    display:flex;align-items:center;padding:0 10px
+}
+.search-box input{border:0;outline:0;width:100%;font-size:14px}
+.search-box button{border:0;background:none;cursor:pointer;font-size:18px}
+
+.language-select{
+    height:40px;border:none;border-radius:6px;padding:0 10px;cursor:pointer
+}
+.notification-wrapper{position:relative}
+.notification-btn{
+    width:42px;height:40px;border:none;border-radius:6px;
+    background:#fff;color:#0d47a1;cursor:pointer;font-size:18px;position:relative
+}
+.badge{
+    position:absolute;top:-5px;right:-4px;width:18px;height:18px;
+    border-radius:50%;background:#d32f2f;color:#fff;
+    display:grid;place-items:center;font-size:10px
+}
+.notification-panel{
+    display:none;position:absolute;right:0;top:48px;width:310px;background:#fff;
+    color:#14213d;border-radius:8px;box-shadow:0 8px 25px rgba(0,0,0,.2);z-index:100
+}
+.notification-panel.show{display:block}
+.notification-header{padding:14px;font-weight:bold;border-bottom:1px solid #eee}
+.notification-item{padding:13px;border-bottom:1px solid #eee;font-size:13px;line-height:1.5}
+.profile-btn{
+    height:40px;border:none;border-radius:6px;background:#fff;color:#0d47a1;
+    padding:0 14px;font-weight:bold;cursor:pointer
+}
+
+/* NAVIGATION */
+nav{
+    background:#fff;box-shadow:0 2px 7px rgba(0,0,0,.08);
+    display:flex;overflow-x:auto
+}
+nav a{
+    color:#14213d;padding:17px 20px;white-space:nowrap;font-size:14px
+}
+nav a:hover,nav a.active{
+    color:#0d47a1;background:#f5f8ff;font-weight:bold;
+    border-bottom:3px solid #0d47a1
+}
+
+/* MAIN */
+main{max-width:900px;margin:auto;padding:35px 22px 55px}
+.page-heading{text-align:center;margin-bottom:28px}
+.page-heading h1{font-size:30px;color:#0d47a1;margin-bottom:8px}
+.page-heading p{color:#667085;line-height:1.6;font-size:14px}
+
+/* PROGRESS */
+.progress{
+    display:flex;align-items:center;justify-content:center;margin-bottom:28px
+}
+.progress-step{display:flex;align-items:center}
+.circle{
+    width:36px;height:36px;border-radius:50%;background:#dbe7f8;color:#0d47a1;
+    display:grid;place-items:center;font-weight:bold
+}
+.circle.active{background:#0d47a1;color:#fff}
+.line{width:75px;height:3px;background:#dbe7f8}
+.step-label{font-size:11px;color:#667085;text-align:center;margin-top:5px}
+
+/* FORM */
+.form-card{
+    background:#fff;border:1px solid #e1e6ee;border-radius:14px;
+    box-shadow:0 4px 16px rgba(0,0,0,.06);padding:32px
+}
+.form-section{margin-bottom:28px}
+.form-section h2{
+    font-size:19px;color:#0d47a1;margin-bottom:17px;
+    border-bottom:1px solid #e8edf3;padding-bottom:10px
+}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field.full{grid-column:1/-1}
+.field label{font-size:14px;font-weight:bold}
+.required{color:#c62828}
+.field input,.field select{
+    width:100%;padding:12px;border:1px solid #d0d5dd;border-radius:7px;
+    outline:none;font-size:14px;background:#fff
+}
+.field input:focus,.field select:focus{
+    border-color:#0d47a1;box-shadow:0 0 0 2px rgba(13,71,161,.08)
+}
+.readonly{
+    background:#f1f4f8!important;color:#344054;cursor:not-allowed
+}
+.info-box{
+    background:#eef5ff;border:1px solid #c9dcfa;border-radius:8px;
+    padding:12px 14px;color:#174a8b;font-size:13px;line-height:1.5;margin-bottom:18px
+}
+.checkbox{
+    display:flex;align-items:flex-start;gap:10px;font-size:13px;
+    color:#667085;line-height:1.5;cursor:pointer
+}
+.checkbox input{
+    width:16px!important;min-width:16px!important;height:16px!important;
+    margin:3px 0 0!important;padding:0!important;flex:0 0 16px!important
+}
+.checkbox span{flex:1}
+.actions{display:flex;justify-content:space-between;gap:15px;margin-top:10px}
+.btn{
+    border:none;border-radius:7px;padding:13px 22px;font-weight:bold;
+    cursor:pointer;font-size:14px
+}
+.btn-primary{background:#0d47a1;color:#fff}
+.btn-primary:hover{background:#1565c0}
+.btn-secondary{background:#e8f1ff;color:#0d47a1}
+.message{
+    display:none;margin-top:16px;padding:12px;border-radius:7px;
+    text-align:center;font-size:13px;line-height:1.5
+}
+.message.show{display:block}
+.message.error{background:#ffebee;color:#b71c1c}
+
+/* FOOTER */
+footer{background:#0d47a1;color:#fff;padding:35px 7% 18px}
+.footer-grid{
+    max-width:1200px;margin:auto;display:grid;
+    grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px
+}
+.footer-column h3{font-size:15px;margin-bottom:10px}
+.footer-column p,.footer-column a{
+    color:#dce8fa;font-size:13px;line-height:1.9;display:block
+}
+.footer-column a:hover{text-decoration:underline}
+.footer-bottom{
+    max-width:1200px;margin:25px auto 0;padding-top:15px;
+    border-top:1px solid rgba(255,255,255,.3);
+    text-align:center;font-size:12px
+}
+
+@media(max-width:850px){
+    header{flex-direction:column;align-items:stretch}
+    .brand{justify-content:center}
+    .header-right{justify-content:center;flex-wrap:wrap}
+    .search-box{width:100%}
+}
+@media(max-width:600px){
+    main{padding:25px 15px 45px}
+    .form-card{padding:22px 17px}
+    .form-grid{grid-template-columns:1fr}
+    .field.full{grid-column:auto}
+    .progress{justify-content:flex-start;overflow:auto}
+    .line{width:40px}
+    .actions{flex-direction:column}
+    .btn{width:100%}
+    .footer-grid{grid-template-columns:1fr}
+    .notification-panel{
+        position:fixed;left:15px;right:15px;top:115px;width:auto
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<a href="index.html" class="brand">
+<img src="digital-queue-logo.png" class="logo" alt="Digital Queue Logo"
+onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg';">
+<div>
+<h2 id="governmentText">Government of India</h2>
+<h3 id="brandText">Digital Queue</h3>
+<p id="taglineText">Easy. Quick. Transparent.</p>
+</div>
+</a>
+
+<div class="header-right">
+
+<div class="search-box">
+<input id="searchInput" type="text" placeholder="Search services, documents, offices...">
+<button type="button" onclick="performSearch()">🔍</button>
+</div>
+
+<div class="notification-wrapper">
+<button class="notification-btn" type="button" onclick="toggleNotifications(event)">
+🔔<span class="badge">3</span>
+</button>
+
+<div class="notification-panel" id="notificationPanel">
+<div class="notification-header" id="notificationTitle">Notifications</div>
+<div class="notification-item">🔔 <span id="notification1">Your application status has been updated.</span></div>
+<div class="notification-item">📍 <span id="notification2">Queue confirmation is required before visiting the office.</span></div>
+<div class="notification-item">ℹ️ <span id="notification3">Check your queue status for updates.</span></div>
+</div>
+</div>
+
+<select id="languageSelect" class="language-select" onchange="changeLanguage(this.value)">
+<option value="en">English</option>
+<option value="hi">हिन्दी</option>
+<option value="gu">ગુજરાતી</option>
+</select>
+
+<button class="profile-btn" type="button" onclick="openProfile()">
+👤 <span id="profileButtonText">Profile</span>
+</button>
+
+</div>
+</header>
+
+<nav>
+<a href="index.html">⌂ &nbsp; <span id="navHome">Home</span></a>
+<a href="service.html" class="active">▣ &nbsp; <span id="navServices">Services</span></a>
+<a href="myapplication.html">▤ &nbsp; <span id="navApplications">My Applications</span></a>
+<a href="queue.html">☷ &nbsp; <span id="navQueue">Queue Status</span></a>
+<a href="offinfo.html">🏛 &nbsp; <span id="navOffices">Offices</span></a>
+</nav>
+
+<main>
+
+<div class="page-heading">
+<h1 id="pageTitle">Application Form</h1>
+<p id="pageDescription">Complete the required details to continue your application.</p>
+</div>
+
+<div class="progress">
+
+<div class="progress-step">
+<div>
+<div class="circle active">1</div>
+<div class="step-label" id="step1">Application</div>
+</div>
+</div>
+
+<div class="line"></div>
+
+<div class="progress-step">
+<div>
+<div class="circle">2</div>
+<div class="step-label" id="step2">OTP Verification</div>
+</div>
+</div>
+
+<div class="line"></div>
+
+<div class="progress-step">
+<div>
+<div class="circle">3</div>
+<div class="step-label" id="step3">Queue</div>
+</div>
+</div>
+
+<div class="line"></div>
+
+<div class="progress-step">
+<div>
+<div class="circle">4</div>
+<div class="step-label" id="step4">Confirmation</div>
+</div>
+</div>
+
+</div>
+
+
+<form class="form-card" id="applicationForm" onsubmit="submitApplication(event)">
+
+<section class="form-section">
+
+<h2 id="serviceSection">Service Details</h2>
+
+<div class="info-box" id="serviceInfo">
+The service is selected automatically from the service you chose on the previous page.
+</div>
+
+<div class="form-grid">
+
+<div class="field">
+<label for="service">Selected Service</label>
+<input id="service" class="readonly" type="text" readonly required>
+</div>
+
+<div class="field">
+<label for="office">Office</label>
+<input id="office" class="readonly" type="text" value="Bahumali" readonly>
+</div>
+
+</div>
+
+</section>
+
+
+<section class="form-section">
+
+<h2 id="personalSection">Personal Information</h2>
+
+<div class="form-grid">
+
+<div class="field">
+<label for="fullName">Full Name <span class="required">*</span></label>
+<input id="fullName" type="text" autocomplete="name" required placeholder="Enter your full name">
+</div>
+
+<div class="field">
+<label for="mobile">Mobile Number <span class="required">*</span></label>
+<input id="mobile" type="tel" maxlength="10" inputmode="numeric" autocomplete="tel" required placeholder="Enter 10-digit mobile number">
+</div>
+
+<div class="field">
+<label for="email">Email Address <span class="required">*</span></label>
+<input id="email" type="email" autocomplete="email" required placeholder="Enter your email address">
+</div>
+
+<div class="field">
+<label for="dob">Date of Birth <span class="required">*</span></label>
+<input id="dob" type="date" required>
+</div>
+
+<div class="field">
+<label for="gender">Gender <span class="required">*</span></label>
+<select id="gender" required>
+<option value="">Select gender</option>
+<option value="Male">Male</option>
+<option value="Female">Female</option>
+<option value="Other">Other</option>
+</select>
+</div>
+
+</div>
+
+</section>
+
+
+<section class="form-section">
+
+<h2 id="declarationSection">Declaration</h2>
+
+<label class="checkbox">
+<input id="declaration" type="checkbox" required>
+<span id="declarationText">
+I confirm that the information provided in this application is true and correct to the best of my knowledge.
+</span>
+</label>
+
+</section>
+
+
+<div class="actions">
+
+<button type="button" class="btn btn-secondary" onclick="goBackToServices()" id="backButton">
+← Back to Services
+</button>
+
+<button type="submit" class="btn btn-primary" id="submitButton">
+Submit Application
+</button>
+
+</div>
+
+<div id="message" class="message"></div>
+
+</form>
+
+</main>
+
+
+<footer>
+
+<div class="footer-grid">
+
+<div class="footer-column">
+<h3>Digital Queue</h3>
+<p id="footerDescription">
+A digital platform designed to make government services easier, faster and more transparent.
+</p>
+</div>
+
+<div class="footer-column">
+<h3 id="quickTitle">Quick Links</h3>
+<a href="index.html">Home</a>
+<a href="service.html">Services</a>
+<a href="myapplication.html">My Applications</a>
+<a href="queue.html">Queue Status</a>
+</div>
+
+<div class="footer-column">
+<h3 id="serviceFooterTitle">Services</h3>
+<a href="service.html">Aadhaar</a>
+<a href="service.html">PAN Card</a>
+<a href="service.html">Certificates</a>
+</div>
+
+<div class="footer-column">
+<h3 id="supportTitle">Support</h3>
+<a href="offinfo.html">Offices</a>
+<a href="profile.html">Profile</a>
+</div>
+
+</div>
+
+<div class="footer-bottom">© 2026 Digital Queue. All Rights Reserved.</div>
+
+</footer>
+
+
+<script>
+
+/* ================= AUTH ================= */
+
+function checkLogin(){
+
+    if(localStorage.getItem("isLoggedIn") !== "true"){
+        window.location.replace("login.html");
+        return false;
+    }
+
+    return true;
+}
+
+
+/* ================= PROFILE ================= */
+
+function openProfile(){
+
+    if(checkLogin()){
+        window.location.href="profile.html";
+    }
+
+}
+
+
+/* ================= SEARCH ================= */
+
+function performSearch(){
+
+    const value=document.getElementById("searchInput").value.trim();
+
+    if(!value){
+        document.getElementById("searchInput").focus();
+        return;
+    }
+
+    window.location.href="service.html?search="+encodeURIComponent(value);
+
+}
+
+document.getElementById("searchInput").addEventListener("keydown",function(event){
+
+    if(event.key==="Enter"){
+        performSearch();
+    }
+
+});
+
+
+/* ================= NOTIFICATIONS ================= */
+
+function toggleNotifications(event){
+
+    if(event) event.stopPropagation();
+
+    document.getElementById("notificationPanel").classList.toggle("show");
+
+}
+
+document.addEventListener("click",function(event){
+
+    const panel=document.getElementById("notificationPanel");
+    const wrapper=document.querySelector(".notification-wrapper");
+
+    if(panel && wrapper && !wrapper.contains(event.target)){
+        panel.classList.remove("show");
+    }
+
+});
+
+
+/* ================= LANGUAGE ================= */
+
+const translations={
+
+en:{
+government:"Government of India",
+brand:"Digital Queue",
+tagline:"Easy. Quick. Transparent.",
+search:"Search services, documents, offices...",
+notifications:"Notifications",
+n1:"Your application status has been updated.",
+n2:"Queue confirmation is required before visiting the office.",
+n3:"Check your queue status for updates.",
+home:"Home",services:"Services",apps:"My Applications",
+queue:"Queue Status",offices:"Offices",profile:"Profile",
+title:"Application Form",
+description:"Complete the required details to continue your application.",
+application:"Application",otp:"OTP Verification",queueStep:"Queue",confirmation:"Confirmation",
+serviceDetails:"Service Details",
+serviceInfo:"The service is selected automatically from the service you chose on the previous page.",
+personal:"Personal Information",
+declaration:"Declaration",
+declarationText:"I confirm that the information provided in this application is true and correct to the best of my knowledge.",
+back:"← Back to Services",
+submit:"Submit Application",
+footer:"A digital platform designed to make government services easier, faster and more transparent.",
+quick:"Quick Links",service:"Services",support:"Support"
+},
+
+hi:{
+government:"भारत सरकार",
+brand:"डिजिटल क्यू",
+tagline:"आसान। तेज़। पारदर्शी।",
+search:"सेवाएँ, दस्तावेज़, कार्यालय खोजें...",
+notifications:"सूचनाएँ",
+n1:"आपके आवेदन की स्थिति अपडेट की गई है।",
+n2:"कार्यालय जाने से पहले कतार की पुष्टि आवश्यक है।",
+n3:"अपनी कतार स्थिति के अपडेट देखें।",
+home:"होम",services:"सेवाएँ",apps:"मेरे आवेदन",
+queue:"कतार स्थिति",offices:"कार्यालय",profile:"प्रोफ़ाइल",
+title:"आवेदन फॉर्म",
+description:"अपना आवेदन जारी रखने के लिए आवश्यक जानकारी भरें।",
+application:"आवेदन",otp:"OTP सत्यापन",queueStep:"कतार",confirmation:"पुष्टि",
+serviceDetails:"सेवा विवरण",
+serviceInfo:"पिछले पेज पर चुनी गई सेवा यहाँ अपने आप दिखाई जाएगी।",
+personal:"व्यक्तिगत जानकारी",
+declaration:"घोषणा",
+declarationText:"मैं पुष्टि करता/करती हूँ कि इस आवेदन में दी गई जानकारी मेरी जानकारी के अनुसार सही है।",
+back:"← सेवाओं पर वापस",
+submit:"आवेदन जमा करें",
+footer:"सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए एक डिजिटल प्लेटफॉर्म।",
+quick:"त्वरित लिंक",service:"सेवाएँ",support:"सहायता"
+},
+
+gu:{
+government:"ભારત સરકાર",
+brand:"ડિજિટલ કતાર",
+tagline:"સરળ. ઝડપી. પારદર્શક.",
+search:"સેવાઓ, દસ્તાવેજો, કચેરીઓ શોધો...",
+notifications:"સૂચનાઓ",
+n1:"તમારી અરજીની સ્થિતિ અપડેટ કરવામાં આવી છે.",
+n2:"કચેરીની મુલાકાત પહેલાં કતારની પુષ્ટિ જરૂરી છે.",
+n3:"તમારી કતાર સ્થિતિના અપડેટ્સ જુઓ.",
+home:"હોમ",services:"સેવાઓ",apps:"મારી અરજીઓ",
+queue:"કતાર સ્થિતિ",offices:"કચેરીઓ",profile:"પ્રોફાઇલ",
+title:"અરજી ફોર્મ",
+description:"અરજી ચાલુ રાખવા માટે જરૂરી વિગતો ભરો.",
+application:"અરજી",otp:"OTP ચકાસણી",queueStep:"કતાર",confirmation:"પુષ્ટિ",
+serviceDetails:"સેવાની વિગતો",
+serviceInfo:"પાછલા પેજ પર પસંદ કરેલી સેવા અહીં આપમેળે દેખાશે.",
+personal:"વ્યક્તિગત માહિતી",
+declaration:"ઘોષણા",
+declarationText:"હું પુષ્ટિ કરું છું કે આ અરજીમાં આપેલી માહિતી મારી જાણ મુજબ સાચી છે.",
+back:"← સેવાઓ પર પાછા",
+submit:"અરજી સબમિટ કરો",
+footer:"સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ.",
+quick:"ઝડપી લિંક્સ",service:"સેવાઓ",support:"સહાય"
+}
+
+};
+
+
+function changeLanguage(lang){
+
+    localStorage.setItem("selectedLanguage",lang);
+    applyLanguage();
+
+}
+
+
+function applyLanguage(){
+
+    const lang=localStorage.getItem("selectedLanguage") || "en";
+    const t=translations[lang] || translations.en;
+
+    document.getElementById("languageSelect").value=lang;
+
+    const set=(id,text)=>{
+        const el=document.getElementById(id);
+        if(el) el.textContent=text;
+    };
+
+    set("governmentText",t.government);
+    set("brandText",t.brand);
+    set("taglineText",t.tagline);
+    document.getElementById("searchInput").placeholder=t.search;
+
+    set("notificationTitle",t.notifications);
+    set("notification1",t.n1);
+    set("notification2",t.n2);
+    set("notification3",t.n3);
+
+    set("navHome",t.home);
+    set("navServices",t.services);
+    set("navApplications",t.apps);
+    set("navQueue",t.queue);
+    set("navOffices",t.offices);
+    set("profileButtonText",t.profile);
+
+    set("pageTitle",t.title);
+    set("pageDescription",t.description);
+    set("step1",t.application);
+    set("step2",t.otp);
+    set("step3",t.queueStep);
+    set("step4",t.confirmation);
+
+    set("serviceSection",t.serviceDetails);
+    set("serviceInfo",t.serviceInfo);
+    set("personalSection",t.personal);
+    set("declarationSection",t.declaration);
+    set("declarationText",t.declarationText);
+    set("backButton",t.back);
+    set("submitButton",t.submit);
+
+    set("footerDescription",t.footer);
+    set("quickTitle",t.quick);
+    set("serviceFooterTitle",t.service);
+    set("supportTitle",t.support);
+
+}
+
+
+/* ================= USER DATA ================= */
+
+function loadUserInformation(){
+
+    const name=localStorage.getItem("userName") || "";
+    const mobile=localStorage.getItem("userMobile") || "";
+    const email=localStorage.getItem("userEmail") || "";
+
+    document.getElementById("fullName").value=name;
+    document.getElementById("mobile").value=mobile;
+    document.getElementById("email").value=email;
+
+}
+
+
+/* ================= SERVICE ================= */
+
+function loadSelectedService(){
+
+    const params=new URLSearchParams(window.location.search);
+
+    const serviceFromURL=params.get("service");
+
+    if(serviceFromURL){
+
+        document.getElementById("service").value=
+            decodeURIComponent(serviceFromURL);
+
+        return;
+    }
+
+    /*
+        If no service was passed from service.html,
+        try the last selected service.
+    */
+
+    const savedService=
+        localStorage.getItem("selectedService");
+
+    if(savedService){
+
+        document.getElementById("service").value=
+            savedService;
+
+    }
+
+}
+
+
+/* ================= SUBMIT ================= */
+
+function submitApplication(event){
+
+    event.preventDefault();
+
+    if(!checkLogin()) return;
+
+    const form = document.getElementById("applicationForm");
+
+    // Let the browser show the required-field messages first.
+    if(!form.checkValidity()){
+        form.reportValidity();
+        return;
+    }
+
+    const service =
+        document.getElementById("service").value.trim();
+
+    const name =
+        document.getElementById("fullName").value.trim();
+
+    const mobile =
+        document.getElementById("mobile").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const dob =
+        document.getElementById("dob").value;
+
+    const gender =
+        document.getElementById("gender").value;
+
+
+    // Extra validation for mobile number.
+    if(!/^[0-9]{10}$/.test(mobile)){
+
+        showError("Please enter a valid 10-digit mobile number.");
+        return;
+
+    }
+
+
+    // Save the submitted application.
+    const application = {
+
+        applicationId: "DQ" + Date.now(),
+
+        service: service,
+
+        office: "Bahumali",
+
+        fullName: name,
+
+        mobile: mobile,
+
+        email: email,
+
+        dob: dob,
+
+        gender: gender,
+
+        status: "OTP Verification",
+
+        createdAt: new Date().toISOString()
+
+    };
+
+
+    localStorage.setItem(
+        "currentApplication",
+        JSON.stringify(application)
+    );
+
+    localStorage.setItem(
+        "selectedService",
+        service
+    );
+
+
+    // Keep the user's latest details available to the profile/form.
+    localStorage.setItem("userName", name);
+    localStorage.setItem("userMobile", mobile);
+    localStorage.setItem("userEmail", email);
+
+
+    // Submit Application → OTP page.
+    window.location.href = "otp.html";
+
+}
+
+
+/* ================= ERROR ================= */
+
+function showError(text){
+
+    const message=document.getElementById("message");
+
+    message.textContent=text;
+    message.className="message show error";
+
+    message.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+}
+
+
+/* ================= BACK ================= */
+
+function goBackToServices(){
+
+    window.location.href="service.html";
+
+}
+
+
+/* ================= START ================= */
+
+document.addEventListener("DOMContentLoaded",function(){
+
+    if(!checkLogin()) return;
+
+    loadUserInformation();
+    loadSelectedService();
+    applyLanguage();
+
+});
+
+</script>
+
+</body>
+</html>

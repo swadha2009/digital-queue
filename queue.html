@@ -1,0 +1,2402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Queue Status - Digital Queue</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #F5F7FA;
+    color: #14213D;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header {
+    background: #0D47A1;
+    color: white;
+
+    min-height: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 12px 35px;
+
+    gap: 25px;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.gov-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    min-width: 300px;
+}
+
+.emblem {
+    width: 65px;
+    height: 70px;
+
+    object-fit: contain;
+}
+
+.gov-text h2 {
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.gov-text h3 {
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+
+.gov-text p {
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   HEADER RIGHT
+===================================================== */
+
+.header-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 18px;
+
+    flex: 1;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-box {
+    width: min(390px, 40vw);
+
+    height: 42px;
+
+    background: white;
+
+    border-radius: 6px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 13px;
+}
+
+.search-box input {
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    font-size: 14px;
+}
+
+.search-icon {
+    color: #14213D;
+
+    font-size: 18px;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   NOTIFICATION
+===================================================== */
+
+.notification-wrapper {
+    position: relative;
+}
+
+.notification-btn {
+    width: 42px;
+    height: 42px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: white;
+
+    color: #0D47A1;
+
+    font-size: 19px;
+
+    cursor: pointer;
+
+    position: relative;
+}
+
+.notification-btn:hover {
+    background: #EAF2FF;
+}
+
+.notification-badge {
+    position: absolute;
+
+    top: -3px;
+    right: -3px;
+
+    width: 18px;
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: #D32F2F;
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 10px;
+
+    font-weight: bold;
+}
+
+
+/* =====================================================
+   NOTIFICATION PANEL
+===================================================== */
+
+.notification-panel {
+    display: none;
+
+    position: absolute;
+
+    top: 52px;
+    right: 0;
+
+    width: 320px;
+
+    background: white;
+
+    color: #14213D;
+
+    border-radius: 8px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,0.18);
+
+    z-index: 1000;
+}
+
+.notification-panel.show {
+    display: block;
+}
+
+.notification-header {
+    padding: 15px;
+
+    font-weight: bold;
+
+    border-bottom:
+        1px solid #E5E7EB;
+}
+
+.notification-item {
+    padding: 13px 15px;
+
+    border-bottom:
+        1px solid #F0F0F0;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+.profile {
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+nav {
+    background: white;
+
+    min-height: 55px;
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 25px;
+
+    box-shadow:
+        0 2px 6px rgba(0,0,0,0.08);
+
+    overflow-x: auto;
+}
+
+nav a {
+    text-decoration: none;
+
+    color: #14213D;
+
+    padding: 19px 22px;
+
+    height: 55px;
+
+    font-size: 14px;
+
+    white-space: nowrap;
+}
+
+nav a:hover {
+    color: #0D47A1;
+}
+
+nav a.active {
+    color: #0D47A1;
+
+    font-weight: bold;
+
+    border-bottom:
+        3px solid #0D47A1;
+}
+
+
+/* =====================================================
+   MAIN CONTAINER
+===================================================== */
+
+.container {
+    width: 100%;
+
+    max-width: 1250px;
+
+    margin: 35px auto;
+
+    padding: 0 25px;
+}
+
+
+/* =====================================================
+   PAGE TITLE
+===================================================== */
+
+.page-title {
+    background: #0D47A1;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 18px;
+
+    border-radius: 8px;
+
+    font-size: 27px;
+
+    font-weight: bold;
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   QUEUE CARD
+===================================================== */
+
+.queue-card {
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,0.08);
+
+    border: 1px solid #E1E6ED;
+}
+
+
+/* =====================================================
+   QUEUE TOP
+===================================================== */
+
+.queue-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: stretch;
+
+    gap: 25px;
+
+    margin-bottom: 28px;
+}
+
+
+/* LEFT SIDE */
+
+.queue-summary {
+    flex: 1;
+
+    background: #F5F9FD;
+
+    border: 1px solid #DCE8F2;
+
+    border-radius: 9px;
+
+    padding: 24px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+.office-name {
+    font-size: 23px;
+
+    font-weight: bold;
+
+    color: #0D47A1;
+
+    margin-bottom: 13px;
+}
+
+.queue-status {
+    font-size: 16px;
+
+    font-weight: bold;
+
+    color: #2E7D32;
+
+    margin-bottom: 10px;
+}
+
+.status-dot {
+    display: inline-block;
+
+    width: 10px;
+    height: 10px;
+
+    border-radius: 50%;
+
+    background: #2E7D32;
+
+    margin-right: 7px;
+}
+
+.queue-summary p {
+    margin: 0;
+
+    color: #667788;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   TOKEN BOX
+===================================================== */
+
+.token-box {
+    width: 270px;
+
+    min-height: 175px;
+
+    background: #0D47A1;
+
+    color: white;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    box-shadow:
+        0 5px 15px rgba(13,71,161,0.20);
+}
+
+.token-label {
+    font-size: 14px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 10px;
+
+    opacity: 0.9;
+}
+
+.token-number {
+    font-size: 56px;
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+}
+
+
+/* =====================================================
+   OFFICE CLOSED STATUS
+===================================================== */
+
+.office-status {
+    background: #FFF8E1;
+
+    border: 1px solid #F0D98A;
+
+    border-radius: 9px;
+
+    padding: 18px;
+
+    text-align: center;
+
+    margin-bottom: 25px;
+}
+
+.office-status h2 {
+    margin: 0 0 7px;
+
+    color: #8A6500;
+
+    font-size: 20px;
+}
+
+.office-status p {
+    margin: 0;
+
+    color: #76652C;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   INFORMATION GRID
+===================================================== */
+
+.info-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 25px;
+}
+
+.info {
+    background: #F8FAFC;
+
+    border: 1px solid #E1E6ED;
+
+    border-radius: 8px;
+
+    padding: 20px;
+}
+
+.label {
+    color: #667788;
+
+    font-size: 13px;
+
+    margin-bottom: 8px;
+}
+
+.value {
+    font-size: 28px;
+
+    font-weight: bold;
+
+    color: #0D47A1;
+}
+
+.serving {
+    color: #2E7D32;
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.progress-area {
+    margin-top: 10px;
+
+    border-top:
+        1px solid #DCE4EC;
+
+    padding-top: 25px;
+}
+
+.progress-heading {
+    font-size: 17px;
+
+    font-weight: bold;
+
+    color: #14213D;
+
+    margin-bottom: 13px;
+}
+
+.progress-text {
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 13px;
+
+    color: #667788;
+
+    gap: 10px;
+
+    margin-bottom: 8px;
+}
+
+.progress-bar {
+    width: 100%;
+
+    height: 10px;
+
+    background: #DCE8F3;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.progress {
+    width: 60%;
+
+    height: 10px;
+
+    background: #0D47A1;
+
+    border-radius: 10px;
+}
+
+
+/* =====================================================
+   QUEUE STEPS
+===================================================== */
+
+.steps {
+    margin-top: 28px;
+
+    padding: 22px;
+
+    background: #F8FAFC;
+
+    border: 1px solid #E1E6ED;
+
+    border-radius: 9px;
+}
+
+.steps-title {
+    font-size: 17px;
+
+    font-weight: bold;
+
+    margin-bottom: 15px;
+}
+
+.completed {
+    color: #2E7D32;
+
+    margin: 13px 0;
+
+    font-size: 15px;
+}
+
+.waiting {
+    color: #0D47A1;
+
+    font-weight: bold;
+
+    margin: 13px 0;
+
+    font-size: 15px;
+}
+
+.pending {
+    color: #777;
+
+    margin: 13px 0;
+
+    font-size: 15px;
+}
+
+
+/* =====================================================
+   LIVE STATUS
+===================================================== */
+
+.live-status {
+    margin-top: 20px;
+
+    color: #667788;
+
+    font-size: 14px;
+
+    text-align: right;
+}
+
+.live-dot {
+    display: inline-block;
+
+    width: 9px;
+    height: 9px;
+
+    background: #888;
+
+    border-radius: 50%;
+
+    margin-right: 5px;
+}
+
+
+/* =====================================================
+   CONFIRM QUEUE
+===================================================== */
+
+.confirm-section {
+    margin-top: 28px;
+
+    padding-top: 25px;
+
+    border-top:
+        1px solid #DCE4EC;
+
+    text-align: center;
+}
+
+.confirm-btn {
+    width: 100%;
+
+    height: 48px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: #0D47A1;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.confirm-btn:hover {
+    background: #1565C0;
+}
+
+.confirm-btn.confirmed {
+    background: #2E7D32;
+}
+
+.confirm-note {
+    margin-top: 10px;
+
+    font-size: 13px;
+
+    color: #667788;
+}
+
+/* =====================================================
+   ADMIN OFFICE STATUS CONTROL
+===================================================== */
+.admin-status-panel{display:none;margin-top:25px;padding:22px;background:#F8FAFC;border:1px solid #DCE4EC;border-radius:9px}
+.admin-status-panel.show{display:block}
+.admin-status-title{font-size:18px;font-weight:bold;color:#14213D;margin-bottom:8px}
+.admin-status-note{color:#667788;font-size:13px;margin-bottom:16px;line-height:1.5}
+.admin-status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.admin-status-grid label{display:block;color:#667788;font-size:12px;margin-bottom:6px}
+.admin-status-grid select,.admin-status-grid input{width:100%;height:40px;padding:0 10px;border:1px solid #D0D7E2;border-radius:6px;background:white;color:#14213D}
+.admin-status-actions{margin-top:15px;display:flex;gap:10px;flex-wrap:wrap}
+.admin-status-actions button{border:none;border-radius:6px;padding:10px 18px;background:#0D47A1;color:white;font-weight:bold;cursor:pointer}
+.admin-status-actions button.secondary{background:#667788}
+.admin-access-btn{display:none;margin-top:18px;border:1px solid #0D47A1;background:white;color:#0D47A1;border-radius:6px;padding:9px 16px;font-weight:bold;cursor:pointer}
+.admin-access-btn.show{display:inline-block}
+@media(max-width:700px){.admin-status-grid{grid-template-columns:1fr}}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    background: #0D47A1;
+
+    color: white;
+
+    margin-top: 45px;
+
+    padding: 35px 40px 20px;
+}
+
+.footer-content {
+    max-width: 1250px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        1.5fr repeat(4, 1fr);
+
+    gap: 30px;
+}
+
+.footer-column h3 {
+    margin-bottom: 13px;
+
+    font-size: 16px;
+}
+
+.footer-column p,
+.footer-column a {
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    line-height: 2;
+
+    display: block;
+}
+
+.footer-column a:hover {
+    text-decoration: underline;
+}
+
+.footer-logo {
+    font-size: 19px;
+
+    font-weight: bold;
+}
+
+.footer-bottom {
+    max-width: 1250px;
+
+    margin: 25px auto 0;
+
+    border-top:
+        1px solid rgba(255,255,255,0.3);
+
+    padding-top: 15px;
+
+    text-align: center;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    header {
+        flex-wrap: wrap;
+    }
+
+    .header-right {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+    .search-box {
+        width: 100%;
+
+        max-width: 500px;
+    }
+
+    .info-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .footer-content {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    header {
+        flex-direction: column;
+
+        padding: 18px;
+
+        align-items: stretch;
+    }
+
+    .gov-logo {
+        justify-content: center;
+    }
+
+    .header-right {
+        flex-wrap: wrap;
+
+        justify-content: center;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    nav {
+        padding-left: 0;
+    }
+
+    nav a {
+        padding: 19px 14px;
+    }
+
+    .container {
+        padding: 0 15px;
+
+        margin-top: 25px;
+    }
+
+    .queue-card {
+        padding: 20px;
+    }
+
+    .queue-top {
+        flex-direction: column;
+    }
+
+    .token-box {
+        width: 100%;
+
+        min-height: 145px;
+    }
+
+    .token-number {
+        font-size: 48px;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .progress-text {
+        font-size: 11px;
+    }
+
+    .notification-panel {
+        position: fixed;
+
+        top: 100px;
+
+        left: 15px;
+        right: 15px;
+
+        width: auto;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =====================================================
+   LANGUAGE SELECTOR
+===================================================== */
+
+.language-wrapper {
+    position: relative;
+}
+
+.language-btn {
+    height: 42px;
+    min-width: 120px;
+    padding: 0 14px;
+    border: none;
+    border-radius: 6px;
+    background: white;
+    color: #14213D;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.language-btn:hover {
+    background: #F5F7FA;
+}
+
+.language-arrow {
+    color: #0D47A1;
+    font-size: 11px;
+}
+
+.language-menu {
+    display: none;
+    position: absolute;
+    top: 49px;
+    right: 0;
+    width: 150px;
+    background: white;
+    border-radius: 7px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.20);
+    overflow: hidden;
+    z-index: 2000;
+}
+
+.language-menu.show {
+    display: block;
+}
+
+.language-option {
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    background: white;
+    color: #14213D;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.language-option:hover {
+    background: #E8F1FF;
+    color: #0D47A1;
+}
+
+@media (max-width: 700px) {
+    .language-menu {
+        position: fixed;
+        top: 115px;
+        right: 15px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+
+    <div class="gov-logo">
+
+    <img
+        class="emblem"
+        src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+        alt="Ashoka Emblem">
+
+    <div class="gov-text">
+        <h2 id="governmentText">Government of India</h2>
+        <h3 id="brandText">Digital Queue</h3>
+        <p id="taglineText">Easy. Quick. Transparent.</p>
+    </div>
+
+</div>
+
+
+    <div class="header-right">
+
+
+        <!-- SEARCH -->
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search services, documents, offices...">
+
+            <span
+                class="search-icon"
+                onclick="performSearch()">
+
+                🔍
+
+            </span>
+
+        </div>
+
+
+        <!-- LANGUAGE -->
+
+        <div class="language-wrapper">
+
+            <button
+                type="button"
+                class="language-btn"
+                onclick="toggleLanguageMenu(event)">
+
+                <span id="currentLanguage">English</span>
+                <span class="language-arrow">▼</span>
+
+            </button>
+
+            <div class="language-menu" id="languageMenu">
+
+                <button
+                    type="button"
+                    class="language-option"
+                    onclick="setLanguage('en')">
+                    English
+                </button>
+
+                <button
+                    type="button"
+                    class="language-option"
+                    onclick="setLanguage('hi')">
+                    हिंदी
+                </button>
+
+                <button
+                    type="button"
+                    class="language-option"
+                    onclick="setLanguage('gu')">
+                    ગુજરાતી
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- NOTIFICATION -->
+
+        <div class="notification-wrapper">
+
+            <button
+                class="notification-btn"
+                onclick="toggleNotifications()">
+
+                🔔
+
+                <span class="notification-badge">
+                    3
+                </span>
+
+            </button>
+
+
+            <div
+                class="notification-panel"
+                id="notificationPanel">
+
+                <div class="notification-header">
+                    <span id="notificationTitleText">Notifications</span>
+                </div>
+
+                <div class="notification-item">
+                    🔔 <span id="notification1Text">Your application status has been updated.</span>
+                </div>
+
+                <div class="notification-item">
+                    📍 <span id="notification2Text">Queue confirmation is required.</span>
+                </div>
+
+                <div class="notification-item">
+                    ℹ️ <span id="notification3Text">Your current token is A-024.</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PROFILE -->
+
+        <div
+            class="profile"
+            onclick="openProfile()">
+
+            <span id="profileText">👤 Profile ▾</span>
+
+        </div>
+
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav>
+
+    <a href="index.html">
+        ⌂ &nbsp; <span id="navHome">Home</span>
+    </a>
+
+    <a href="service.html">
+        ▣ &nbsp; <span id="navServices">Services</span>
+    </a>
+
+    <a href="myapplication.html">
+        ▤ &nbsp; <span id="navApplications">My Applications</span>
+    </a>
+
+    <a
+        href="queue.html"
+        class="active">
+
+        ☷ &nbsp; <span id="navQueue">Queue Status</span>
+
+    </a>
+
+    <a href="offinfo.html">
+        🏛 &nbsp; <span id="navOffices">Offices</span>
+    </a>
+
+</nav>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+
+    <div class="page-title">
+
+        <span id="pageTitleText">Your Queue Status</span>
+
+    </div>
+
+
+    <div class="queue-card">
+
+
+        <!-- =================================================
+             TOP AREA
+        ================================================== -->
+
+        <div class="queue-top">
+
+
+            <!-- LEFT SUMMARY -->
+
+            <div class="queue-summary">
+
+                <div class="office-name">
+
+                    <span id="officeNameText">Bahumali Bhavan,<br>Nanpura, Surat</span>
+
+                </div>
+
+
+                <div class="queue-status">
+
+                    <span class="status-dot"></span>
+
+                    <span id="queueStatusText">Waiting in Queue</span>
+
+                </div>
+
+
+                <p>
+
+                    <span id="queueActiveText">Your queue is active.<br>Please wait for your turn.</span>
+
+                </p>
+
+            </div>
+
+
+            <!-- BIG TOKEN BOX -->
+
+            <div class="token-box">
+
+                <div class="token-label">
+
+                    <span id="tokenLabel">YOUR TOKEN</span>
+
+                </div>
+
+
+                <div
+                    class="token-number"
+                    id="tokenNumber">
+
+                    A-024
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             OFFICE STATUS
+        ================================================== -->
+
+        <div class="office-status">
+
+            <h2>
+
+                <span id="officeClosedText">Office Closed</span>
+
+            </h2>
+
+            <p>
+
+                <span id="officeOpenText">Opens tomorrow at 8:30 AM</span>
+
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             QUEUE INFORMATION
+        ================================================== -->
+
+        <div class="info-grid">
+
+
+            <div class="info">
+
+                <div class="label">
+
+                    <span id="currentServingLabel">Current Serving</span>
+
+                </div>
+
+                <div class="value serving">
+
+                    A-018
+
+                </div>
+
+            </div>
+
+
+            <div class="info">
+
+                <div class="label">
+
+                    <span id="peopleAheadLabel">People Ahead</span>
+
+                </div>
+
+                <div
+                    class="value"
+                    id="peopleAhead">
+
+                    6
+
+                </div>
+
+            </div>
+
+
+            <div class="info">
+
+                <div class="label">
+
+                    <span id="estimatedWaitLabel">Estimated Wait</span>
+
+                </div>
+
+                <div class="value">
+
+                    <span id="estimatedWaitValue">15 min</span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             PROGRESS
+        ================================================== -->
+
+        <div class="progress-area">
+
+
+            <div class="progress-heading">
+
+                <span id="queueProgressText">Queue Progress</span>
+
+            </div>
+
+
+            <div class="progress-text">
+
+                <span>
+                    <span id="servingProgressText">A-018 Serving</span>
+                </span>
+
+                <span>
+                    <span id="yourTokenProgressText">A-024 Your Token</span>
+                </span>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div class="progress"></div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             STEPS
+        ================================================== -->
+
+        <div class="steps">
+
+
+            <div class="steps-title">
+
+                <span id="applicationProgressText">Application Progress</span>
+
+            </div>
+
+
+            <p class="completed">
+
+                <span id="stepSubmitted">✓ Application Submitted</span>
+
+            </p>
+
+
+            <p class="completed">
+
+                <span id="stepLocation">✓ Location Verified</span>
+
+            </p>
+
+
+            <p class="completed">
+
+                <span id="stepQR">✓ QR Confirmed</span>
+
+            </p>
+
+
+            <p class="waiting">
+
+                <span id="stepWaiting">• Waiting in Queue</span>
+
+            </p>
+
+
+            <p class="pending">
+
+                <span id="stepTurn">○ Your Turn</span>
+
+            </p>
+
+
+            <p class="pending">
+
+                <span id="stepCompleted">○ Service Completed</span>
+
+            </p>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             LIVE STATUS
+        ================================================== -->
+
+        <div class="live-status">
+
+            <span class="live-dot"></span>
+
+            <span id="liveStatusText">Live Status: Offline</span>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CONFIRM QUEUE
+        ================================================== -->
+
+        <div class="confirm-section">
+
+
+            <button
+                type="button"
+                class="confirm-btn"
+                id="confirmButton"
+                onclick="confirmQueue()">
+
+                <span id="confirmQueueText">✓ Confirm Queue</span>
+
+            </button>
+
+
+            <p class="confirm-note">
+
+                <span id="confirmNoteText">Confirm your queue before proceeding.</span>
+
+            </p>
+</div>
+
+
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+
+    <div class="footer-content">
+
+
+        <div class="footer-column">
+
+            <div class="footer-logo">
+
+                Government of India
+
+            </div>
+
+            <p>
+
+                Digital Queue
+
+            </p>
+
+            <p>
+
+                <span id="footerRightsText">© 2026 All Rights Reserved</span>
+
+            </p>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h3>
+                <span id="importantLinksText">Important Links</span>
+            </h3>
+
+            <a href="#">
+                <span id="aboutText">About Us</span>
+            </a>
+
+            <a href="#">
+                <span id="termsText">Terms & Conditions</span>
+            </a>
+
+            <a href="#">
+                <span id="privacyText">Privacy Policy</span>
+            </a>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h3>
+                <span id="supportText">Support</span>
+            </h3>
+
+            <a href="help.html">
+                <span id="helpCenterText">Help Center</span>
+            </a>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h3>
+                <span id="followText">Follow Us</span>
+            </h3>
+
+            <p>
+                Facebook
+            </p>
+
+            <p>
+                Twitter
+            </p>
+
+            <p>
+                YouTube
+            </p>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h3>
+                <span id="downloadText">Download Our App</span>
+            </h3>
+
+            <p>
+                Google Play
+            </p>
+
+            <p>
+                App Store
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="footer-bottom">
+
+        <span id="footerBottomText">© 2026 Digital Queue. All Rights Reserved.</span>
+
+    </div>
+
+
+</footer>
+
+
+
+<script>
+
+
+/* =====================================================
+   LANGUAGE SYSTEM
+===================================================== */
+
+const queueTranslations = {
+
+    en: {
+        language: "English",
+        government: "Government of India",
+        brand: "Digital Queue",
+        tagline: "Easy. Quick. Transparent.",
+        profile: "👤 Profile ▾",
+
+        home: "Home",
+        services: "Services",
+        applications: "My Applications",
+        queue: "Queue Status",
+        offices: "Offices",
+        help: "Help",
+
+        search: "Search services, documents, offices...",
+
+        pageTitle: "Your Queue Status",
+        office: "Bahumali Bhavan,<br>Nanpura, Surat",
+        waiting: "Waiting in Queue",
+        activeQueue: "Your queue is active.<br>Please wait for your turn.",
+
+        tokenLabel: "YOUR TOKEN",
+        officeClosed: "Office Closed",
+        officeOpen: "Opens tomorrow at 8:30 AM",
+
+        currentServing: "Current Serving",
+        peopleAhead: "People Ahead",
+        estimatedWait: "Estimated Wait",
+        waitValue: "15 min",
+
+        queueProgress: "Queue Progress",
+        servingProgress: "A-018 Serving",
+        yourTokenProgress: "A-024 Your Token",
+
+        applicationProgress: "Application Progress",
+        submitted: "✓ Application Submitted",
+        location: "✓ Location Verified",
+        qr: "✓ QR Confirmed",
+        waitingStep: "• Waiting in Queue",
+        turn: "○ Your Turn",
+        completed: "○ Service Completed",
+
+        live: "Live Status: Offline",
+
+        confirm: "✓ Confirm Queue",
+        confirmNote: "Confirm your queue before proceeding.",
+        confirmMessage: "✓ Queue confirmed successfully.",
+
+        notifications: "Notifications",
+        notification1: "Your application status has been updated.",
+        notification2: "Queue confirmation is required.",
+        notification3: "Your current token is A-024.",
+
+        important: "Important Links",
+        about: "About Us",
+        terms: "Terms & Conditions",
+        privacy: "Privacy Policy",
+
+        support: "Support",
+        helpCenter: "Help Center",
+        faqs: "FAQs",
+
+        follow: "Follow Us",
+        download: "Download Our App",
+
+        rights: "© 2026 All Rights Reserved",
+        footerBottom: "© 2026 Digital Queue. All Rights Reserved."
+    },
+
+    hi: {
+        language: "हिंदी",
+        government: "भारत सरकार",
+        brand: "डिजिटल क्यू",
+        tagline: "आसान। तेज़। पारदर्शी।",
+        profile: "👤 प्रोफ़ाइल ▾",
+
+        home: "होम",
+        services: "सेवाएँ",
+        applications: "मेरे आवेदन",
+        queue: "कतार स्थिति",
+        offices: "कार्यालय",
+        help: "सहायता",
+
+        search: "सेवाएँ, दस्तावेज़, कार्यालय खोजें...",
+
+        pageTitle: "आपकी कतार स्थिति",
+        office: "बहुमाली भवन,<br>नानपुरा, सूरत",
+        waiting: "कतार में प्रतीक्षा",
+        activeQueue: "आपकी कतार सक्रिय है।<br>कृपया अपनी बारी की प्रतीक्षा करें।",
+
+        tokenLabel: "आपका टोकन",
+        officeClosed: "कार्यालय बंद है",
+        officeOpen: "कल सुबह 8:30 बजे खुलेगा",
+
+        currentServing: "वर्तमान टोकन",
+        peopleAhead: "आगे लोग",
+        estimatedWait: "अनुमानित प्रतीक्षा",
+        waitValue: "15 मिनट",
+
+        queueProgress: "कतार प्रगति",
+        servingProgress: "A-018 चल रहा है",
+        yourTokenProgress: "A-024 आपका टोकन",
+
+        applicationProgress: "आवेदन प्रगति",
+        submitted: "✓ आवेदन जमा किया गया",
+        location: "✓ स्थान सत्यापित",
+        qr: "✓ QR सत्यापित",
+        waitingStep: "• कतार में प्रतीक्षा",
+        turn: "○ आपकी बारी",
+        completed: "○ सेवा पूर्ण",
+
+        live: "लाइव स्थिति: ऑफलाइन",
+
+        confirm: "✓ कतार की पुष्टि करें",
+        confirmNote: "आगे बढ़ने से पहले अपनी कतार की पुष्टि करें।",
+        confirmMessage: "✓ कतार की सफलतापूर्वक पुष्टि हो गई।",
+
+        notifications: "सूचनाएँ",
+        notification1: "आपके आवेदन की स्थिति अपडेट की गई है।",
+        notification2: "कतार की पुष्टि आवश्यक है।",
+        notification3: "आपका वर्तमान टोकन A-024 है।",
+
+        important: "महत्वपूर्ण लिंक",
+        about: "हमारे बारे में",
+        terms: "नियम एवं शर्तें",
+        privacy: "गोपनीयता नीति",
+
+        support: "सहायता",
+        helpCenter: "सहायता केंद्र",
+        faqs: "अक्सर पूछे जाने वाले प्रश्न",
+
+        follow: "हमें फॉलो करें",
+        download: "हमारा ऐप डाउनलोड करें",
+
+        rights: "© 2026 सर्वाधिकार सुरक्षित",
+        footerBottom: "© 2026 डिजिटल क्यू। सर्वाधिकार सुरक्षित।"
+    },
+
+    gu: {
+        language: "ગુજરાતી",
+        government: "ભારત સરકાર",
+        brand: "ડિજિટલ ક્યુ",
+        tagline: "સરળ. ઝડપી. પારદર્શક.",
+        profile: "👤 પ્રોફાઇલ ▾",
+
+        home: "હોમ",
+        services: "સેવાઓ",
+        applications: "મારી અરજીઓ",
+        queue: "કતાર સ્થિતિ",
+        offices: "કચેરીઓ",
+        help: "મદદ",
+
+        search: "સેવાઓ, દસ્તાવેજો, કચેરીઓ શોધો...",
+
+        pageTitle: "તમારી કતાર સ્થિતિ",
+        office: "બહુમાળી ભવન,<br>નાનપુરા, સુરત",
+        waiting: "કતારમાં રાહ જોઈ રહ્યા છો",
+        activeQueue: "તમારી કતાર સક્રિય છે.<br>કૃપા કરીને તમારા વારો માટે રાહ જુઓ.",
+
+        tokenLabel: "તમારો ટોકન",
+        officeClosed: "કચેરી બંધ છે",
+        officeOpen: "કાલે સવારે 8:30 વાગ્યે ખુલશે",
+
+        currentServing: "હાલમાં સેવા આપતો ટોકન",
+        peopleAhead: "આગળના લોકો",
+        estimatedWait: "અંદાજિત રાહ",
+        waitValue: "15 મિનિટ",
+
+        queueProgress: "કતાર પ્રગતિ",
+        servingProgress: "A-018 સેવા હેઠળ",
+        yourTokenProgress: "A-024 તમારો ટોકન",
+
+        applicationProgress: "અરજી પ્રગતિ",
+        submitted: "✓ અરજી સબમિટ થઈ",
+        location: "✓ સ્થાન ચકાસાયું",
+        qr: "✓ QR ચકાસાયું",
+        waitingStep: "• કતારમાં રાહ",
+        turn: "○ તમારો વારો",
+        completed: "○ સેવા પૂર્ણ",
+
+        live: "લાઇવ સ્થિતિ: ઑફલાઇન",
+
+        confirm: "✓ કતારની પુષ્ટિ કરો",
+        confirmNote: "આગળ વધતા પહેલા તમારી કતારની પુષ્ટિ કરો.",
+        confirmMessage: "✓ કતારની સફળતાપૂર્વક પુષ્ટિ થઈ.",
+
+        notifications: "સૂચનાઓ",
+        notification1: "તમારી અરજીની સ્થિતિ અપડેટ કરવામાં આવી છે.",
+        notification2: "કતારની પુષ્ટિ જરૂરી છે.",
+        notification3: "તમારો વર્તમાન ટોકન A-024 છે.",
+
+        important: "મહત્વપૂર્ણ લિંક્સ",
+        about: "અમારા વિશે",
+        terms: "નિયમો અને શરતો",
+        privacy: "ગોપનીયતા નીતિ",
+
+        support: "સહાય",
+        helpCenter: "સહાય કેન્દ્ર",
+        faqs: "વારંવાર પૂછાતા પ્રશ્નો",
+
+        follow: "અમને ફોલો કરો",
+        download: "અમારી એપ ડાઉનલોડ કરો",
+
+        rights: "© 2026 સર્વાધિકાર સુરક્ષિત",
+        footerBottom: "© 2026 ડિજિટલ ક્યુ. સર્વાધિકાર સુરક્ષિત."
+    }
+};
+
+function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = value;
+}
+
+function setLanguage(lang) {
+    const t = queueTranslations[lang] || queueTranslations.en;
+
+    localStorage.setItem("selectedLanguage", lang);
+
+    document.documentElement.lang = lang;
+
+    setText("currentLanguage", t.language);
+    setText("governmentText", t.government);
+    setText("brandText", t.brand);
+    setText("taglineText", t.tagline);
+    setText("profileText", t.profile);
+
+    setText("navHome", t.home);
+    setText("navServices", t.services);
+    setText("navApplications", t.applications);
+    setText("navQueue", t.queue);
+    setText("navOffices", t.offices);
+    setText("navHelp", t.help);
+
+    setText("pageTitleText", t.pageTitle);
+    setText("officeNameText", t.office);
+    setText("queueStatusText", t.waiting);
+    setText("queueActiveText", t.activeQueue);
+
+    setText("tokenLabel", t.tokenLabel);
+    setText("officeClosedText", t.officeClosed);
+    setText("officeOpenText", t.officeOpen);
+
+    setText("currentServingLabel", t.currentServing);
+    setText("peopleAheadLabel", t.peopleAhead);
+    setText("estimatedWaitLabel", t.estimatedWait);
+    setText("estimatedWaitValue", t.waitValue);
+
+    setText("queueProgressText", t.queueProgress);
+    setText("servingProgressText", t.servingProgress);
+    setText("yourTokenProgressText", t.yourTokenProgress);
+
+    setText("applicationProgressText", t.applicationProgress);
+    setText("stepSubmitted", t.submitted);
+    setText("stepLocation", t.location);
+    setText("stepQR", t.qr);
+    setText("stepWaiting", t.waitingStep);
+    setText("stepTurn", t.turn);
+    setText("stepCompleted", t.completed);
+
+    setText("liveStatusText", t.live);
+
+    setText("confirmQueueText", t.confirm);
+    setText("confirmNoteText", t.confirmNote);
+    setText("confirmMessageText", t.confirmMessage);
+
+    setText("notificationTitleText", t.notifications);
+    setText("notification1Text", t.notification1);
+    setText("notification2Text", t.notification2);
+    setText("notification3Text", t.notification3);
+
+    setText("importantLinksText", t.important);
+    setText("aboutText", t.about);
+    setText("termsText", t.terms);
+    setText("privacyText", t.privacy);
+
+    setText("supportText", t.support);
+    setText("helpCenterText", t.helpCenter);
+    setText("faqsText", t.faqs);
+
+    setText("followText", t.follow);
+    setText("downloadText", t.download);
+
+    setText("footerRightsText", t.rights);
+    setText("footerBottomText", t.footerBottom);
+
+    const search = document.getElementById("searchInput");
+    if (search) search.placeholder = t.search;
+
+    document.getElementById("languageMenu")?.classList.remove("show");
+}
+
+function toggleLanguageMenu(event) {
+    if (event) event.stopPropagation();
+    document.getElementById("languageMenu").classList.toggle("show");
+}
+
+document.addEventListener("click", function(event) {
+    const wrapper = document.querySelector(".language-wrapper");
+    if (wrapper && !wrapper.contains(event.target)) {
+        document.getElementById("languageMenu")?.classList.remove("show");
+    }
+});
+
+window.addEventListener("load", function() {
+    const savedLanguage =
+        localStorage.getItem("selectedLanguage") || "en";
+
+    setLanguage(savedLanguage);
+});
+
+
+/* =====================================================
+   CONFIRM QUEUE
+===================================================== */
+
+function confirmQueue() {
+
+
+    const alreadyConfirmed =
+        localStorage.getItem(
+            "queueConfirmed"
+        );
+
+
+    if (
+        alreadyConfirmed === "true"
+    ) {
+
+        window.location.href =
+            "form.html";
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to confirm your queue?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "queueConfirmed",
+        "true"
+    );
+
+
+    const button =
+        document.getElementById(
+            "confirmButton"
+        );
+button.textContent =
+        "✓ Queue Confirmed";
+
+
+    button.classList.add(
+        "confirmed"
+    );
+setTimeout(
+        function() {
+
+            window.location.href =
+                "form.html";
+
+        },
+        800
+    );
+
+}
+
+
+/* =====================================================
+   LOAD QUEUE CONFIRMATION
+===================================================== */
+
+window.addEventListener(
+    "load",
+    function() {
+
+
+        const confirmed =
+            localStorage.getItem(
+                "queueConfirmed"
+            );
+
+
+        if (
+            confirmed === "true"
+        ) {
+
+
+            const button =
+                document.getElementById(
+                    "confirmButton"
+                );
+button.textContent =
+                "✓ Queue Confirmed";
+
+
+            button.classList.add(
+                "confirmed"
+            );
+}
+
+    }
+);
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+function openProfile() {
+
+
+    const isLoggedIn =
+        localStorage.getItem(
+            "isLoggedIn"
+        );
+
+
+    if (
+        isLoggedIn === "true"
+    ) {
+
+        window.location.href =
+            "profile.html";
+
+    }
+
+    else {
+
+        window.location.href =
+            "login.html";
+
+    }
+
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+function toggleNotifications() {
+
+
+    document
+        .getElementById(
+            "notificationPanel"
+        )
+        .classList.toggle(
+            "show"
+        );
+
+}
+
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+
+        const wrapper =
+            document.querySelector(
+                ".notification-wrapper"
+            );
+
+
+        const panel =
+            document.getElementById(
+                "notificationPanel"
+            );
+
+
+        if (
+            !wrapper.contains(
+                event.target
+            )
+        ) {
+
+            panel.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function performSearch() {
+
+
+    const value =
+        document
+        .getElementById(
+            "searchInput"
+        )
+        .value
+        .trim();
+
+
+    if (
+        value === ""
+    ) {
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "service.html?search=" +
+        encodeURIComponent(
+            value
+        );
+
+}
+
+
+document
+    .getElementById(
+        "searchInput"
+    )
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                performSearch();
+
+            }
+
+        }
+    );
+
+
+
+/* =====================================================
+   OFFICE STATUS + ADMIN TIMING
+===================================================== */
+
+const DEFAULT_OFFICE_SETTINGS={
+    mode:"auto",
+    open1:"11:00",
+    close1:"14:00",
+    lunchStart:"14:00",
+    lunchEnd:"14:40",
+    open2:"14:45",
+    close2:"16:00"
+};
+
+function getOfficeSettings(){
+    try{
+        return {...DEFAULT_OFFICE_SETTINGS,...JSON.parse(localStorage.getItem("officeSettings")||"{}")};
+    }catch(e){
+        return {...DEFAULT_OFFICE_SETTINGS};
+    }
+}
+
+function timeToMinutes(value){
+    if(!value || !value.includes(":")) return -1;
+    const p=value.split(":").map(Number);
+    return p.length===2 && !Number.isNaN(p[0]) && !Number.isNaN(p[1])
+        ? p[0]*60+p[1] : -1;
+}
+
+function getOfficeStatus(){
+    const s=getOfficeSettings();
+    if(s.mode!=="auto") return s.mode;
+
+    const now=new Date();
+    const current=now.getHours()*60+now.getMinutes();
+
+    if(current>=timeToMinutes(s.open1) && current<timeToMinutes(s.close1)) return "open";
+    if(current>=timeToMinutes(s.lunchStart) && current<timeToMinutes(s.lunchEnd)) return "lunch";
+    if(current>=timeToMinutes(s.open2) && current<timeToMinutes(s.close2)) return "open";
+
+    return "closed";
+}
+
+function formatTime(value){
+    const m=timeToMinutes(value);
+    if(m<0) return value;
+    let h=Math.floor(m/60);
+    const min=m%60;
+    const ap=h>=12?"PM":"AM";
+    h=h%12 || 12;
+    return h+":"+String(min).padStart(2,"0")+" "+ap;
+}
+
+function updateOfficeStatus(){
+    const s=getOfficeSettings();
+    const status=getOfficeStatus();
+    const title=document.getElementById("officeClosedText");
+    const message=document.getElementById("officeOpenText");
+    const box=document.querySelector(".office-status");
+    const live=document.getElementById("liveStatusText");
+
+    if(!title || !message) return;
+
+    if(status==="open"){
+        title.textContent="Office Open";
+        message.textContent=
+            "Office is open from "+formatTime(s.open1)+" to "+formatTime(s.close1)+
+            " and from "+formatTime(s.open2)+" to "+formatTime(s.close2)+".";
+        if(box){box.style.background="#E8F5E9";box.style.borderColor="#A5D6A7";}
+        if(live){live.textContent="Live Status: Open";live.style.color="#2E7D32";}
+    }else if(status==="lunch"){
+        title.textContent="Lunch Break";
+        message.textContent=
+            "Office is on lunch break from "+formatTime(s.lunchStart)+" to "+formatTime(s.lunchEnd)+".";
+        if(box){box.style.background="#FFF8E1";box.style.borderColor="#F0D98A";}
+        if(live){live.textContent="Live Status: Lunch Break";live.style.color="#8A6500";}
+    }else{
+        title.textContent="Office Closed";
+        message.textContent=
+            "Office is currently closed. Working hours: "+
+            formatTime(s.open1)+"–"+formatTime(s.close1)+" and "+
+            formatTime(s.open2)+"–"+formatTime(s.close2)+".";
+        if(box){box.style.background="#FFF8E1";box.style.borderColor="#F0D98A";}
+        if(live){live.textContent="Live Status: Closed";live.style.color="#B3261E";}
+    }
+}
+
+function fillAdminFields(){
+    const s=getOfficeSettings();
+    ["adminStatus","open1","close1","lunchStart","lunchEnd","open2","close2"].forEach(id=>{
+        const el=document.getElementById(id);
+        if(el && s[id]!==undefined) el.value=s[id];
+    });
+}
+
+function toggleAdminPanel(){
+    const panel=document.getElementById("adminStatusPanel");
+    if(!panel) return;
+    panel.classList.toggle("show");
+    if(panel.classList.contains("show")) fillAdminFields();
+}
+
+function saveAdminOfficeSettings(){
+    const get=id=>document.getElementById(id)?.value;
+    const settings={
+        mode:get("adminStatus")||"auto",
+        open1:get("open1")||"11:00",
+        close1:get("close1")||"14:00",
+        lunchStart:get("lunchStart")||"14:00",
+        lunchEnd:get("lunchEnd")||"14:40",
+        open2:get("open2")||"14:45",
+        close2:get("close2")||"16:00"
+    };
+
+    localStorage.setItem("officeSettings",JSON.stringify(settings));
+    updateOfficeStatus();
+    alert("Office status and timing saved.");
+}
+
+function resetAdminOfficeSettings(){
+    localStorage.setItem("officeSettings",JSON.stringify(DEFAULT_OFFICE_SETTINGS));
+    fillAdminFields();
+    updateOfficeStatus();
+    alert("Default office timing restored.");
+}
+
+function enableAdminControl(){
+    const button=document.getElementById("adminAccessButton");
+    if(button && localStorage.getItem("isAdmin")==="true"){
+        button.classList.add("show");
+    }
+}
+
+window.addEventListener("load",function(){
+    updateOfficeStatus();
+    enableAdminControl();
+    setInterval(updateOfficeStatus,30000);
+});
+
+
+/* =====================================================
+   TOKEN DATA
+===================================================== */
+
+const token =
+    localStorage.getItem(
+        "userToken"
+    );
+
+
+if (
+    token
+) {
+
+    document
+        .getElementById(
+            "tokenNumber"
+        )
+        .textContent =
+        token;
+
+}
+
+</script>
+
+
+</body>
+
+</html>

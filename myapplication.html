@@ -1,0 +1,2171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>My Applications - e-Q Service Portal</title>
+
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #F5F7FA;
+    color: #14213D;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+header {
+    background: #0D47A1;
+    color: white;
+
+    min-height: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 12px 45px;
+}
+
+
+/* GOVERNMENT LOGO */
+
+.gov-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.emblem {
+    width: 55px;
+    height: 65px;
+    object-fit: contain;
+}
+
+.gov-text h2 {
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.gov-text h3 {
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+
+.gov-text p {
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-box {
+    width: 390px;
+    height: 42px;
+
+    background: white;
+    border-radius: 6px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 14px;
+}
+
+.search-box input {
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    font-size: 14px;
+}
+
+.search-icon {
+    color: #333;
+    font-size: 18px;
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+.profile {
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+nav {
+    background: white;
+
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 40px;
+
+    box-shadow:
+        0 2px 6px rgba(0,0,0,0.08);
+}
+
+nav a {
+    text-decoration: none;
+
+    color: #14213D;
+
+    padding: 19px 22px;
+
+    height: 55px;
+
+    font-size: 14px;
+
+    transition: 0.2s;
+}
+
+nav a:hover {
+    color: #0D47A1;
+    background: #F5F8FC;
+}
+
+nav a.active {
+    color: #0D47A1;
+
+    font-weight: bold;
+
+    border-bottom:
+        3px solid #0D47A1;
+}
+
+
+/* =====================================================
+   MAIN CONTAINER
+===================================================== */
+
+.container {
+    max-width: 1200px;
+
+    margin: 35px auto;
+
+    padding: 0 25px;
+}
+
+
+/* =====================================================
+   PAGE TITLE
+===================================================== */
+
+.page-heading {
+    margin-bottom: 25px;
+}
+
+.page-heading h1 {
+    font-size: 28px;
+
+    color: #14213D;
+
+    margin-bottom: 7px;
+}
+
+.page-heading p {
+    color: #697586;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   SUMMARY CARDS
+===================================================== */
+
+.summary-container {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 28px;
+}
+
+.summary-card {
+    background: white;
+
+    border: 1px solid #E1E6ED;
+
+    border-radius: 9px;
+
+    padding: 20px;
+
+    position: relative;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,0.04);
+}
+
+.summary-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 4px;
+
+    background: #0D47A1;
+
+    border-radius:
+        9px 0 0 9px;
+}
+
+.summary-label {
+    color: #697586;
+
+    font-size: 13px;
+
+    margin-bottom: 8px;
+}
+
+.summary-number {
+    color: #0D47A1;
+
+    font-size: 30px;
+
+    font-weight: bold;
+}
+
+.summary-icon {
+    position: absolute;
+
+    right: 20px;
+    top: 20px;
+
+    width: 40px;
+    height: 40px;
+
+    background: #EDF5FD;
+
+    color: #0D47A1;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+}
+
+
+/* =====================================================
+   HISTORY CARD
+===================================================== */
+
+.history-card {
+    background: white;
+
+    border: 1px solid #E1E6ED;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 2px 10px rgba(0,0,0,0.04);
+}
+
+
+/* HISTORY HEADER */
+
+.history-header {
+    min-height: 75px;
+
+    padding: 15px 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom:
+        1px solid #E5E9EE;
+}
+
+.history-title h2 {
+    font-size: 19px;
+
+    color: #14213D;
+}
+
+.history-title p {
+    font-size: 12px;
+
+    color: #7A8492;
+
+    margin-top: 4px;
+}
+
+
+/* =====================================================
+   FILTER
+===================================================== */
+
+.filter-area {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+.filter-area label {
+    color: #697586;
+
+    font-size: 12px;
+}
+
+.filter-area select {
+    min-width: 145px;
+
+    padding: 8px 11px;
+
+    border:
+        1px solid #CBD5DF;
+
+    border-radius: 5px;
+
+    background: white;
+
+    outline: none;
+
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.filter-area select:focus {
+    border-color: #0D47A1;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table-container {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 900px;
+}
+
+th {
+    background: #F4F7FA;
+
+    color: #455468;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    text-align: left;
+
+    padding: 14px 16px;
+
+    border-bottom:
+        1px solid #E2E7ED;
+
+    white-space: nowrap;
+}
+
+td {
+    padding: 16px;
+
+    font-size: 12px;
+
+    color: #344054;
+
+    border-bottom:
+        1px solid #EDF0F3;
+}
+
+tbody tr:hover {
+    background: #F8FBFE;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* TOKEN */
+
+.token {
+    color: #0D47A1;
+
+    font-weight: bold;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status {
+    display: inline-block;
+
+    padding: 6px 11px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: bold;
+}
+
+.completed {
+    background: #EAF7ED;
+
+    color: #2E7D32;
+
+    border: 1px solid #C9E9CF;
+}
+
+.waiting {
+    background: #FFF5DF;
+
+    color: #A85B00;
+
+    border: 1px solid #F2DFB0;
+}
+
+.cancelled {
+    background: #FDECEC;
+
+    color: #C62828;
+
+    border: 1px solid #F1CCCC;
+}
+
+.submitted {
+    background: #EAF2FC;
+
+    color: #0D47A1;
+
+    border: 1px solid #C9DDF5;
+}
+
+
+/* =====================================================
+   VIEW BUTTON
+===================================================== */
+
+.view-button {
+    background: white;
+
+    color: #0D47A1;
+
+    border:
+        1px solid #0D47A1;
+
+    border-radius: 5px;
+
+    padding: 6px 13px;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.view-button:hover {
+    background: #0D47A1;
+
+    color: white;
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+#emptyState {
+    display: none;
+
+    text-align: center;
+
+    padding: 55px 20px;
+
+    color: #697586;
+}
+
+.empty-icon {
+    font-size: 40px;
+
+    margin-bottom: 12px;
+}
+
+.empty-title {
+    color: #14213D;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    margin-bottom: 6px;
+}
+
+
+/* =====================================================
+   FEATURE STRIP
+===================================================== */
+
+.feature-strip {
+    margin-top: 30px;
+
+    background: #F7FAFF;
+
+    border:
+        1px solid #E0E8F1;
+
+    border-radius: 8px;
+
+    min-height: 84px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    align-items: center;
+}
+
+.feature {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 10px 20px;
+
+    border-right:
+        1px solid #DFE5EC;
+}
+
+.feature:last-child {
+    border-right: none;
+}
+
+.feature-icon {
+    width: 40px;
+    height: 40px;
+
+    background: #EDF5FD;
+
+    color: #1261A0;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+
+    flex-shrink: 0;
+}
+
+.feature-title {
+    font-size: 12px;
+
+    font-weight: bold;
+
+    color: #243044;
+
+    margin-bottom: 4px;
+}
+
+.feature-text {
+    font-size: 10px;
+
+    color: #687384;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    background: #0D47A1;
+
+    color: white;
+
+    margin-top: 45px;
+
+    padding: 35px 50px 20px;
+}
+
+.footer-content {
+    max-width: 1200px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        1.3fr 1fr 1fr 1fr 1.2fr;
+
+    gap: 35px;
+}
+
+.footer-column h3 {
+    margin-bottom: 15px;
+
+    font-size: 16px;
+}
+
+.footer-column p,
+.footer-column a {
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    line-height: 2;
+
+    display: block;
+}
+
+.footer-column a:hover {
+    text-decoration: underline;
+}
+
+.footer-logo {
+    font-size: 20px;
+
+    font-weight: bold;
+
+    margin-bottom: 5px;
+}
+
+.footer-bottom {
+    border-top:
+        1px solid rgba(255,255,255,0.3);
+
+    margin-top: 25px;
+
+    padding-top: 15px;
+
+    text-align: center;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 950px) {
+
+    header {
+        flex-direction: column;
+
+        gap: 15px;
+
+        padding: 20px;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    nav {
+        padding-left: 0;
+
+        overflow-x: auto;
+    }
+
+    nav a {
+        white-space: nowrap;
+
+        padding: 19px 14px;
+    }
+
+    .summary-container {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .feature-strip {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .footer-content {
+        grid-template-columns:
+            1fr 1fr;
+    }
+}
+
+
+@media (max-width: 600px) {
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .summary-container {
+        grid-template-columns:
+            1fr;
+    }
+
+    .history-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 12px;
+    }
+
+    .filter-area {
+        width: 100%;
+    }
+
+    .filter-area select {
+        flex: 1;
+    }
+
+    .feature-strip {
+        grid-template-columns:
+            1fr;
+    }
+
+    .feature {
+        border-right: none;
+
+        border-bottom:
+            1px solid #DFE5EC;
+    }
+
+    .footer-content {
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+
+/* =====================================================
+   SHARED HEADER - CORRECTED
+===================================================== */
+
+header {
+    background: #0D47A1;
+    color: white;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    padding: 12px 45px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    color: white;
+    flex-shrink: 0;
+}
+
+.brand .emblem {
+    width: 55px;
+    height: 65px;
+    object-fit: contain;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    flex: 1;
+}
+
+.search-box {
+    width: 390px;
+    height: 42px;
+    background: white;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px 0 14px;
+}
+
+.search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+.search-icon {
+    border: none;
+    background: transparent;
+    color: #333;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.notification-wrapper {
+    position: relative;
+}
+
+.notification-btn {
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 6px;
+    background: white;
+    color: #0D47A1;
+    cursor: pointer;
+    font-size: 18px;
+    position: relative;
+}
+
+.badge {
+    position: absolute;
+    top: -5px;
+    right: -4px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #D32F2F;
+    color: white;
+    display: grid;
+    place-items: center;
+    font-size: 10px;
+}
+
+.notification-panel {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    width: 310px;
+    background: white;
+    color: #14213D;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.20);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.notification-panel.show {
+    display: block;
+}
+
+.notification-header {
+    padding: 14px;
+    font-weight: bold;
+    border-bottom: 1px solid #eee;
+}
+
+.notification-item {
+    padding: 13px;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.language-select {
+    height: 42px;
+    border: none;
+    border-radius: 6px;
+    padding: 0 10px;
+    cursor: pointer;
+    font-size: 13px;
+    background: white;
+    color: #14213D;
+}
+
+.profile {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+    padding: 10px 4px;
+}
+
+.profile:hover {
+    opacity: .9;
+}
+
+@media (max-width: 950px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    .header-actions {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .search-box {
+        width: min(390px, 100%);
+    }
+}
+
+@media (max-width: 600px) {
+    .header-actions {
+        flex-direction: column;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .notification-panel {
+        position: fixed;
+        left: 15px;
+        right: 15px;
+        top: 120px;
+        width: auto;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+
+    <a href="index.html" class="brand">
+        <img
+            class="emblem"
+            src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+            alt="State Emblem of India"
+        >
+
+        <div class="gov-text">
+            <h2>Government of India</h2>
+            <h3>DIGITAL QUEUE</h3>
+            <p>Easy. Quick. Transparent.</p>
+        </div>
+    </a>
+
+    <div class="header-actions">
+
+        <div class="search-box">
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Search services, documents, offices..."
+                aria-label="Search"
+            >
+            <button
+                type="button"
+                class="search-icon"
+                onclick="performSearch()"
+                aria-label="Search"
+            >🔍</button>
+        </div>
+
+        <div class="notification-wrapper">
+            <button
+                type="button"
+                class="notification-btn"
+                onclick="toggleNotifications(event)"
+                aria-label="Notifications"
+            >
+                🔔
+                <span class="badge">3</span>
+            </button>
+
+            <div class="notification-panel" id="notificationPanel">
+                <div class="notification-header">Notifications</div>
+
+                <div class="notification-item">
+                    🔔 Your application status has been updated.
+                </div>
+
+                <div class="notification-item">
+                    📍 Queue confirmation is required before visiting the office.
+                </div>
+
+                <div class="notification-item">
+                    ℹ️ Check your queue status for updates.
+                </div>
+            </div>
+        </div>
+
+        <select
+            id="languageSelect"
+            class="language-select"
+            aria-label="Language"
+            onchange="changeLanguage(this.value)"
+        >
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="gu">ગુજરાતી</option>
+        </select>
+
+        <button
+            type="button"
+            class="profile"
+            onclick="goToProfile()"
+        >
+            👤 &nbsp; <span id="profileText">Profile</span>
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<nav>
+
+
+    <!-- HOME -->
+
+    <a href="index.html">
+
+        ⌂ &nbsp; Home
+
+    </a>
+
+
+    <!-- SERVICES -->
+
+    <a href="service.html">
+
+        ▣ &nbsp; Services ▾
+
+    </a>
+
+
+    <!-- MY APPLICATIONS - ACTIVE -->
+
+    <a
+        href="myapplication.html"
+        class="active"
+    >
+
+        ▣ &nbsp; My Applications
+
+    </a>
+
+
+    <!-- QUEUE STATUS -->
+
+    <a href="queue.html">
+
+        ☷ &nbsp; Queue Status
+
+    </a>
+
+
+    <!-- OFFICES -->
+
+    <a href="offinfo.html">
+
+        🏛 &nbsp; Offices
+
+    </a>
+
+
+</nav>
+
+
+
+<!-- =====================================================
+     MAIN CONTENT
+===================================================== -->
+
+<main class="container">
+
+
+    <!-- PAGE HEADING -->
+
+    <section class="page-heading">
+
+        <h1>
+            My Applications
+        </h1>
+
+        <p>
+            View and track all your previous service
+            applications and queue bookings.
+        </p>
+
+    </section>
+
+
+
+    <!-- =================================================
+         SUMMARY
+    ================================================== -->
+
+    <section class="summary-container">
+
+
+        <!-- TOTAL -->
+
+        <div class="summary-card">
+
+            <div class="summary-label">
+                Total Applications
+            </div>
+
+            <div
+                class="summary-number"
+                id="totalApplications"
+            >
+                0
+            </div>
+
+            <div class="summary-icon">
+                ▢
+            </div>
+
+        </div>
+
+
+
+        <!-- COMPLETED -->
+
+        <div class="summary-card">
+
+            <div class="summary-label">
+                Completed
+            </div>
+
+            <div
+                class="summary-number"
+                id="completedApplications"
+            >
+                0
+            </div>
+
+            <div class="summary-icon">
+                ✓
+            </div>
+
+        </div>
+
+
+
+        <!-- CANCELLED -->
+
+        <div class="summary-card">
+
+            <div class="summary-label">
+                Cancelled
+            </div>
+
+            <div
+                class="summary-number"
+                id="cancelledApplications"
+            >
+                0
+            </div>
+
+            <div class="summary-icon">
+                ×
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         APPLICATION HISTORY
+    ================================================== -->
+
+    <section class="history-card">
+
+
+        <!-- HISTORY HEADER -->
+
+        <div class="history-header">
+
+
+            <div class="history-title">
+
+                <h2>
+                    Application History
+                </h2>
+
+                <p>
+                    Your previous applications and queue bookings
+                </p>
+
+            </div>
+
+
+
+            <!-- FILTER -->
+
+            <div class="filter-area">
+
+                <label>
+                    Filter:
+                </label>
+
+                <select
+                    id="statusFilter"
+                    onchange="filterApplications()"
+                >
+
+                    <option value="ALL">
+                        All
+                    </option>
+
+                    <option value="COMPLETED">
+                        Completed
+                    </option>
+
+                    <option value="WAITING">
+                        Waiting
+                    </option>
+
+                    <option value="CANCELLED">
+                        Cancelled
+                    </option>
+
+                    <option value="SUBMITTED">
+                        Submitted
+                    </option>
+
+                </select>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- TABLE -->
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            TOKEN
+                        </th>
+
+                        <th>
+                            OFFICE
+                        </th>
+
+                        <th>
+                            SERVICE
+                        </th>
+
+                        <th>
+                            DATE
+                        </th>
+
+                        <th>
+                            TIME
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                        <th>
+                            ACTION
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody id="applicationTableBody">
+                    <!-- Applications are loaded from localStorage after submission. -->
+                </tbody>
+
+            </table>
+
+
+        </div>
+
+
+
+        <!-- EMPTY STATE -->
+
+        <div id="emptyState">
+
+            <div class="empty-icon">
+                📋
+            </div>
+
+            <div class="empty-title">
+                No Applications Found
+            </div>
+
+            <p>
+                There are no applications for
+                the selected status.
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         FEATURE STRIP
+    ================================================== -->
+
+    <section class="feature-strip">
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ♢
+            </div>
+
+            <div>
+
+                <div class="feature-title">
+                    Secure & Trusted
+                </div>
+
+                <div class="feature-text">
+                    Your data is safe with us
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ◉
+            </div>
+
+            <div>
+
+                <div class="feature-title">
+                    Transparent Process
+                </div>
+
+                <div class="feature-text">
+                    Track every step online
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ◷
+            </div>
+
+            <div>
+
+                <div class="feature-title">
+                    Save Time
+                </div>
+
+                <div class="feature-text">
+                    No more long queues
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="feature">
+
+            <div class="feature-icon">
+                ◎
+            </div>
+
+            <div>
+
+                <div class="feature-title">
+                    Anywhere Access
+                </div>
+
+                <div class="feature-text">
+                    Access services anytime
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+
+    <div class="footer-content">
+
+
+        <!-- BRAND -->
+
+        <div class="footer-column">
+
+            <div class="footer-logo">
+                Government of India
+            </div>
+
+            <p>
+                e-Q Service Portal
+            </p>
+
+            <p>
+                © 2026 All Rights Reserved
+            </p>
+
+        </div>
+
+
+
+        <!-- IMPORTANT LINKS -->
+
+        <div class="footer-column">
+
+            <h3>
+                Important Links
+            </h3>
+
+            <a href="#">
+                About Us
+            </a>
+
+            <a href="#">
+                Terms & Conditions
+            </a>
+
+            <a href="#">
+                Privacy Policy
+            </a>
+
+        </div>
+
+
+
+        <!-- SUPPORT -->
+
+        <div class="footer-column">
+
+            <h3>
+                Support
+            </h3>
+
+            <a href="#">
+                Help Center
+            </a>
+
+        
+
+        </div>
+
+
+
+        <!-- FOLLOW -->
+
+        <div class="footer-column">
+
+            <h3>
+                Follow Us
+            </h3>
+
+            <p>
+                Facebook
+            </p>
+
+            <p>
+                Twitter
+            </p>
+
+            <p>
+                YouTube
+            </p>
+
+        </div>
+
+
+
+        <!-- APP -->
+
+        <div class="footer-column">
+
+            <h3>
+                Download Our App
+            </h3>
+
+            <p>
+                Google Play
+            </p>
+
+            <p>
+                App Store
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="footer-bottom">
+
+        © 2026 e-Q Service Portal.
+        All Rights Reserved.
+
+    </div>
+
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/* =====================================================
+   LOGIN / PROFILE
+===================================================== */
+
+function goToProfile() {
+
+    if (localStorage.getItem("isLoggedIn") === "true") {
+        window.location.href = "profile.html";
+    } else {
+        window.location.href = "login.html";
+    }
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function performSearch() {
+
+    const input = document.getElementById("searchInput");
+    const value = input ? input.value.trim() : "";
+
+    if (!value) {
+        if (input) input.focus();
+        return;
+    }
+
+    window.location.href =
+        "service.html?search=" + encodeURIComponent(value);
+
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const searchInput =
+        document.getElementById("searchInput");
+
+    if (searchInput) {
+
+        searchInput.addEventListener("keydown", function(event) {
+
+            if (event.key === "Enter") {
+                performSearch();
+            }
+
+        });
+
+    }
+
+    const savedLanguage =
+        localStorage.getItem("selectedLanguage") || "en";
+
+    const languageSelect =
+        document.getElementById("languageSelect");
+
+    if (languageSelect) {
+        languageSelect.value = savedLanguage;
+    }
+
+    updateApplications();
+
+});
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+function toggleNotifications(event) {
+
+    if (event) event.stopPropagation();
+
+    const panel =
+        document.getElementById("notificationPanel");
+
+    if (panel) {
+        panel.classList.toggle("show");
+    }
+
+}
+
+
+document.addEventListener("click", function(event) {
+
+    const panel =
+        document.getElementById("notificationPanel");
+
+    const wrapper =
+        document.querySelector(".notification-wrapper");
+
+    if (
+        panel &&
+        wrapper &&
+        !wrapper.contains(event.target)
+    ) {
+        panel.classList.remove("show");
+    }
+
+});
+
+
+/* =====================================================
+   LANGUAGE
+===================================================== */
+
+function changeLanguage(language) {
+
+    localStorage.setItem(
+        "selectedLanguage",
+        language
+    );
+
+}
+
+
+/* =====================================================
+   APPLICATION DATA
+===================================================== */
+
+/*
+   Only submitted applications are displayed.
+
+   The application form stores the latest submitted
+   application in "currentApplication".
+*/
+
+function getApplications() {
+
+    const applications = [];
+
+    const currentApplication =
+        localStorage.getItem("currentApplication");
+
+    if (currentApplication) {
+
+        try {
+
+            const application =
+                JSON.parse(currentApplication);
+
+            if (
+                application &&
+                application.applicationId
+            ) {
+                applications.push(application);
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Invalid application data:",
+                error
+            );
+
+        }
+
+    }
+
+    return applications;
+
+}
+
+
+/* =====================================================
+   UPDATE PAGE
+===================================================== */
+
+function updateApplications() {
+
+    const applications =
+        getApplications();
+
+    const tbody =
+        document.getElementById(
+            "applicationTableBody"
+        );
+
+    const emptyState =
+        document.getElementById(
+            "emptyState"
+        );
+
+    if (!tbody || !emptyState) return;
+
+
+    /*
+       Clear the table first.
+    */
+
+    tbody.innerHTML = "";
+
+
+    /*
+       No submitted application:
+       show empty state and keep summary at zero.
+    */
+
+    if (applications.length === 0) {
+
+        document.getElementById(
+            "totalApplications"
+        ).innerText = "0";
+
+        document.getElementById(
+            "completedApplications"
+        ).innerText = "0";
+
+        document.getElementById(
+            "cancelledApplications"
+        ).innerText = "0";
+
+        emptyState.style.display = "block";
+
+        return;
+
+    }
+
+
+    /*
+       Application exists:
+       hide empty state and create rows.
+    */
+
+    emptyState.style.display = "none";
+
+
+    applications.forEach(function(application) {
+
+        const row =
+            document.createElement("tr");
+
+        const status =
+            (application.status || "SUBMITTED")
+            .toUpperCase();
+
+
+        let statusClass = "submitted";
+
+        if (status === "COMPLETED") {
+            statusClass = "completed";
+        }
+        else if (status === "WAITING") {
+            statusClass = "waiting";
+        }
+        else if (status === "CANCELLED") {
+            statusClass = "cancelled";
+        }
+
+
+        const date =
+            application.createdAt
+                ? new Date(application.createdAt)
+                    .toLocaleDateString(
+                        "en-IN",
+                        {
+                            day:"2-digit",
+                            month:"short",
+                            year:"numeric"
+                        }
+                    )
+                : "—";
+
+
+        const time =
+            application.createdAt
+                ? new Date(application.createdAt)
+                    .toLocaleTimeString(
+                        "en-IN",
+                        {
+                            hour:"2-digit",
+                            minute:"2-digit"
+                        }
+                    )
+                : "—";
+
+
+        row.setAttribute(
+            "data-status",
+            status
+        );
+
+
+        row.innerHTML = `
+            <td class="token">
+                ${escapeHTML(application.applicationId)}
+            </td>
+
+            <td>
+                ${escapeHTML(application.office || "Bahumali")}
+            </td>
+
+            <td>
+                ${escapeHTML(application.service || "—")}
+            </td>
+
+            <td>
+                ${date}
+            </td>
+
+            <td>
+                ${time}
+            </td>
+
+            <td>
+                <span class="status ${statusClass}">
+                    ${escapeHTML(status)}
+                </span>
+            </td>
+
+            <td>
+                <button
+                    class="view-button"
+                    onclick="viewApplication('${escapeJS(application.applicationId)}')"
+                >
+                    VIEW
+                </button>
+            </td>
+        `;
+
+        tbody.appendChild(row);
+
+    });
+
+
+    updateSummary();
+    filterApplications();
+
+}
+
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+function updateSummary() {
+
+    const rows =
+        document.querySelectorAll(
+            "#applicationTableBody tr"
+        );
+
+    let total = 0;
+    let completed = 0;
+    let cancelled = 0;
+
+
+    rows.forEach(function(row) {
+
+        const status =
+            row.getAttribute("data-status");
+
+        if (!status) return;
+
+        total++;
+
+        if (status === "COMPLETED") {
+            completed++;
+        }
+
+        if (status === "CANCELLED") {
+            cancelled++;
+        }
+
+    });
+
+
+    document.getElementById(
+        "totalApplications"
+    ).innerText = total;
+
+    document.getElementById(
+        "completedApplications"
+    ).innerText = completed;
+
+    document.getElementById(
+        "cancelledApplications"
+    ).innerText = cancelled;
+
+}
+
+
+/* =====================================================
+   FILTER
+===================================================== */
+
+function filterApplications() {
+
+    const select =
+        document.getElementById(
+            "statusFilter"
+        );
+
+    const selectedStatus =
+        select ? select.value : "ALL";
+
+
+    const rows =
+        document.querySelectorAll(
+            "#applicationTableBody tr"
+        );
+
+    let visibleRows = 0;
+
+
+    rows.forEach(function(row) {
+
+        const rowStatus =
+            row.getAttribute("data-status");
+
+
+        if (
+            selectedStatus === "ALL" ||
+            rowStatus === selectedStatus
+        ) {
+
+            row.style.display = "";
+            visibleRows++;
+
+        }
+        else {
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+
+    const emptyState =
+        document.getElementById(
+            "emptyState"
+        );
+
+
+    if (emptyState) {
+
+        if (visibleRows === 0) {
+            emptyState.style.display = "block";
+        }
+        else {
+            emptyState.style.display = "none";
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   VIEW APPLICATION
+===================================================== */
+
+function viewApplication(applicationId) {
+
+    const applications =
+        getApplications();
+
+    const application =
+        applications.find(
+            function(item) {
+                return item.applicationId === applicationId;
+            }
+        );
+
+
+    if (!application) {
+
+        alert("Application details could not be found.");
+        return;
+
+    }
+
+
+    alert(
+        "Application ID: " +
+        application.applicationId +
+
+        "\nService: " +
+        (application.service || "—") +
+
+        "\nOffice: " +
+        (application.office || "Bahumali") +
+
+        "\nName: " +
+        (application.fullName || "—") +
+
+        "\nMobile: " +
+        (application.mobile || "—") +
+
+        "\nStatus: " +
+        (application.status || "SUBMITTED")
+    );
+
+}
+
+
+/* =====================================================
+   SECURITY HELPERS
+===================================================== */
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function escapeJS(value) {
+
+    return String(value)
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'");
+
+}
+
+</script>
+
+
+</body>
+
+</html>

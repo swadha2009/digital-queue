@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Digital Queue</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f5f7fa;color:#14213d;min-height:100vh}
+a{text-decoration:none;color:inherit}
+
+header{background:#0d47a1;color:#fff;min-height:100px;padding:12px 35px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:14px;color:#fff}
+.logo{width:62px;height:68px;object-fit:contain}
+.brand h2{font-size:20px}.brand h3{font-size:17px;margin-top:3px}.brand p{font-size:12px;margin-top:3px}
+.language-select{height:40px;border:none;border-radius:6px;padding:0 12px;cursor:pointer}
+
+main{max-width:1150px;margin:auto;padding:45px 22px 60px}
+.login-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:30px;align-items:stretch}
+
+.welcome{background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff;border-radius:15px;padding:50px 42px;display:flex;flex-direction:column;justify-content:center;min-height:520px;box-shadow:0 7px 20px rgba(13,71,161,.16)}
+.welcome .government{font-size:14px;font-weight:bold;opacity:.9;margin-bottom:12px}
+.welcome h1{font-size:38px;line-height:1.2;margin-bottom:17px}
+.welcome p{color:#e7efff;line-height:1.7;font-size:15px}
+.feature-list{margin-top:28px;display:grid;gap:14px}
+.feature{display:flex;align-items:center;gap:12px;font-size:14px}
+.feature-icon{width:36px;height:36px;background:rgba(255,255,255,.15);border-radius:50%;display:grid;place-items:center}
+
+.login-card{background:#fff;border:1px solid #e1e6ee;border-radius:15px;padding:38px;box-shadow:0 4px 16px rgba(0,0,0,.07)}
+.login-card h2{color:#0d47a1;font-size:27px;margin-bottom:8px}
+.subtitle{color:#667085;font-size:14px;line-height:1.5;margin-bottom:27px}
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
+.field label{font-size:14px;font-weight:bold}
+.field input{width:100%;padding:13px;border:1px solid #d0d5dd;border-radius:7px;outline:none;font-size:14px}
+.field input:focus{border-color:#0d47a1;box-shadow:0 0 0 2px rgba(13,71,161,.08)}
+.password-wrap{position:relative}.password-wrap input{padding-right:48px}
+.show-password{position:absolute;right:8px;top:7px;width:36px;height:34px;border:0;background:transparent;cursor:pointer;font-size:17px}
+
+.login-btn{width:100%;border:none;border-radius:7px;background:#0d47a1;color:#fff;padding:14px;font-size:15px;font-weight:bold;cursor:pointer;margin-top:5px}
+.login-btn:hover{background:#1565c0}
+
+.register-note{text-align:center;margin-top:20px;color:#667085;font-size:13px}
+.register-note a{color:#0d47a1;font-weight:bold}
+
+.message{display:none;margin-top:16px;padding:12px;border-radius:7px;text-align:center;font-size:13px;line-height:1.5}
+.message.show{display:block}.message.error{background:#ffebee;color:#b71c1c}.message.success{background:#e8f5e9;color:#1b5e20}
+
+footer{background:#0d47a1;color:#fff;padding:35px 7% 18px}
+.footer-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px}
+.footer-column h3{font-size:15px;margin-bottom:10px}
+.footer-column p,.footer-column a{color:#dce8fa;font-size:13px;line-height:1.9;text-decoration:none;display:block}
+.footer-column a:hover{text-decoration:underline}
+.footer-bottom{max-width:1200px;margin:25px auto 0;padding-top:15px;border-top:1px solid rgba(255,255,255,.3);text-align:center;font-size:12px}
+
+@media(max-width:850px){
+header{flex-direction:column;align-items:stretch}
+.brand{justify-content:center}
+.language-select{align-self:center}
+.login-layout{grid-template-columns:1fr}
+.welcome{min-height:auto;padding:38px 30px}
+}
+@media(max-width:600px){
+main{padding:25px 15px 45px}
+.welcome,.login-card{padding:28px 22px}
+.welcome h1{font-size:29px}
+.login-card h2{font-size:24px}
+.footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<a href="index.html" class="brand">
+<img src="digital-queue-logo.png" class="logo" alt="Digital Queue Logo"
+onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg';">
+<div>
+<h2 id="governmentText">Government of India</h2>
+<h3 id="brandText">Digital Queue</h3>
+<p id="taglineText">Easy. Quick. Transparent.</p>
+</div>
+</a>
+
+<select id="languageSelect" class="language-select" onchange="changeLanguage(this.value)" aria-label="Language">
+<option value="en">English</option>
+<option value="hi">हिन्दी</option>
+<option value="gu">ગુજરાતી</option>
+</select>
+</header>
+
+<main>
+<div class="login-layout">
+
+<section class="welcome">
+<div class="government" id="welcomeGovernment">GOVERNMENT DIGITAL SERVICE PORTAL</div>
+<h1 id="welcomeTitle">Welcome to Digital Queue</h1>
+<p id="welcomeDescription">Login once and access government services, applications and queue management from one convenient digital platform.</p>
+
+<div class="feature-list">
+<div class="feature"><div class="feature-icon">🏛️</div><span id="feature1">Access government services</span></div>
+<div class="feature"><div class="feature-icon">📝</div><span id="feature2">Submit applications online</span></div>
+<div class="feature"><div class="feature-icon">🎫</div><span id="feature3">Manage your digital queue</span></div>
+<div class="feature"><div class="feature-icon">🔔</div><span id="feature4">Get application and queue updates</span></div>
+</div>
+</section>
+
+<section class="login-card">
+
+<h2 id="loginTitle">Login</h2>
+<p class="subtitle" id="loginSubtitle">Enter your registered mobile number and password to continue.</p>
+
+<form id="loginForm" onsubmit="handleLogin(event)">
+
+<div class="field">
+<label for="mobile" id="mobileLabel">Mobile Number</label>
+<input id="mobile" type="tel" maxlength="10" inputmode="numeric" autocomplete="tel"
+placeholder="Enter registered mobile number" required>
+</div>
+
+<div class="field">
+<label for="password" id="passwordLabel">Password</label>
+
+<div class="password-wrap">
+<input id="password" type="password" autocomplete="current-password"
+placeholder="Enter your password" required>
+
+<button type="button" class="show-password"
+onclick="togglePassword()" aria-label="Show password">
+<span id="eyeIcon">👁️</span>
+</button>
+</div>
+</div>
+
+<button type="submit" class="login-btn" id="loginButton">
+Login
+</button>
+
+<div id="message" class="message"></div>
+
+</form>
+
+<div class="register-note">
+<span id="newUser">New user?</span>
+<a href="register.html" id="registerLink"> Register here</a>
+</div>
+
+</section>
+
+</div>
+</main>
+
+<footer>
+<div class="footer-grid">
+
+<div class="footer-column">
+<h3>Digital Queue</h3>
+<p id="footerDescription">A digital platform designed to make government services easier, faster and more transparent.</p>
+</div>
+
+<div class="footer-column">
+<h3 id="quickTitle">Quick Links</h3>
+<a href="login.html" id="loginFooter">Login</a>
+<a href="index.html" id="homeFooter">Home</a>
+</div>
+
+<div class="footer-column">
+<h3 id="serviceTitle">Services</h3>
+<a href="service.html">Aadhaar</a>
+<a href="service.html">PAN Card</a>
+<a href="service.html">Certificates</a>
+</div>
+
+<div class="footer-column">
+<h3 id="supportTitle">Support</h3>
+<a href="offinfo.html" id="officeFooter">Offices</a>
+</div>
+
+</div>
+
+<div class="footer-bottom">© 2026 Digital Queue. All Rights Reserved.</div>
+</footer>
+
+<script>
+
+const translations={
+
+en:{
+government:"Government of India",brand:"Digital Queue",tagline:"Easy. Quick. Transparent.",
+welcomeGovernment:"GOVERNMENT DIGITAL SERVICE PORTAL",
+welcome:"Welcome to Digital Queue",
+welcomeDesc:"Login once and access government services, applications and queue management from one convenient digital platform.",
+feature1:"Access government services",feature2:"Submit applications online",feature3:"Manage your digital queue",feature4:"Get application and queue updates",
+title:"Login",subtitle:"Enter your registered mobile number and password to continue.",
+mobile:"Mobile Number",mobilePh:"Enter registered mobile number",
+password:"Password",passwordPh:"Enter your password",
+login:"Login",newUser:"New user?",register:" Register here",
+footer:"A digital platform designed to make government services easier, faster and more transparent.",
+quick:"Quick Links",service:"Services",support:"Support",home:"Home",loginFooter:"Login",office:"Offices",
+invalidMobile:"Please enter a valid 10-digit mobile number.",
+notRegistered:"No account was found with this mobile number. Please register first.",
+wrongPassword:"Incorrect password. Please try again.",
+success:"Login successful. Redirecting to Home..."
+},
+
+hi:{
+government:"भारत सरकार",brand:"डिजिटल क्यू",tagline:"आसान। तेज़। पारदर्शी.",
+welcomeGovernment:"सरकारी डिजिटल सेवा पोर्टल",
+welcome:"डिजिटल क्यू में आपका स्वागत है",
+welcomeDesc:"एक बार लॉगिन करें और एक ही डिजिटल प्लेटफॉर्म से सरकारी सेवाओं, आवेदनों और कतार प्रबंधन का उपयोग करें।",
+feature1:"सरकारी सेवाओं तक पहुँच",feature2:"ऑनलाइन आवेदन जमा करें",feature3:"अपनी डिजिटल कतार प्रबंधित करें",feature4:"आवेदन और कतार अपडेट प्राप्त करें",
+title:"लॉगिन",subtitle:"जारी रखने के लिए अपना पंजीकृत मोबाइल नंबर और पासवर्ड दर्ज करें।",
+mobile:"मोबाइल नंबर",mobilePh:"पंजीकृत मोबाइल नंबर दर्ज करें",
+password:"पासवर्ड",passwordPh:"अपना पासवर्ड दर्ज करें",
+login:"लॉगिन",newUser:"नए उपयोगकर्ता हैं?",register:" यहाँ पंजीकरण करें",
+footer:"सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए एक डिजिटल प्लेटफॉर्म।",
+quick:"त्वरित लिंक",service:"सेवाएँ",support:"सहायता",home:"होम",loginFooter:"लॉगिन",office:"कार्यालय",
+invalidMobile:"कृपया मान्य 10 अंकों का मोबाइल नंबर दर्ज करें।",
+notRegistered:"इस मोबाइल नंबर से कोई खाता नहीं मिला। कृपया पहले पंजीकरण करें।",
+wrongPassword:"गलत पासवर्ड। कृपया पुनः प्रयास करें।",
+success:"लॉगिन सफल हुआ। होम पर भेजा जा रहा है..."
+},
+
+gu:{
+government:"ભારત સરકાર",brand:"ડિજિટલ કતાર",tagline:"સરળ. ઝડપી. પારદર્શક.",
+welcomeGovernment:"સરકારી ડિજિટલ સેવા પોર્ટલ",
+welcome:"ડિજિટલ કતારમાં આપનું સ્વાગત છે",
+welcomeDesc:"એકવાર લૉગિન કરો અને એક જ ડિજિટલ પ્લેટફોર્મ પરથી સરકારી સેવાઓ, અરજીઓ અને કતાર મેનેજમેન્ટનો ઉપયોગ કરો.",
+feature1:"સરકારી સેવાઓનો ઉપયોગ કરો",feature2:"ઓનલાઈન અરજીઓ સબમિટ કરો",feature3:"તમારી ડિજિટલ કતાર મેનેજ કરો",feature4:"અરજી અને કતાર અપડેટ્સ મેળવો",
+title:"લૉગિન",subtitle:"ચાલુ રાખવા માટે તમારો નોંધાયેલ મોબાઇલ નંબર અને પાસવર્ડ દાખલ કરો.",
+mobile:"મોબાઇલ નંબર",mobilePh:"નોંધાયેલ મોબાઇલ નંબર દાખલ કરો",
+password:"પાસવર્ડ",passwordPh:"તમારો પાસવર્ડ દાખલ કરો",
+login:"લૉગિન",newUser:"નવા વપરાશકર્તા છો?",register:" અહીં નોંધણી કરો",
+footer:"સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ.",
+quick:"ઝડપી લિંક્સ",service:"સેવાઓ",support:"સહાય",home:"હોમ",loginFooter:"લૉગિન",office:"કચેરીઓ",
+invalidMobile:"કૃપા કરીને માન્ય 10 અંકનો મોબાઇલ નંબર દાખલ કરો.",
+notRegistered:"આ મોબાઇલ નંબર સાથે કોઈ ખાતું મળ્યું નથી. કૃપા કરીને પહેલા નોંધણી કરો.",
+wrongPassword:"ખોટો પાસવર્ડ. કૃપા કરીને ફરી પ્રયાસ કરો.",
+success:"લૉગિન સફળ થયું. હોમ પર મોકલવામાં આવી રહ્યું છે..."
+}
+
+};
+
+
+function changeLanguage(lang){
+localStorage.setItem("selectedLanguage",lang);
+applyLanguage();
+}
+
+
+function applyLanguage(){
+
+const lang=localStorage.getItem("selectedLanguage")||"en";
+const t=translations[lang]||translations.en;
+
+document.documentElement.lang=lang;
+document.getElementById("languageSelect").value=lang;
+
+const set=(id,value)=>{
+const el=document.getElementById(id);
+if(el)el.textContent=value;
+};
+
+set("governmentText",t.government);
+set("brandText",t.brand);
+set("taglineText",t.tagline);
+set("welcomeGovernment",t.welcomeGovernment);
+set("welcomeTitle",t.welcome);
+set("welcomeDescription",t.welcomeDesc);
+set("feature1",t.feature1);
+set("feature2",t.feature2);
+set("feature3",t.feature3);
+set("feature4",t.feature4);
+set("loginTitle",t.title);
+set("loginSubtitle",t.subtitle);
+set("mobileLabel",t.mobile);
+set("passwordLabel",t.password);
+set("loginButton",t.login);
+set("newUser",t.newUser);
+set("registerLink",t.register);
+set("footerDescription",t.footer);
+set("quickTitle",t.quick);
+set("serviceTitle",t.service);
+set("supportTitle",t.support);
+set("homeFooter",t.home);
+set("loginFooter",t.loginFooter);
+set("officeFooter",t.office);
+
+document.getElementById("mobile").placeholder=t.mobilePh;
+document.getElementById("password").placeholder=t.passwordPh;
+}
+
+
+function showMessage(text,error){
+
+const message=document.getElementById("message");
+
+message.textContent=text;
+message.className="message show "+(error?"error":"success");
+
+}
+
+
+function handleLogin(event){
+
+event.preventDefault();
+
+const mobile=document.getElementById("mobile").value.trim();
+const password=document.getElementById("password").value;
+
+const lang=localStorage.getItem("selectedLanguage")||"en";
+const t=translations[lang]||translations.en;
+
+
+if(!/^[0-9]{10}$/.test(mobile)){
+showMessage(t.invalidMobile,true);
+return;
+}
+
+
+/*
+    Read the account created by register.html.
+*/
+
+const registeredMobile=
+localStorage.getItem("registeredMobile");
+
+const registeredPassword=
+localStorage.getItem("registeredPassword");
+
+
+if(!registeredMobile){
+
+showMessage(t.notRegistered,true);
+return;
+
+}
+
+
+if(mobile!==registeredMobile){
+
+showMessage(t.notRegistered,true);
+return;
+
+}
+
+
+if(password!==registeredPassword){
+
+showMessage(t.wrongPassword,true);
+return;
+
+}
+
+
+/*
+    Login is successful.
+*/
+
+localStorage.setItem(
+"isLoggedIn",
+"true"
+);
+
+localStorage.setItem(
+"userMobile",
+mobile
+);
+
+const registeredName=
+localStorage.getItem("registeredName");
+
+const registeredEmail=
+localStorage.getItem("registeredEmail");
+
+if(registeredName){
+localStorage.setItem("userName",registeredName);
+}
+
+if(registeredEmail){
+localStorage.setItem("userEmail",registeredEmail);
+}
+
+
+showMessage(
+t.success,
+false
+);
+
+
+/*
+    index.html is the HOME page.
+*/
+
+setTimeout(function(){
+
+window.location.replace(
+"index.html"
+);
+
+},700);
+
+}
+
+
+function togglePassword(){
+
+const input=
+document.getElementById("password");
+
+const icon=
+document.getElementById("eyeIcon");
+
+if(input.type==="password"){
+
+input.type="text";
+icon.textContent="🙈";
+
+}else{
+
+input.type="password";
+icon.textContent="👁️";
+
+}
+
+}
+
+
+/*
+    If already logged in, Login page is skipped.
+*/
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+if(
+localStorage.getItem("isLoggedIn")
+==="true"
+){
+
+window.location.replace(
+"index.html"
+);
+
+return;
+
+}
+
+applyLanguage();
+
+}
+);
+
+</script>
+
+</body>
+</html>

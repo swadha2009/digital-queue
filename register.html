@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register - Digital Queue</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f5f7fa;color:#14213d;min-height:100vh}
+a{text-decoration:none;color:inherit}
+header{background:#0d47a1;color:#fff;min-height:100px;padding:12px 35px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:14px;color:#fff}.logo{width:62px;height:68px;object-fit:contain}
+.brand h2{font-size:20px}.brand h3{font-size:17px;margin-top:3px}.brand p{font-size:12px;margin-top:3px}
+.language-select{height:40px;border:none;border-radius:6px;padding:0 12px;cursor:pointer}
+main{max-width:900px;margin:auto;padding:45px 22px 60px}
+.register-card{background:#fff;border:1px solid #e1e6ee;border-radius:15px;box-shadow:0 4px 16px rgba(0,0,0,.07);padding:38px;max-width:720px;margin:auto}
+.heading{text-align:center;margin-bottom:28px}.heading h1{color:#0d47a1;font-size:30px;margin-bottom:8px}.heading p{color:#667085;font-size:14px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}
+.field label{font-size:14px;font-weight:bold}.field input{width:100%;padding:13px;border:1px solid #d0d5dd;border-radius:7px;outline:none;font-size:14px}
+.field input:focus{border-color:#0d47a1;box-shadow:0 0 0 2px rgba(13,71,161,.08)}
+.password-wrap{position:relative}.password-wrap input{padding-right:48px}.show-password{position:absolute;right:8px;top:7px;width:36px;height:34px;border:0;background:transparent;cursor:pointer;font-size:17px}
+.check{
+    display:flex;
+    align-items:flex-start;
+    justify-content:flex-start;
+    gap:10px;
+    width:100%;
+    margin-top:5px;
+    font-size:13px;
+    color:#667085;
+    line-height:1.5;
+    cursor:pointer;
+}
+.check input[type="checkbox"]{
+    width:16px !important;
+    min-width:16px !important;
+    max-width:16px !important;
+    height:16px !important;
+    flex:0 0 16px !important;
+    margin:3px 0 0 0 !important;
+    padding:0 !important;
+    cursor:pointer;
+    accent-color:#0d47a1;
+}
+.check span{
+    flex:1;
+    display:block;
+}
+.check a{color:#0d47a1;font-weight:bold}
+.register-btn{width:100%;border:0;border-radius:7px;background:#0d47a1;color:white;padding:14px;font-size:15px;font-weight:bold;cursor:pointer;margin-top:22px}.register-btn:hover{background:#1565c0}
+.login-link{text-align:center;margin-top:18px;color:#667085;font-size:13px}.login-link a{color:#0d47a1;font-weight:bold}
+.message{display:none;margin-top:16px;padding:12px;border-radius:7px;text-align:center;font-size:13px;line-height:1.5}
+.message.show{display:block}.message.error{background:#ffebee;color:#b71c1c}.message.success{background:#e8f5e9;color:#1b5e20}
+footer{background:#0d47a1;color:white;padding:35px 7% 18px}.footer-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px}
+.footer-column h3{font-size:15px;margin-bottom:10px}.footer-column p,.footer-column a{color:#dce8fa;font-size:13px;line-height:1.9;text-decoration:none;display:block}.footer-column a:hover{text-decoration:underline}
+.footer-bottom{max-width:1200px;margin:25px auto 0;padding-top:15px;border-top:1px solid rgba(255,255,255,.3);text-align:center;font-size:12px}
+@media(max-width:700px){header{flex-direction:column}.brand{justify-content:center}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.register-card{padding:28px 20px}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:500px){.footer-grid{grid-template-columns:1fr}}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<a href="index.html" class="brand">
+<img src="digital-queue-logo.png" class="logo" alt="Digital Queue Logo"
+onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg';">
+<div>
+<h2 id="governmentText">Government of India</h2>
+<h3 id="brandText">Digital Queue</h3>
+<p id="taglineText">Easy. Quick. Transparent.</p>
+</div>
+</a>
+
+<select id="languageSelect" class="language-select" onchange="changeLanguage(this.value)" aria-label="Language">
+<option value="en">English</option>
+<option value="hi">हिन्दी</option>
+<option value="gu">ગુજરાતી</option>
+</select>
+</header>
+
+<main>
+
+<section class="register-card">
+
+<div class="heading">
+<h1 id="title">Create Account</h1>
+<p id="subtitle">Register to use Digital Queue government services.</p>
+</div>
+
+<form id="registerForm" onsubmit="handleRegistration(event)">
+
+<div class="form-grid">
+
+<div class="field full">
+<label for="name" id="nameLabel">Full Name</label>
+<input id="name" type="text" autocomplete="name" placeholder="Enter your full name" required>
+</div>
+
+<div class="field">
+<label for="mobile" id="mobileLabel">Mobile Number</label>
+<input id="mobile" type="tel" maxlength="10" inputmode="numeric" autocomplete="tel" placeholder="Enter 10-digit mobile number" required>
+</div>
+
+<div class="field">
+<label for="email" id="emailLabel">Email Address</label>
+<input id="email" type="email" autocomplete="email" placeholder="Enter your email address" required>
+</div>
+
+<div class="field">
+<label for="password" id="passwordLabel">Password</label>
+<div class="password-wrap">
+<input id="password" type="password" minlength="6" autocomplete="new-password" placeholder="Create a password" required>
+<button type="button" class="show-password" onclick="togglePassword('password','passwordEye')"><span id="passwordEye">👁️</span></button>
+</div>
+</div>
+
+<div class="field">
+<label for="confirmPassword" id="confirmLabel">Confirm Password</label>
+<div class="password-wrap">
+<input id="confirmPassword" type="password" minlength="6" autocomplete="new-password" placeholder="Re-enter your password" required>
+<button type="button" class="show-password" onclick="togglePassword('confirmPassword','confirmEye')"><span id="confirmEye">👁️</span></button>
+</div>
+</div>
+
+<div class="field full">
+<label class="check">
+<input id="terms" type="checkbox" required>
+<span id="termsText">I agree to the terms and conditions and confirm that the information provided is correct.</span>
+</label>
+</div>
+
+</div>
+
+<button type="submit" class="register-btn" id="registerButton">Create Account</button>
+
+<div id="message" class="message"></div>
+
+</form>
+
+<div class="login-link">
+<span id="already">Already have an account?</span>
+<a href="login.html" id="loginLink"> Login here</a>
+</div>
+
+</section>
+
+</main>
+
+<footer>
+<div class="footer-grid">
+
+<div class="footer-column">
+<h3>Digital Queue</h3>
+<p id="footerDescription">A digital platform designed to make government services easier, faster and more transparent.</p>
+</div>
+
+<div class="footer-column">
+<h3 id="quickTitle">Quick Links</h3>
+<a href="login.html" id="loginFooter">Login</a>
+<a href="index.html" id="homeFooter">Home</a>
+</div>
+
+<div class="footer-column">
+<h3 id="serviceTitle">Services</h3>
+<a href="service.html">Aadhaar</a>
+<a href="service.html">PAN Card</a>
+<a href="service.html">Certificates</a>
+</div>
+
+<div class="footer-column">
+<h3 id="supportTitle">Support</h3>
+<a href="offinfo.html" id="officeFooter">Offices</a>
+</div>
+
+</div>
+
+<div class="footer-bottom">© 2026 Digital Queue. All Rights Reserved.</div>
+</footer>
+
+<script>
+
+const translations={
+
+en:{
+government:"Government of India",brand:"Digital Queue",tagline:"Easy. Quick. Transparent.",
+title:"Create Account",subtitle:"Register to use Digital Queue government services.",
+name:"Full Name",namePh:"Enter your full name",
+mobile:"Mobile Number",mobilePh:"Enter 10-digit mobile number",
+email:"Email Address",emailPh:"Enter your email address",
+password:"Password",passwordPh:"Create a password",
+confirm:"Confirm Password",confirmPh:"Re-enter your password",
+terms:"I agree to the terms and conditions and confirm that the information provided is correct.",
+register:"Create Account",already:"Already have an account?",login:" Login here",
+footer:"A digital platform designed to make government services easier, faster and more transparent.",
+quick:"Quick Links",service:"Services",support:"Support",home:"Home",loginFooter:"Login",office:"Offices",
+invalidName:"Please enter your full name.",
+invalidMobile:"Please enter a valid 10-digit mobile number.",
+invalidEmail:"Please enter a valid email address.",
+shortPassword:"Password must contain at least 6 characters.",
+mismatch:"Passwords do not match.",
+termsError:"Please accept the terms and conditions.",
+registered:"Registration successful. Please login to continue."
+},
+
+hi:{
+government:"भारत सरकार",brand:"डिजिटल क्यू",tagline:"आसान। तेज़। पारदर्शी।",
+title:"खाता बनाएँ",subtitle:"डिजिटल क्यू की सरकारी सेवाओं का उपयोग करने के लिए पंजीकरण करें।",
+name:"पूरा नाम",namePh:"अपना पूरा नाम दर्ज करें",
+mobile:"मोबाइल नंबर",mobilePh:"10 अंकों का मोबाइल नंबर दर्ज करें",
+email:"ईमेल पता",emailPh:"अपना ईमेल पता दर्ज करें",
+password:"पासवर्ड",passwordPh:"पासवर्ड बनाएँ",
+confirm:"पासवर्ड की पुष्टि करें",confirmPh:"पासवर्ड दोबारा दर्ज करें",
+terms:"मैं नियम और शर्तों से सहमत हूँ और पुष्टि करता/करती हूँ कि दी गई जानकारी सही है।",
+register:"खाता बनाएँ",already:"पहले से खाता है?",login:" लॉगिन करें",
+footer:"सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए एक डिजिटल प्लेटफॉर्म।",
+quick:"त्वरित लिंक",service:"सेवाएँ",support:"सहायता",home:"होम",loginFooter:"लॉगिन",office:"कार्यालय",
+invalidName:"कृपया अपना पूरा नाम दर्ज करें।",
+invalidMobile:"कृपया मान्य 10 अंकों का मोबाइल नंबर दर्ज करें।",
+invalidEmail:"कृपया मान्य ईमेल पता दर्ज करें।",
+shortPassword:"पासवर्ड में कम से कम 6 अक्षर होने चाहिए।",
+mismatch:"पासवर्ड मेल नहीं खाते।",
+termsError:"कृपया नियम और शर्तें स्वीकार करें।",
+registered:"पंजीकरण सफल हुआ। जारी रखने के लिए लॉगिन करें।"
+},
+
+gu:{
+government:"ભારત સરકાર",brand:"ડિજિટલ કતાર",tagline:"સરળ. ઝડપી. પારદર્શક.",
+title:"ખાતું બનાવો",subtitle:"ડિજિટલ કતારની સરકારી સેવાઓનો ઉપયોગ કરવા માટે નોંધણી કરો.",
+name:"પૂરું નામ",namePh:"તમારું પૂરું નામ દાખલ કરો",
+mobile:"મોબાઇલ નંબર",mobilePh:"10 અંકનો મોબાઇલ નંબર દાખલ કરો",
+email:"ઇમેઇલ સરનામું",emailPh:"તમારું ઇમેઇલ સરનામું દાખલ કરો",
+password:"પાસવર્ડ",passwordPh:"પાસવર્ડ બનાવો",
+confirm:"પાસવર્ડની પુષ્ટિ કરો",confirmPh:"પાસવર્ડ ફરી દાખલ કરો",
+terms:"હું નિયમો અને શરતો સાથે સંમત છું અને આપેલી માહિતી સાચી છે તેની પુષ્ટિ કરું છું.",
+register:"ખાતું બનાવો",already:"પહેલેથી ખાતું છે?",login:" લૉગિન કરો",
+footer:"સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ.",
+quick:"ઝડપી લિંક્સ",service:"સેવાઓ",support:"સહાય",home:"હોમ",loginFooter:"લૉગિન",office:"કચેરીઓ",
+invalidName:"કૃપા કરીને તમારું પૂરું નામ દાખલ કરો.",
+invalidMobile:"કૃપા કરીને માન્ય 10 અંકનો મોબાઇલ નંબર દાખલ કરો.",
+invalidEmail:"કૃપા કરીને માન્ય ઇમેઇલ સરનામું દાખલ કરો.",
+shortPassword:"પાસવર્ડમાં ઓછામાં ઓછા 6 અક્ષરો હોવા જોઈએ.",
+mismatch:"પાસવર્ડ મેળ ખાતા નથી.",
+termsError:"કૃપા કરીને નિયમો અને શરતો સ્વીકારો.",
+registered:"નોંધણી સફળ થઈ. ચાલુ રાખવા માટે લૉગિન કરો."
+}
+
+};
+
+
+function changeLanguage(lang){
+localStorage.setItem("selectedLanguage",lang);
+applyLanguage();
+}
+
+
+function applyLanguage(){
+
+const lang=localStorage.getItem("selectedLanguage")||"en";
+const t=translations[lang]||translations.en;
+
+document.getElementById("languageSelect").value=lang;
+document.documentElement.lang=lang;
+
+const set=(id,value)=>{
+const el=document.getElementById(id);
+if(el)el.textContent=value;
+};
+
+set("governmentText",t.government);
+set("brandText",t.brand);
+set("taglineText",t.tagline);
+set("title",t.title);
+set("subtitle",t.subtitle);
+set("nameLabel",t.name);
+set("mobileLabel",t.mobile);
+set("emailLabel",t.email);
+set("passwordLabel",t.password);
+set("confirmLabel",t.confirm);
+set("termsText",t.terms);
+set("registerButton",t.register);
+set("already",t.already);
+set("loginLink",t.login);
+set("footerDescription",t.footer);
+set("quickTitle",t.quick);
+set("serviceTitle",t.service);
+set("supportTitle",t.support);
+set("homeFooter",t.home);
+set("loginFooter",t.loginFooter);
+set("officeFooter",t.office);
+
+document.getElementById("name").placeholder=t.namePh;
+document.getElementById("mobile").placeholder=t.mobilePh;
+document.getElementById("email").placeholder=t.emailPh;
+document.getElementById("password").placeholder=t.passwordPh;
+document.getElementById("confirmPassword").placeholder=t.confirmPh;
+
+}
+
+
+function showMessage(text,error=false){
+
+const message=document.getElementById("message");
+
+message.textContent=text;
+message.className="message show "+(error?"error":"success");
+
+}
+
+
+function handleRegistration(event){
+
+event.preventDefault();
+
+const lang=localStorage.getItem("selectedLanguage")||"en";
+const t=translations[lang]||translations.en;
+
+const name=document.getElementById("name").value.trim();
+const mobile=document.getElementById("mobile").value.trim();
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
+const confirmPassword=document.getElementById("confirmPassword").value;
+const terms=document.getElementById("terms").checked;
+
+
+if(name.length<2){
+showMessage(t.invalidName,true);
+return;
+}
+
+if(!/^[0-9]{10}$/.test(mobile)){
+showMessage(t.invalidMobile,true);
+return;
+}
+
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+showMessage(t.invalidEmail,true);
+return;
+}
+
+if(password.length<6){
+showMessage(t.shortPassword,true);
+return;
+}
+
+if(password!==confirmPassword){
+showMessage(t.mismatch,true);
+return;
+}
+
+if(!terms){
+showMessage(t.termsError,true);
+return;
+}
+
+
+/*
+    Frontend prototype storage.
+
+    The password is stored only for this prototype.
+    In a real application it must be handled by
+    a backend and never stored as plain text.
+*/
+
+localStorage.setItem("registeredName",name);
+localStorage.setItem("registeredMobile",mobile);
+localStorage.setItem("registeredEmail",email);
+localStorage.setItem("registeredPassword",password);
+
+localStorage.setItem("userName",name);
+localStorage.setItem("userMobile",mobile);
+localStorage.setItem("userEmail",email);
+
+
+/*
+    IMPORTANT:
+    Registration does NOT set isLoggedIn=true.
+    The user must login after registration.
+*/
+
+localStorage.removeItem("isLoggedIn");
+
+showMessage(t.registered,false);
+
+setTimeout(function(){
+window.location.replace("login.html");
+},1200);
+
+}
+
+
+function togglePassword(inputId,eyeId){
+
+const input=document.getElementById(inputId);
+const eye=document.getElementById(eyeId);
+
+if(input.type==="password"){
+input.type="text";
+eye.textContent="🙈";
+}else{
+input.type="password";
+eye.textContent="👁️";
+}
+
+}
+
+
+/*
+    If already logged in, registration should
+    not be shown again.
+*/
+
+document.addEventListener("DOMContentLoaded",function(){
+
+if(localStorage.getItem("isLoggedIn")==="true"){
+window.location.replace("index.html");
+return;
+}
+
+applyLanguage();
+
+});
+
+</script>
+
+</body>
+</html>
