@@ -27,8 +27,8 @@ header{background:#0d47a1;color:white;min-height:100px;padding:12px 35px;display
 .notification-panel.show{display:block}
 .notification-header{padding:14px;font-weight:bold;border-bottom:1px solid #eee}
 .notification-item{padding:13px;border-bottom:1px solid #eee;font-size:13px;line-height:1.5}
-.profile-btn{height:40px;border:none;border-radius:6px;background:transparent;color:white;padding:0 14px;font-weight:bold;cursor:pointer}
-.profile-btn:hover{background:rgba(255,255,255,.12)}
+.profile-btn{height:40px;border:none;border-radius:6px;background:white;color:#0d47a1;padding:0 14px;font-weight:bold;cursor:pointer}
+.profile-btn:hover{background:#e8f1ff}
 
 /* NAV */
 nav{background:white;box-shadow:0 2px 7px rgba(0,0,0,.08);display:flex;overflow-x:auto}
@@ -100,9 +100,21 @@ main{padding:22px 15px 45px}
 .notification-panel{position:fixed;left:15px;right:15px;top:115px;width:auto}
 }
 </style>
+
+<style id="student-project-notice-style">
+.student-project-notice{width:100%;box-sizing:border-box;background:#fff3cd;border-bottom:1px solid #f0cf68;color:#5f4700;padding:10px 18px;text-align:center;font-size:13px;line-height:1.5}
+.student-project-notice strong{display:inline-block;margin-right:8px}
+.student-project-notice span{display:inline}
+@media(max-width:700px){.student-project-notice strong{display:block;margin:0 0 3px}.student-project-notice span{display:block}}
+</style>
 </head>
 
 <body>
+<div class="student-project-notice" role="note">
+<strong>STUDENT PROJECT — DEMONSTRATION ONLY</strong>
+<span>This website is an educational prototype created for academic purposes. It is not an official Government of India website or government service. Please do not enter real passwords, OTPs, or other sensitive information.</span>
+</div>
+
 
 <header>
 
