@@ -1,13 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Services - Digital Queue</title>
-
 <style>
 
 /* =====================================================
@@ -712,315 +709,141 @@ footer {
     }
 }
 
+
+
+/* =====================================================
+   INDEX MASTER HEADER + NAVIGATION — EXACT MATCH
+   Main Services design below remains unchanged.
+===================================================== */
+header{background:#0d47a1;color:white;min-height:100px;padding:12px 35px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:white}
+.logo{width:62px;height:68px;object-fit:contain}
+.brand h2{font-size:20px}
+.brand h3{font-size:17px;margin-top:3px}
+.brand p{font-size:12px;margin-top:3px}
+.header-right{display:flex;align-items:center;gap:10px}
+.search-box{width:310px;height:40px;background:white;border-radius:6px;display:flex;align-items:center;padding:0 10px}
+.search-box input{border:0;outline:0;width:100%;font-size:14px}
+.search-box button{border:0;background:none;cursor:pointer;font-size:18px}
+.language-select{height:40px;border:none;border-radius:6px;padding:0 10px;cursor:pointer}
+.notification-wrapper{position:relative}
+.notification-btn{width:42px;height:40px;border:none;border-radius:6px;background:white;color:#0d47a1;cursor:pointer;font-size:18px;position:relative}
+.badge{position:absolute;top:-5px;right:-4px;width:18px;height:18px;border-radius:50%;background:#d32f2f;color:white;display:grid;place-items:center;font-size:10px}
+.notification-panel{display:none;position:absolute;right:0;top:48px;width:310px;background:white;color:#14213d;border-radius:8px;box-shadow:0 8px 25px rgba(0,0,0,.2);z-index:100}
+.notification-panel.show{display:block}
+.notification-header{padding:14px;font-weight:bold;border-bottom:1px solid #eee}
+.notification-item{padding:13px;border-bottom:1px solid #eee;font-size:13px;line-height:1.5}
+.profile-btn{height:40px;border:none;border-radius:6px;background:white;color:#0d47a1;padding:0 14px;font-weight:bold;cursor:pointer}
+.profile-btn:hover{background:#e8f1ff}
+nav{background:white;box-shadow:0 2px 7px rgba(0,0,0,.08);display:flex;overflow-x:auto}
+nav a{color:#14213d;text-decoration:none;padding:17px 20px;white-space:nowrap;font-size:14px;height:auto}
+nav a:hover,nav a.active{color:#0d47a1;background:#f5f8ff;font-weight:bold;border-bottom:3px solid #0d47a1}
+@media(max-width:900px){
+  header{flex-direction:column;align-items:stretch}
+  .brand{justify-content:center}
+  .header-right{justify-content:center;flex-wrap:wrap}
+  .search-box{width:100%}
+}
+@media(max-width:600px){
+  .notification-panel{position:fixed;left:15px;right:15px;top:115px;width:auto}
+}
 </style>
 
 </head>
-
-
 <body>
-
 
 <!-- =====================================================
      HEADER
 ===================================================== -->
-
 <header>
-
-
-    <!-- LOGO -->
-
-    <div class="gov-logo">
-
-        <img
-            class="emblem"
-            src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
-            alt="Ashoka Emblem">
-
-        <div class="gov-text">
-
-            <h2 data-key="government">
-                Government of India
-            </h2>
-
-            <h3>
-                Digital Queue
-            </h3>
-
-            <p data-key="tagline">
-                Easy. Quick. Transparent.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <!-- HEADER RIGHT -->
-
-    <div class="header-right">
-
-
-        <!-- SEARCH -->
-
-        <div class="search-box">
-
-            <input
-                type="text"
-                id="searchInput"
-                data-placeholder="searchPlaceholder"
-                placeholder="Search services, documents, offices..."
-                autocomplete="off">
-
-            <span
-                class="search-icon"
-                onclick="performSearch()">
-
-                🔍
-
-            </span>
-
-        </div>
-
-
-        <!-- NOTIFICATION -->
-
-        <div class="notification-wrapper">
-
-            <button
-                class="notification-btn"
-                onclick="toggleNotifications()"
-                aria-label="Notifications">
-
+<a class="brand" href="index.html">
+<img alt="Digital Queue Logo" class="logo" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg';" src="digital-queue-logo.png"/>
+<div>
+<h2 id="governmentText">Government of India</h2>
+<h3 id="brandText"><span id="footerBrandTitle">Digital Queue</span></h3>
+<p id="taglineText">Easy. Quick. Transparent.</p>
+</div>
+</a>
+<div class="header-right">
+<div class="search-box">
+<input autocomplete="off" id="searchInput" placeholder="Search services, documents, offices..." type="text"/>
+<button aria-label="Search" onclick="performSearch()" type="button">🔍</button>
+</div>
+<div class="notification-wrapper">
+<button aria-label="Notifications" class="notification-btn" onclick="toggleNotifications(event)" type="button">
                 🔔
-
-                <span class="notification-badge">
-                    3
-                </span>
-
-            </button>
-
-
-            <div
-                class="notification-panel"
-                id="notificationPanel">
-
-
-                <div
-                    class="notification-header"
-                    data-key="notifications">
-
+                <span class="badge">3</span>
+</button>
+<div class="notification-panel" id="notificationPanel">
+<div class="notification-header" id="notificationTitle">
                     Notifications
-
                 </div>
-
-
-                <div class="notification-item">
-
-                    🔔
-                    <span data-key="notification1">
+<div class="notification-item">
+                    🔔 <span id="notification1">
                         Your application status has been updated.
                     </span>
-
-                </div>
-
-
-                <div class="notification-item">
-
-                    📍
-                    <span data-key="notification2">
+</div>
+<div class="notification-item">
+                    📍 <span id="notification2">
                         Queue confirmation is required before visiting the office.
                     </span>
-
-                </div>
-
-
-                <div class="notification-item">
-
-                    ℹ️
-                    <span data-key="notification3">
-                        Check available government services.
+</div>
+<div class="notification-item">
+                    ℹ️ <span id="notification3">
+                        Check your queue status for updates.
                     </span>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-
-        <!-- LANGUAGE -->
-
-        <select
-            class="language-select"
-            id="languageSelect"
-            onchange="changeLanguage(this.value)">
-
-            <option value="en">
-                English
-            </option>
-
-            <option value="hi">
-                हिन्दी
-            </option>
-
-            <option value="gu">
-                ગુજરાતી
-            </option>
-
-        </select>
-
-
-        <!-- PROFILE -->
-
-        <div
-            class="profile"
-            onclick="openProfile()">
-
-            👤
-
-            <span data-key="loginProfile">
-                Login / Profile
-            </span>
-
-            ▾
-
-        </div>
-
-
-    </div>
-
+</div>
+</div>
+</div>
+<select aria-label="Language" class="language-select" id="languageSelect" onchange="changeLanguage(this.value)">
+<option value="en">English</option>
+<option value="hi">हिन्दी</option>
+<option value="gu">ગુજરાતી</option>
+</select>
+<button class="profile-btn" onclick="openProfile()" type="button">
+            👤 <span id="profileButtonText">Profile</span>
+</button>
+</div>
 </header>
-
-
-
 <!-- =====================================================
      NAVIGATION
 ===================================================== -->
-
 <nav>
-
-
-    <a href="index.html">
-
-        ⌂ &nbsp;
-
-        <span data-key="home">
-            Home
-        </span>
-
-    </a>
-
-
-    <a
-        href="service.html"
-        class="active">
-
-        ▣ &nbsp;
-
-        <span data-key="services">
-            Services
-        </span>
-
-    </a>
-
-
-    <a href="myapplication.html">
-
-        ▣ &nbsp;
-
-        <span data-key="applications">
-            My Applications
-        </span>
-
-    </a>
-
-
-    <a href="queue.html">
-
-        ☷ &nbsp;
-
-        <span data-key="queue">
-            Queue Status
-        </span>
-
-    </a>
-
-
-    <a href="offinfo.html">
-
-        🏛 &nbsp;
-
-        <span data-key="offices">
-            Offices
-        </span>
-
-    </a>
-
-
-
-
+<a href="index.html" id="navHome">⌂   Home</a>
+<a href="service.html" id="navServices">▣   Services</a>
+<a href="myapplication.html" id="navApplications">▤   My Applications</a>
+<a href="queue.html" id="navQueue">☷   Queue Status</a>
+<a href="offinfo.html" id="navOffices">🏛   Offices</a>
 </nav>
-
-
-
 <!-- =====================================================
      MAIN
 ===================================================== -->
-
 <main class="container">
-
-
-    <!-- PAGE TITLE -->
-
-    <div class="page-title">
-
-        <h1 data-key="governmentServices">
+<!-- PAGE TITLE -->
+<div class="page-title">
+<h1 data-key="governmentServices">
             Government Services
         </h1>
-
-    </div>
-
-
-    <!-- DESCRIPTION -->
-
-    <div class="page-description">
-
-        <h2 data-key="availableServices">
+</div>
+<!-- DESCRIPTION -->
+<div class="page-description">
+<h2 data-key="availableServices">
             Available Services
         </h2>
-
-        <p data-key="serviceDescription">
+<p data-key="serviceDescription">
             Select the service you require and click
             Apply to continue with your application.
         </p>
-
-    </div>
-
-
-    <!-- SEARCH RESULT -->
-
-    <div
-        class="search-result"
-        id="searchResult">
-
-    </div>
-
-
-    <!-- =================================================
+</div>
+<!-- SEARCH RESULT -->
+<div class="search-result" id="searchResult">
+</div>
+<!-- =================================================
          SERVICES
     ================================================= -->
-
-    <div
-        class="service-grid"
-        id="serviceGrid">
-
-
-        <!-- ================= AADHAAR ================= -->
-
-        <div
-            class="service-card"
-            data-search="
+<div class="service-grid" id="serviceGrid">
+<!-- ================= AADHAAR ================= -->
+<div class="service-card" data-search="
                 aadhaar
                 aadhar
                 identity
@@ -1028,537 +851,320 @@ footer {
                 update
                 correction
             ">
-
-            <h2 data-key="aadhaar">
+<h2 data-key="aadhaar">
                 Aadhaar Card
             </h2>
-
-            <p data-key="aadhaarDescription">
+<p data-key="aadhaarDescription">
                 Apply for Aadhaar related services,
                 updates and corrections.
             </p>
-
-            <p>
-                <strong data-key="documents">
+<p>
+<strong data-key="documents">
                     Documents:
                 </strong>
-
-                <span data-key="aadhaarDocuments">
+<span data-key="aadhaarDocuments">
                     Identity proof and address proof.
                 </span>
-            </p>
-
-            <p>
-                <strong data-key="requiredFor">
+</p>
+<p>
+<strong data-key="requiredFor">
                     Required for:
                 </strong>
-
-                <span data-key="aadhaarRequired">
+<span data-key="aadhaarRequired">
                     Citizens requiring Aadhaar services.
                 </span>
-            </p>
-
-            <p>
-                <strong data-key="eligibility">
+</p>
+<p>
+<strong data-key="eligibility">
                     Eligibility:
                 </strong>
-
-                <span data-key="aadhaarEligibility">
+<span data-key="aadhaarEligibility">
                     Indian residents eligible for Aadhaar.
                 </span>
-            </p>
-
-            <button
-                class="apply-btn"
-                onclick="applyService('Aadhaar Card')"
-                data-key="apply">
+</p>
+<button class="apply-btn" data-key="apply" onclick="applyService('Aadhaar Card')">
 
                 Apply
 
             </button>
-
-        </div>
-
-
-
-        <!-- ================= PAN ================= -->
-
-        <div
-            class="service-card"
-            data-search="
+</div>
+<!-- ================= PAN ================= -->
+<div class="service-card" data-search="
                 pan
                 pancard
                 identity
                 date
                 tax
             ">
-
-            <h2 data-key="pan">
+<h2 data-key="pan">
                 PAN Card
             </h2>
-
-            <p data-key="panDescription">
+<p data-key="panDescription">
                 Apply for a new PAN card or
                 PAN related services.
             </p>
-
-            <p>
-                <strong data-key="documents">
+<p>
+<strong data-key="documents">
                     Documents:
                 </strong>
-
-                <span data-key="panDocuments">
+<span data-key="panDocuments">
                     Identity proof and date of birth proof.
                 </span>
-            </p>
-
-            <p>
-                <strong data-key="requiredFor">
+</p>
+<p>
+<strong data-key="requiredFor">
                     Required for:
                 </strong>
-
-                <span data-key="panRequired">
+<span data-key="panRequired">
                     Citizens requiring PAN services.
                 </span>
-            </p>
-
-            <p>
-                <strong data-key="eligibility">
+</p>
+<p>
+<strong data-key="eligibility">
                     Eligibility:
                 </strong>
-
-                <span data-key="panEligibility">
+<span data-key="panEligibility">
                     Eligible Indian citizens and entities.
                 </span>
-            </p>
-
-            <button
-                class="apply-btn"
-                onclick="applyService('PAN Card')"
-                data-key="apply">
+</p>
+<button class="apply-btn" data-key="apply" onclick="applyService('PAN Card')">
 
                 Apply
 
             </button>
-
-        </div>
-
-
-
-        <!-- ================= RATION ================= -->
-
-        <div
-            class="service-card"
-            data-search="
+</div>
+<!-- ================= RATION ================= -->
+<div class="service-card" data-search="
                 ration
                 food
                 family
                 household
                 identity
             ">
-
-            <h2 data-key="ration">
+<h2 data-key="ration">
                 Ration Card
             </h2>
-
-            <p data-key="rationDescription">
+<p data-key="rationDescription">
                 Apply for a new ration card or
                 update existing ration card details.
             </p>
-
-            <p>
-                <strong data-key="documents">
+<p>
+<strong data-key="documents">
                     Documents:
                 </strong>
-
-                <span data-key="rationDocuments">
+<span data-key="rationDocuments">
                     Identity and family-related documents.
                 </span>
-            </p>
-
-            <p>
-                <strong data-key="requiredFor">
+</p>
+<p>
+<strong data-key="requiredFor">
                     Required for:
                 </strong>
-
-                <span data-key="rationRequired">
+<span data-key="rationRequired">
                     Eligible households.
                 </span>
-            </p>
-
-            <p>
-                <strong data-key="eligibility">
+</p>
+<p>
+<strong data-key="eligibility">
                     Eligibility:
                 </strong>
-
-                <span data-key="rationEligibility">
+<span data-key="rationEligibility">
                     As per applicable government rules.
                 </span>
-            </p>
-
-            <button
-                class="apply-btn"
-                onclick="applyService('Ration Card')"
-                data-key="apply">
+</p>
+<button class="apply-btn" data-key="apply" onclick="applyService('Ration Card')">
 
                 Apply
 
             </button>
-
-        </div>
-
-
-
-        <!-- ================= BIRTH ================= -->
-
-        <div
-            class="service-card"
-            data-search="
+</div>
+<!-- ================= BIRTH ================= -->
+<div class="service-card" data-search="
                 birth
                 certificate
                 newborn
                 child
                 registration
             ">
-
-            <h2 data-key="birth">
+<h2 data-key="birth">
                 Birth Certificate
             </h2>
-
-            <p data-key="birthDescription">
+<p data-key="birthDescription">
                 Apply for a birth certificate
                 or related corrections.
             </p>
-
-            <p>
-                <strong data-key="documents">
+<p>
+<strong data-key="documents">
                     Documents:
                 </strong>
-
-                <span data-key="birthDocuments">
+<span data-key="birthDocuments">
                     Birth and identity related documents.
                 </span>
-            </p>
-
-            <p>
-                <strong data-key="requiredFor">
+</p>
+<p>
+<strong data-key="requiredFor">
                     Required for:
                 </strong>
-
-                <span data-key="birthRequired">
+<span data-key="birthRequired">
                     Parents or authorized applicants.
                 </span>
-            </p>
-
-            <p>
-                <strong data-key="eligibility">
+</p>
+<p>
+<strong data-key="eligibility">
                     Eligibility:
                 </strong>
-
-                <span data-key="birthEligibility">
+<span data-key="birthEligibility">
                     Applicants eligible under registration rules.
                 </span>
-            </p>
-
-            <button
-                class="apply-btn"
-                onclick="applyService('Birth Certificate')"
-                data-key="apply">
+</p>
+<button class="apply-btn" data-key="apply" onclick="applyService('Birth Certificate')">
 
                 Apply
 
             </button>
-
-        </div>
-
-
-
-        <!-- ================= CASTE ================= -->
-
-        <div
-            class="service-card"
-            data-search="
+</div>
+<!-- ================= CASTE ================= -->
+<div class="service-card" data-search="
                 caste
                 certificate
                 identity
                 supporting
             ">
-
-            <h2 data-key="caste">
+<h2 data-key="caste">
                 Caste Certificate
             </h2>
-
-            <p data-key="casteDescription">
+<p data-key="casteDescription">
                 Apply for a caste certificate
                 for official purposes.
             </p>
-
-            <p>
-                <strong data-key="documents">
+<p>
+<strong data-key="documents">
                     Documents:
                 </strong>
-
-                <span data-key="casteDocuments">
+<span data-key="casteDocuments">
                     Identity and supporting caste documents.
                 </span>
-            </p>
-
-            <p>
-                <strong data-key="requiredFor">
+</p>
+<p>
+<strong data-key="requiredFor">
                     Required for:
                 </strong>
-
-                <span data-key="casteRequired">
+<span data-key="casteRequired">
                     Eligible applicants requiring certification.
                 </span>
-            </p>
-
-            <p>
-                <strong data-key="eligibility">
+</p>
+<p>
+<strong data-key="eligibility">
                     Eligibility:
                 </strong>
-
-                <span data-key="casteEligibility">
+<span data-key="casteEligibility">
                     As per applicable government rules.
                 </span>
-            </p>
-
-            <button
-                class="apply-btn"
-                onclick="applyService('Caste Certificate')"
-                data-key="apply">
+</p>
+<button class="apply-btn" data-key="apply" onclick="applyService('Caste Certificate')">
 
                 Apply
 
             </button>
-
-        </div>
-
-
-
-        <!-- ================= INCOME ================= -->
-
-        <div
-            class="service-card"
-            data-search="
+</div>
+<!-- ================= INCOME ================= -->
+<div class="service-card" data-search="
                 income
                 salary
                 financial
                 proof
             ">
-
-            <h2 data-key="income">
+<h2 data-key="income">
                 Income Certificate
             </h2>
-
-            <p data-key="incomeDescription">
+<p data-key="incomeDescription">
                 Apply for an income certificate
                 for official and government purposes.
             </p>
-
-            <p>
-                <strong data-key="documents">
+<p>
+<strong data-key="documents">
                     Documents:
                 </strong>
-
-                <span data-key="incomeDocuments">
+<span data-key="incomeDocuments">
                     Identity and income-related documents.
                 </span>
-            </p>
-
-            <p>
-                <strong data-key="requiredFor">
+</p>
+<p>
+<strong data-key="requiredFor">
                     Required for:
                 </strong>
-
-                <span data-key="incomeRequired">
+<span data-key="incomeRequired">
                     Applicants requiring income verification.
                 </span>
-            </p>
-
-            <p>
-                <strong data-key="eligibility">
+</p>
+<p>
+<strong data-key="eligibility">
                     Eligibility:
                 </strong>
-
-                <span data-key="incomeEligibility">
+<span data-key="incomeEligibility">
                     Eligible residents as per applicable rules.
                 </span>
-            </p>
-
-            <button
-                class="apply-btn"
-                onclick="applyService('Income Certificate')"
-                data-key="apply">
+</p>
+<button class="apply-btn" data-key="apply" onclick="applyService('Income Certificate')">
 
                 Apply
 
             </button>
-
-        </div>
-
-
-    </div>
-
-
-    <!-- NO RESULT -->
-
-    <div
-        class="no-result"
-        id="noResult">
-
-        <strong data-key="noServices">
+</div>
+</div>
+<!-- NO RESULT -->
+<div class="no-result" id="noResult">
+<strong data-key="noServices">
             No services found.
         </strong>
-
-        <br><br>
-
-        <span data-key="trySearch">
+<br/><br/>
+<span data-key="trySearch">
             Try searching for another service,
             document or keyword.
         </span>
-
-    </div>
-
-
+</div>
 </main>
-
-
-
 <!-- =====================================================
      FOOTER
 ===================================================== -->
-
 <footer>
-
-
-    <div class="footer-content">
-
-
-        <!-- COLUMN 1 -->
-
-        <div class="footer-column">
-
-            <div class="footer-logo">
-                Government of India
-            </div>
-
-            <p>
-                Digital Queue
+<div class="footer-grid">
+<div class="footer-column">
+<h3>Digital Queue</h3>
+<p id="footerDescription">
+                A digital platform designed to make government
+                services easier, faster and more transparent.
             </p>
-
-            <p data-key="rights">
-                © 2026 All Rights Reserved
-            </p>
-
-        </div>
-
-
-        <!-- COLUMN 2 -->
-
-        <div class="footer-column">
-
-            <h3 data-key="importantLinks">
-                Important Links
+</div>
+<div class="footer-column">
+<h3 id="quickTitle">
+                Quick Links
             </h3>
-
-            <a href="#" data-key="about">
-                About Us
-            </a>
-
-            <a href="#" data-key="terms">
-                Terms & Conditions
-            </a>
-
-            <a href="#" data-key="privacy">
-                Privacy Policy
-            </a>
-
-        </div>
-
-
-        <!-- COLUMN 3 -->
-
-        <div class="footer-column">
-
-            <h3 data-key="support">
+<a href="index.html"><span id="footerHome">Home</span></a>
+<a href="service.html"><span id="footerServices">Services</span></a>
+<a href="myapplication.html"><span id="footerApplications">My Applications</span></a>
+<a href="queue.html"><span id="footerQueue">Queue Status</span></a>
+</div>
+<div class="footer-column">
+<h3 id="serviceFooterTitle">
+                Services
+            </h3>
+<a href="service.html"><span id="footerAadhaar">Aadhaar</span></a>
+<a href="service.html"><span id="footerPan">PAN Card</span></a>
+<a href="service.html"><span id="footerCertificates">Certificates</span></a>
+</div>
+<div class="footer-column">
+<h3 id="supportTitle">
                 Support
             </h3>
-
-            <a href="#" data-key="helpCenter">
-                Help Center
-            </a>
-
-            <a href="#" data-key="faqs">
-                FAQs
-            </a>
-
-            <a href="#" data-key="contact">
-                Contact Us
-            </a>
-
-        </div>
-
-
-        <!-- COLUMN 4 -->
-
-        <div class="footer-column">
-
-            <h3 data-key="follow">
-                Follow Us
-            </h3>
-
-            <p>
-                Facebook
-            </p>
-
-            <p>
-                Twitter
-            </p>
-
-            <p>
-                YouTube
-            </p>
-
-        </div>
-
-
-        <!-- COLUMN 5 -->
-
-        <div class="footer-column">
-
-            <h3 data-key="download">
-                Download Our App
-            </h3>
-
-            <p>
-                Google Play
-            </p>
-
-            <p>
-                App Store
-            </p>
-
-        </div>
-
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-        © 2026 Digital Queue.
-        <span data-key="allRights">
-            All Rights Reserved.
-        </span>
-
-    </div>
-
-
+<a href="offinfo.html"><span id="footerOffices">Offices</span></a>
+<a href="profile.html"><span id="footerProfile">Profile</span></a>
+</div>
+</div>
+<div class="footer-bottom"><span id="footerBottom">
+        © 2026 Digital Queue. All Rights Reserved.
+    </span></div>
 </footer>
-
-
-
 <script>
 
 /* =====================================================
@@ -2423,8 +2029,185 @@ window.addEventListener("load", updateAuthButton);
 window.addEventListener("pageshow", updateAuthButton);
 
 </script>
+<script id="shared-site-script">
+(function(){
+    const sharedTranslations = {
+        en:{government:"Government of India",brand:"Digital Queue",tagline:"Easy. Quick. Transparent.",search:"Search services, documents, offices...",notifications:"Notifications",n1:"Your application status has been updated.",n2:"Queue confirmation is required before visiting the office.",n3:"Check your queue status for updates.",home:"Home",services:"Services",apps:"My Applications",queue:"Queue Status",offices:"Offices",profile:"Profile",quick:"Quick Links",service:"Services",support:"Support",footer:"A digital platform designed to make government services easier, faster and more transparent."},
+        hi:{government:"भारत सरकार",brand:"डिजिटल क्यू",tagline:"आसान। तेज़। पारदर्शी।",search:"सेवाएँ, दस्तावेज़, कार्यालय खोजें...",notifications:"सूचनाएँ",n1:"आपके आवेदन की स्थिति अपडेट की गई है।",n2:"कार्यालय जाने से पहले कतार की पुष्टि आवश्यक है।",n3:"अपनी कतार स्थिति के अपडेट देखें।",home:"होम",services:"सेवाएँ",apps:"मेरे आवेदन",queue:"कतार स्थिति",offices:"कार्यालय",profile:"प्रोफ़ाइल",quick:"त्वरित लिंक",service:"सेवाएँ",support:"सहायता",footer:"सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए एक डिजिटल प्लेटफॉर्म।"},
+        gu:{government:"ભારત સરકાર",brand:"ડિજિટલ કતાર",tagline:"સરળ. ઝડપી. પારદર્શક.",search:"સેવાઓ, દસ્તાવેજો, કચેરીઓ શોધો...",notifications:"સૂચનાઓ",n1:"તમારી અરજીની સ્થિતિ અપડેટ કરવામાં આવી છે.",n2:"કચેરીની મુલાકાત પહેલાં કતારની પુષ્ટિ જરૂરી છે.",n3:"તમારી કતાર સ્થિતિના અપડેટ્સ જુઓ.",home:"હોમ",services:"સેવાઓ",apps:"મારી અરજીઓ",queue:"કતાર સ્થિતિ",offices:"કચેરીઓ",profile:"પ્રોફાઇલ",quick:"ઝડપી લિંક્સ",service:"સેવાઓ",support:"સહાય",footer:"સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ."}
+    };
 
+    const t = lang => sharedTranslations[lang] || sharedTranslations.en;
+    const setText = (id, value) => { const el=document.getElementById(id); if(el) el.textContent=value; };
 
+    window.applySharedLanguage = function(lang){
+        lang = lang || localStorage.getItem("selectedLanguage") || "en";
+        localStorage.setItem("selectedLanguage", lang);
+        document.documentElement.lang = lang;
+        const d=t(lang);
+        const select=document.getElementById("languageSelect");
+        if(select) select.value=lang;
+        setText("governmentText",d.government);
+        setText("brandText",d.brand);
+        setText("taglineText",d.tagline);
+        const search=document.getElementById("searchInput");
+        if(search) search.placeholder=d.search;
+        setText("notificationTitle",d.notifications);
+        setText("notification1",d.n1);
+        setText("notification2",d.n2);
+        setText("notification3",d.n3);
+        setText("navHome","⌂  "+d.home);
+        setText("navServices","▣  "+d.services);
+        setText("navApplications","▤  "+d.apps);
+        setText("navQueue","☷  "+d.queue);
+        setText("navOffices","🏛  "+d.offices);
+        setText("profileButtonText",d.profile);
+        setText("quickTitle",d.quick);
+        setText("serviceFooterTitle",d.service);
+        setText("supportTitle",d.support);
+        setText("footerDescription",d.footer);
+
+        const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+        document.querySelectorAll('nav a').forEach(a=>{
+            const href=(a.getAttribute('href')||'').split('?')[0].toLowerCase();
+            a.classList.toggle('active', href===path || (path==='' && href==='index.html'));
+        });
+    };
+
+    const oldChangeLanguage = window.changeLanguage;
+    window.changeLanguage = function(lang){
+        localStorage.setItem("selectedLanguage",lang);
+        try{
+            if(typeof oldChangeLanguage === "function") oldChangeLanguage(lang);
+            else if(typeof window.setLanguage === "function") window.setLanguage(lang);
+        }catch(e){ console.warn("Page language handler error:",e); }
+        window.applySharedLanguage(lang);
+    };
+
+    window.performSearch = function(){
+        const input=document.getElementById("searchInput");
+        if(!input) return;
+        const query=input.value.trim().toLowerCase();
+        if(!query){ input.focus(); return; }
+
+        document.querySelectorAll("[data-search-highlight]").forEach(el=>{
+            el.style.outline="";
+            el.removeAttribute("data-search-highlight");
+        });
+
+        const selectors="main h1, main h2, main h3, main h4, main p, main li, main td, main th, main label, main button, main a, main .card, main .section, main .info-card";
+        const candidates=Array.from(document.querySelectorAll(selectors));
+        const found=candidates.find(el=>{
+            const text=(el.innerText||el.textContent||"").toLowerCase();
+            return text.includes(query);
+        });
+
+        if(found){
+            found.setAttribute("data-search-highlight","true");
+            found.style.outline="3px solid #1565c0";
+            found.style.outlineOffset="4px";
+            found.scrollIntoView({behavior:"smooth",block:"center"});
+            setTimeout(()=>{
+                found.style.outline="";
+                found.removeAttribute("data-search-highlight");
+            },2500);
+        }else{
+            alert("No matching information found on this page.");
+        }
+    };
+
+    window.toggleNotifications = function(event){
+        if(event) event.stopPropagation();
+        const panel=document.getElementById("notificationPanel");
+        if(panel) panel.classList.toggle("show");
+    };
+
+    window.openProfile = function(){
+        if(localStorage.getItem("isLoggedIn")==="true") window.location.href="profile.html";
+        else window.location.href="register.html";
+    };
+    window.goToProfile = window.openProfile;
+
+    document.addEventListener("DOMContentLoaded",function(){
+        const input=document.getElementById("searchInput");
+        if(input) input.addEventListener("keydown",function(e){ if(e.key==="Enter") window.performSearch(); });
+        const wrapper=document.querySelector(".notification-wrapper");
+        const panel=document.getElementById("notificationPanel");
+        document.addEventListener("click",function(e){
+            if(panel && wrapper && !wrapper.contains(e.target)) panel.classList.remove("show");
+        });
+        window.applySharedLanguage(localStorage.getItem("selectedLanguage")||"en");
+    });
+})();
+</script>
+<script>
+/* COMPLETE FOOTER TRANSLATION - ENGLISH / HINDI / GUJARATI */
+(function () {
+    const footerT = {
+        en: {
+            desc:"A digital platform designed to make government services easier, faster and more transparent.",
+            quick:"Quick Links", services:"Services", support:"Support",
+            home:"Home", apps:"My Applications", queue:"Queue Status",
+            offices:"Offices", profile:"Profile", aadhaar:"Aadhaar",
+            pan:"PAN Card", certificates:"Certificates",
+            bottom:"© 2026 Digital Queue. All Rights Reserved."
+        },
+        hi: {
+            desc:"सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए बनाया गया डिजिटल प्लेटफ़ॉर्म।",
+            quick:"त्वरित लिंक", services:"सेवाएँ", support:"सहायता",
+            home:"होम", apps:"मेरी अर्ज़ियाँ", queue:"कतार स्थिति",
+            offices:"कार्यालय", profile:"प्रोफ़ाइल", aadhaar:"आधार",
+            pan:"पैन कार्ड", certificates:"प्रमाणपत्र",
+            bottom:"© 2026 डिजिटल क्यू. सर्वाधिकार सुरक्षित।"
+        },
+        gu: {
+            desc:"સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ.",
+            quick:"ઝડપી લિંક્સ", services:"સેવાઓ", support:"સહાય",
+            home:"હોમ", apps:"મારી અરજીઓ", queue:"કતાર સ્થિતિ",
+            offices:"કચેરીઓ", profile:"પ્રોફાઇલ", aadhaar:"આધાર",
+            pan:"પાન કાર્ડ", certificates:"પ્રમાણપત્રો",
+            bottom:"© 2026 ડિજિટલ ક્યુ. સર્વાધિકાર સુરક્ષિત."
+        }
+    };
+
+    function setF(id, value) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+    }
+
+    window.applyFooterLanguage = function(lang) {
+        const t = footerT[lang] || footerT.en;
+        setF("footerBrandTitle", "Digital Queue");
+        setF("footerDescription", t.desc);
+        setF("quickTitle", t.quick);
+        setF("serviceFooterTitle", t.services);
+        setF("supportTitle", t.support);
+        setF("footerHome", t.home);
+        setF("footerServices", t.services);
+        setF("footerApplications", t.apps);
+        setF("footerQueue", t.queue);
+        setF("footerAadhaar", t.aadhaar);
+        setF("footerPan", t.pan);
+        setF("footerCertificates", t.certificates);
+        setF("footerOffices", t.offices);
+        setF("footerProfile", t.profile);
+        setF("footerBottom", t.bottom);
+    };
+
+    // Wrap the existing language function without breaking the page's other translations.
+    const previousChangeLanguage = window.changeLanguage;
+    window.changeLanguage = function(lang) {
+        localStorage.setItem("selectedLanguage", lang);
+        if (typeof previousChangeLanguage === "function") {
+            try { previousChangeLanguage(lang); } catch (e) {}
+        }
+        window.applyFooterLanguage(lang);
+    };
+
+    window.addEventListener("load", function() {
+        window.applyFooterLanguage(localStorage.getItem("selectedLanguage") || "en");
+    });
+})();
+</script>
 </body>
-
 </html>

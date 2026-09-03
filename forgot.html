@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Change Password - Digital Queue</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f5f7fa;
+    color:#14213d;
+    min-height:100vh;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    background:#0d47a1;
+    color:#fff;
+    min-height:100px;
+    padding:12px 35px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    color:#fff;
+}
+
+.logo{
+    width:62px;
+    height:68px;
+    object-fit:contain;
+    display:block;
+}
+
+.brand h2{
+    font-size:20px;
+}
+
+.brand h3{
+    font-size:17px;
+    margin-top:3px;
+}
+
+.brand p{
+    font-size:12px;
+    margin-top:3px;
+}
+
+.language-select{
+    height:40px;
+    border:none;
+    border-radius:6px;
+    padding:0 12px;
+    cursor:pointer;
+}
+
+/* ================= DISCLAIMER ================= */
+
+.demo-disclaimer{
+    width:100%;
+
+    background:#fff3cd;
+    border-bottom:1px solid #f0cf68;
+
+    color:#5f4700;
+
+    padding:12px 18px;
+
+    text-align:center;
+
+    font-size:13px;
+    line-height:1.5;
+}
+
+.demo-disclaimer strong{
+    display:block;
+    margin-bottom:3px;
+    font-size:14px;
+}
+
+/* ================= MAIN ================= */
+
+main{
+    max-width:1150px;
+    margin:auto;
+
+    padding:45px 22px 60px;
+}
+
+.card{
+    max-width:560px;
+
+    margin:0 auto;
+
+    background:#fff;
+
+    border:1px solid #e1e6ee;
+
+    border-radius:15px;
+
+    padding:38px;
+
+    box-shadow:0 4px 16px rgba(0,0,0,.07);
+}
+
+.card h1{
+    color:#0d47a1;
+
+    font-size:27px;
+
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#667085;
+
+    font-size:14px;
+
+    line-height:1.5;
+
+    margin-bottom:27px;
+}
+
+/* ================= INPUT ================= */
+
+.field{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:7px;
+
+    margin-bottom:18px;
+}
+
+.field label{
+    font-size:14px;
+
+    font-weight:bold;
+}
+
+.field input{
+    width:100%;
+
+    padding:13px;
+
+    border:1px solid #d0d5dd;
+
+    border-radius:7px;
+
+    outline:none;
+
+    font-size:14px;
+}
+
+.field input:focus{
+    border-color:#0d47a1;
+
+    box-shadow:
+    0 0 0 2px rgba(13,71,161,.08);
+}
+
+/* ================= BUTTON ================= */
+
+.btn{
+    width:100%;
+
+    border:none;
+
+    border-radius:7px;
+
+    background:#0d47a1;
+
+    color:#fff;
+
+    padding:14px;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    margin-top:5px;
+}
+
+.btn:hover{
+    background:#1565c0;
+}
+
+/* ================= OTP ================= */
+
+.otp-box,
+.reset-box{
+
+    display:none;
+
+    margin-top:24px;
+
+    padding-top:22px;
+
+    border-top:1px solid #e5e7eb;
+}
+
+.otp-box.show,
+.reset-box.show{
+    display:block;
+}
+
+/* ================= TIMER ================= */
+
+.timer{
+    text-align:center;
+
+    color:#667085;
+
+    font-size:13px;
+
+    margin-top:12px;
+}
+
+.resend{
+    display:none;
+
+    text-align:center;
+
+    margin-top:10px;
+}
+
+.resend button{
+    border:0;
+
+    background:none;
+
+    color:#0d47a1;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+/* ================= MESSAGE ================= */
+
+.message{
+    display:none;
+
+    margin-top:16px;
+
+    padding:12px;
+
+    border-radius:7px;
+
+    text-align:center;
+
+    font-size:13px;
+
+    line-height:1.5;
+}
+
+.message.show{
+    display:block;
+}
+
+.message.error{
+    background:#ffebee;
+
+    color:#b71c1c;
+}
+
+.message.success{
+    background:#e8f5e9;
+
+    color:#1b5e20;
+}
+
+/* ================= BACK ================= */
+
+.back{
+    text-align:center;
+
+    margin-top:20px;
+
+    color:#0d47a1;
+
+    font-weight:bold;
+
+    font-size:14px;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    background:#0d47a1;
+
+    color:#fff;
+
+    padding:35px 7% 18px;
+}
+
+.footer-grid{
+    max-width:1200px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+    1.5fr 1fr 1fr 1fr;
+
+    gap:30px;
+}
+
+.footer-column h3{
+    font-size:15px;
+
+    margin-bottom:10px;
+}
+
+.footer-column p,
+.footer-column a{
+
+    color:#dce8fa;
+
+    font-size:13px;
+
+    line-height:1.9;
+
+    text-decoration:none;
+
+    display:block;
+}
+
+.footer-column a:hover{
+    text-decoration:underline;
+}
+
+.footer-bottom{
+
+    max-width:1200px;
+
+    margin:25px auto 0;
+
+    padding-top:15px;
+
+    border-top:
+    1px solid rgba(255,255,255,.3);
+
+    text-align:center;
+
+    font-size:12px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:850px){
+
+    header{
+        flex-direction:column;
+
+        align-items:stretch;
+    }
+
+    .brand{
+        justify-content:center;
+    }
+
+    .language-select{
+        align-self:center;
+    }
+}
+
+@media(max-width:600px){
+
+    main{
+        padding:
+        25px 15px 45px;
+    }
+
+    .card{
+        padding:
+        28px 22px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <a
+        href="index.html"
+        class="brand"
+    >
+
+        <img
+            src="digital-queue-logo.png"
+            class="logo"
+            alt="Digital Queue Logo"
+            onerror="this.onerror=null; this.src='https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg';"
+        >
+
+        <div>
+
+            <h2>
+                Government of India
+            </h2>
+
+            <h3>
+                Digital Queue
+            </h3>
+
+            <p>
+                Easy. Quick. Transparent.
+            </p>
+
+        </div>
+
+    </a>
+
+
+    <select
+        id="languageSelect"
+        class="language-select"
+        onchange="changeLanguage(this.value)"
+        aria-label="Language"
+    >
+
+        <option value="en">
+            English
+        </option>
+
+        <option value="hi">
+            हिन्दी
+        </option>
+
+        <option value="gu">
+            ગુજરાતી
+        </option>
+
+    </select>
+
+</header>
+
+
+<!-- ================= DISCLAIMER ================= -->
+
+<div
+    class="demo-disclaimer"
+    role="note"
+>
+
+    <strong>
+        ⚠ STUDENT PROJECT — NOT AN OFFICIAL GOVERNMENT WEBSITE
+    </strong>
+
+    <span>
+        This is an academic prototype for demonstration only.
+        It is not affiliated with or endorsed by the Government of India.
+        Do not enter real passwords, or sensitive information.
+    </span>
+
+</div>
+
+
+<!-- ================= MAIN ================= -->
+
+<main>
+
+<section class="card">
+
+
+    <h1 id="title">
+        Change Password
+    </h1>
+
+
+    <p
+        class="subtitle"
+        id="subtitle"
+    >
+
+        Enter your registered mobile number to verify your account and change your password.
+
+    </p>
+
+
+    <!-- MOBILE NUMBER -->
+
+    <div class="field">
+
+        <label
+            for="mobile"
+            id="mobileLabel"
+        >
+
+            Mobile Number
+
+        </label>
+
+
+        <input
+            id="mobile"
+            type="tel"
+            maxlength="10"
+            inputmode="numeric"
+            autocomplete="tel"
+            placeholder="Enter registered mobile number"
+        >
+
+    </div>
+
+
+    <!-- GENERATE OTP -->
+
+    <button
+        class="btn"
+        type="button"
+        id="generateButton"
+        onclick="generateOTP()"
+    >
+
+        Generate OTP
+
+    </button>
+
+
+    <!-- OTP SECTION -->
+
+    <div
+        id="otpBox"
+        class="otp-box"
+    >
+
+
+        <div class="field">
+
+            <label
+                for="otp"
+                id="otpLabel"
+            >
+
+                Enter OTP
+
+            </label>
+
+
+            <input
+                id="otp"
+                type="tel"
+                maxlength="4"
+                inputmode="numeric"
+                placeholder="Enter 4-digit OTP"
+            >
+
+        </div>
+
+
+        <button
+            class="btn"
+            type="button"
+            id="verifyButton"
+            onclick="verifyOTP()"
+        >
+
+            Verify OTP
+
+        </button>
+
+
+        <div
+            class="timer"
+            id="timer"
+        >
+            OTP session expires in 02:00
+        </div>
+
+        <div
+            id="otpSessionStatus"
+            style="text-align:center; margin-top:8px; font-size:12px; color:#667085;"
+        >
+            OTP is active only in this browser session.
+        </div>
+
+
+        <div
+            class="resend"
+            id="resendBox"
+        >
+
+            <button
+                type="button"
+                onclick="generateOTP()"
+            >
+
+                Resend OTP
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- RESET PASSWORD -->
+
+    <div
+        id="resetBox"
+        class="reset-box"
+    >
+
+
+        <div class="field">
+
+            <label
+                for="newPassword"
+                id="newPasswordLabel"
+            >
+
+                New Password
+
+            </label>
+
+
+            <input
+                id="newPassword"
+                type="password"
+                placeholder="Enter new password"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label
+                for="confirmPassword"
+                id="confirmPasswordLabel"
+            >
+
+                Confirm Password
+
+            </label>
+
+
+            <input
+                id="confirmPassword"
+                type="password"
+                placeholder="Confirm new password"
+            >
+
+        </div>
+
+
+        <button
+            class="btn"
+            type="button"
+            id="resetButton"
+            onclick="resetPassword()"
+        >
+
+            Reset Password
+
+        </button>
+
+    </div>
+
+
+    <!-- MESSAGE -->
+
+    <div
+        id="message"
+        class="message"
+    >
+
+    </div>
+
+
+    <!-- BACK -->
+
+    <div class="back">
+
+        <a
+            href="login.html"
+            id="backLogin"
+        >
+
+            ← Back to Demo Login
+
+        </a>
+
+    </div>
+
+
+</section>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<div class="footer-grid">
+
+
+    <div class="footer-column">
+
+        <h3>
+            Digital Queue
+        </h3>
+
+        <p>
+            Academic prototype for
+            demonstrating digital
+            queue management.
+        </p>
+
+    </div>
+
+
+    <div class="footer-column">
+
+        <h3>
+            Quick Links
+        </h3>
+
+        <a
+            href="index.html"
+            id="homeLink"
+        >
+
+            Home
+
+        </a>
+
+
+        <a
+            href="login.html"
+            id="loginLink"
+        >
+
+            Demo Login
+
+        </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+        <h3>
+            Services
+        </h3>
+
+
+        <a href="service.html">
+
+            Services
+
+        </a>
+
+
+        <a href="offinfo.html">
+
+            Offices
+
+        </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+        <h3>
+            Support
+        </h3>
+
+
+        <a href="profile.html">
+
+            Profile
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+<div class="footer-bottom">
+
+    © 2026 Digital Queue — Student Project
+
+</div>
+
+</footer>
+
+
+<script>
+/* =========================================
+   CHANGE PASSWORD + OTP SYSTEM
+   ========================================= */
+
+let generatedOTP = "";
+let otpExpiry = 0;
+let timerInterval = null;
+let otpVerified = false;
+
+const OTP_DURATION = 120000; // 2 minutes
+const OTP_KEY = "dq_otp";
+const OTP_EXPIRY_KEY = "dq_otp_expiry";
+const OTP_VERIFIED_KEY = "dq_otp_verified";
+const OTP_MOBILE_KEY = "dq_otp_mobile";
+
+/* =========================================
+   TRANSLATIONS
+   ========================================= */
+
+const translations = {
+    en:{
+        title:"Change Password",
+        subtitle:"Enter your registered mobile number to verify your account and change your password.",
+        mobile:"Mobile Number",
+        mobilePh:"Enter registered mobile number",
+        generate:"Generate OTP",
+        otp:"Enter OTP",
+        otpPh:"Enter 4-digit OTP",
+        verify:"Verify OTP",
+        newPassword:"New Password",
+        newPasswordPh:"Enter new password",
+        confirmPassword:"Confirm Password",
+        confirmPasswordPh:"Confirm new password",
+        reset:"Change Password",
+        back:"← Back to Login",
+        home:"Home",
+        login:"Login",
+        invalidMobile:"Please enter a valid 10-digit mobile number.",
+        notRegistered:"No account was found with this mobile number. Please register first.",
+        generated:"OTP generated successfully.",
+        invalidOTP:"Incorrect OTP. Please try again.",
+        expired:"OTP has expired. Please generate a new OTP.",
+        verified:"OTP verified successfully. You can now change your password.",
+        passwordShort:"Password must contain at least 6 characters.",
+        passwordMatch:"Passwords do not match.",
+        resetSuccess:"Password changed successfully. You can now login with your new password.",
+        sessionActive:"OTP session active for this browser tab until the timer expires.",
+        sessionRestored:"Active OTP session restored.",
+        sessionVerified:"OTP verified for this browser session.",
+        sessionExpired:"OTP session expired",
+        sessionEnded:"OTP session ended. Generate a new OTP.",
+        otpVerifiedTimer:"OTP verified ✓",
+        pleaseVerify:"Please verify the OTP before changing your password."
+    },
+
+    hi:{
+        title:"पासवर्ड बदलें",
+        subtitle:"अपने खाते को सत्यापित करने और पासवर्ड बदलने के लिए अपना पंजीकृत मोबाइल नंबर दर्ज करें।",
+        mobile:"मोबाइल नंबर",
+        mobilePh:"पंजीकृत मोबाइल नंबर दर्ज करें",
+        generate:"OTP बनाएँ",
+        otp:"OTP दर्ज करें",
+        otpPh:"4 अंकों का OTP दर्ज करें",
+        verify:"OTP सत्यापित करें",
+        newPassword:"नया पासवर्ड",
+        newPasswordPh:"नया पासवर्ड दर्ज करें",
+        confirmPassword:"पासवर्ड की पुष्टि करें",
+        confirmPasswordPh:"नया पासवर्ड फिर से दर्ज करें",
+        reset:"पासवर्ड बदलें",
+        back:"← लॉगिन पर वापस जाएँ",
+        home:"होम",
+        login:"लॉगिन",
+        invalidMobile:"कृपया मान्य 10 अंकों का मोबाइल नंबर दर्ज करें।",
+        notRegistered:"इस मोबाइल नंबर से कोई खाता नहीं मिला। कृपया पहले पंजीकरण करें।",
+        generated:"OTP सफलतापूर्वक बनाया गया है।",
+        invalidOTP:"गलत OTP। कृपया पुनः प्रयास करें।",
+        expired:"OTP समाप्त हो गया है। नया OTP बनाएँ।",
+        verified:"OTP सफलतापूर्वक सत्यापित हुआ। अब आप अपना पासवर्ड बदल सकते हैं।",
+        passwordShort:"पासवर्ड कम से कम 6 अक्षरों का होना चाहिए।",
+        passwordMatch:"पासवर्ड मेल नहीं खाते।",
+        resetSuccess:"पासवर्ड सफलतापूर्वक बदल गया। अब नए पासवर्ड से लॉगिन करें।",
+        sessionActive:"OTP सत्र इस ब्राउज़र टैब में टाइमर समाप्त होने तक सक्रिय है।",
+        sessionRestored:"सक्रिय OTP सत्र पुनः प्राप्त किया गया।",
+        sessionVerified:"इस ब्राउज़र सत्र में OTP सत्यापित है।",
+        sessionExpired:"OTP सत्र समाप्त हो गया।",
+        sessionEnded:"OTP सत्र समाप्त हो गया। नया OTP बनाएँ।",
+        otpVerifiedTimer:"OTP सत्यापित ✓",
+        pleaseVerify:"पासवर्ड बदलने से पहले OTP सत्यापित करें।"
+    },
+
+    gu:{
+        title:"પાસવર્ડ બદલો",
+        subtitle:"તમારા ખાતાની ચકાસણી કરવા અને પાસવર્ડ બદલવા માટે તમારો નોંધાયેલ મોબાઇલ નંબર દાખલ કરો.",
+        mobile:"મોબાઇલ નંબર",
+        mobilePh:"નોંધાયેલ મોબાઇલ નંબર દાખલ કરો",
+        generate:"OTP બનાવો",
+        otp:"OTP દાખલ કરો",
+        otpPh:"4 અંકનો OTP દાખલ કરો",
+        verify:"OTP ચકાસો",
+        newPassword:"નવો પાસવર્ડ",
+        newPasswordPh:"નવો પાસવર્ડ દાખલ કરો",
+        confirmPassword:"પાસવર્ડની પુષ્ટિ કરો",
+        confirmPasswordPh:"નવો પાસવર્ડ ફરી દાખલ કરો",
+        reset:"પાસવર્ડ બદલો",
+        back:"← લૉગિન પર પાછા જાઓ",
+        home:"હોમ",
+        login:"લૉગિન",
+        invalidMobile:"કૃપા કરીને માન્ય 10 અંકનો મોબાઇલ નંબર દાખલ કરો.",
+        notRegistered:"આ મોબાઇલ નંબર સાથે કોઈ ખાતું મળ્યું નથી. કૃપા કરીને પહેલા નોંધણી કરો.",
+        generated:"OTP સફળતાપૂર્વક બનાવવામાં આવ્યો છે.",
+        invalidOTP:"ખોટો OTP. કૃપા કરીને ફરી પ્રયાસ કરો.",
+        expired:"OTP સમાપ્ત થઈ ગયો છે. નવો OTP બનાવો.",
+        verified:"OTP સફળતાપૂર્વક ચકાસાયો. હવે તમે તમારો પાસવર્ડ બદલી શકો છો.",
+        passwordShort:"પાસવર્ડ ઓછામાં ઓછા 6 અક્ષરનો હોવો જોઈએ.",
+        passwordMatch:"પાસવર્ડ મેળ ખાતા નથી.",
+        resetSuccess:"પાસવર્ડ સફળતાપૂર્વક બદલાયો. હવે નવા પાસવર્ડથી લૉગિન કરો.",
+        sessionActive:"OTP સત્ર આ બ્રાઉઝર ટેબમાં ટાઈમર સમાપ્ત થાય ત્યાં સુધી સક્રિય છે.",
+        sessionRestored:"સક્રિય OTP સત્ર પુનઃસ્થાપિત થયું.",
+        sessionVerified:"આ બ્રાઉઝર સત્રમાં OTP ચકાસાયેલ છે.",
+        sessionExpired:"OTP સત્ર સમાપ્ત થયું.",
+        sessionEnded:"OTP સત્ર સમાપ્ત થયું. નવો OTP બનાવો.",
+        otpVerifiedTimer:"OTP ચકાસાયેલ ✓",
+        pleaseVerify:"પાસવર્ડ બદલતા પહેલાં OTP ચકાસો."
+    }
+};
+
+/* =========================================
+   LANGUAGE
+   ========================================= */
+
+function getLanguage(){
+    return localStorage.getItem("selectedLanguage") || "en";
+}
+
+function changeLanguage(lang){
+    localStorage.setItem("selectedLanguage", lang);
+    applyLanguage();
+}
+
+function applyLanguage(){
+    const lang = getLanguage();
+    const t = translations[lang] || translations.en;
+
+    document.documentElement.lang = lang;
+
+    const select = document.getElementById("languageSelect");
+    if(select) select.value = lang;
+
+    const set = (id,value) => {
+        const el = document.getElementById(id);
+        if(el) el.textContent = value;
+    };
+
+    set("title",t.title);
+    set("subtitle",t.subtitle);
+    set("mobileLabel",t.mobile);
+    set("generateButton",t.generate);
+    set("otpLabel",t.otp);
+    set("verifyButton",t.verify);
+    set("newPasswordLabel",t.newPassword);
+    set("confirmPasswordLabel",t.confirmPassword);
+    set("resetButton",t.reset);
+    set("backLogin",t.back);
+    set("homeLink",t.home);
+    set("loginLink",t.login);
+
+    const mobile = document.getElementById("mobile");
+    const otp = document.getElementById("otp");
+    const newPassword = document.getElementById("newPassword");
+    const confirmPassword = document.getElementById("confirmPassword");
+
+    if(mobile) mobile.placeholder = t.mobilePh;
+    if(otp) otp.placeholder = t.otpPh;
+    if(newPassword) newPassword.placeholder = t.newPasswordPh;
+    if(confirmPassword) confirmPassword.placeholder = t.confirmPasswordPh;
+
+    updateSessionText();
+}
+
+/* =========================================
+   MESSAGE
+   ========================================= */
+
+function showMessage(text,error){
+    const box = document.getElementById("message");
+    box.textContent = text;
+    box.className = "message show " + (error ? "error" : "success");
+}
+
+/* =========================================
+   OTP SESSION
+   ========================================= */
+
+function generateOTP(){
+
+    const mobile = document.getElementById("mobile").value.trim();
+    const t = translations[getLanguage()] || translations.en;
+
+    if(!/^[0-9]{10}$/.test(mobile)){
+        showMessage(t.invalidMobile,true);
+        return;
+    }
+
+    const registeredMobile = localStorage.getItem("registeredMobile");
+
+    if(!registeredMobile || mobile !== registeredMobile){
+        showMessage(t.notRegistered,true);
+        return;
+    }
+
+    // Same style of frontend OTP session as the earlier OTP page:
+    // a 4-digit OTP stored only for this browser session.
+    generatedOTP = String(
+        Math.floor(1000 + Math.random() * 9000)
+    );
+
+    otpExpiry = Date.now() + OTP_DURATION;
+    otpVerified = false;
+
+    sessionStorage.setItem(OTP_KEY,generatedOTP);
+    sessionStorage.setItem(OTP_EXPIRY_KEY,String(otpExpiry));
+    sessionStorage.setItem(OTP_VERIFIED_KEY,"false");
+    sessionStorage.setItem(OTP_MOBILE_KEY,mobile);
+
+    document.getElementById("otp").value = "";
+    document.getElementById("otpBox").classList.add("show");
+    document.getElementById("resetBox").classList.remove("show");
+    document.getElementById("resendBox").style.display = "none";
+
+    updateSessionText(t.sessionActive);
+    showMessage(t.generated,false);
+    startTimer();
+
+    // For this frontend academic prototype, show the generated OTP
+    // in the browser console rather than exposing it in the page.
+    console.log("Digital Queue OTP:",generatedOTP);
+}
+
+function restoreOTPSession(){
+
+    const savedOTP = sessionStorage.getItem(OTP_KEY);
+    const savedExpiry = Number(
+        sessionStorage.getItem(OTP_EXPIRY_KEY) || 0
+    );
+    const savedMobile = sessionStorage.getItem(OTP_MOBILE_KEY);
+    const currentMobile = document.getElementById("mobile").value.trim();
+
+    if(!savedOTP || !savedExpiry || !savedMobile){
+        return;
+    }
+
+    if(currentMobile && currentMobile !== savedMobile){
+        clearOTPSession();
+        return;
+    }
+
+    if(Date.now() >= savedExpiry){
+        clearOTPSession();
+        return;
+    }
+
+    generatedOTP = savedOTP;
+    otpExpiry = savedExpiry;
+    otpVerified =
+        sessionStorage.getItem(OTP_VERIFIED_KEY) === "true";
+
+    document.getElementById("mobile").value = savedMobile;
+    document.getElementById("otpBox").classList.add("show");
+
+    updateSessionText(
+        otpVerified
+            ? (translations[getLanguage()] || translations.en).sessionVerified
+            : (translations[getLanguage()] || translations.en).sessionRestored
+    );
+
+    startTimer();
+
+    if(otpVerified){
+        document.getElementById("resetBox").classList.add("show");
+        document.getElementById("resendBox").style.display = "none";
+    }
+}
+
+function clearOTPSession(){
+
+    generatedOTP = "";
+    otpExpiry = 0;
+    otpVerified = false;
+
+    sessionStorage.removeItem(OTP_KEY);
+    sessionStorage.removeItem(OTP_EXPIRY_KEY);
+    sessionStorage.removeItem(OTP_VERIFIED_KEY);
+    sessionStorage.removeItem(OTP_MOBILE_KEY);
+
+    clearInterval(timerInterval);
+}
+
+function updateSessionText(customText){
+
+    const status = document.getElementById("otpSessionStatus");
+    if(!status) return;
+
+    const t = translations[getLanguage()] || translations.en;
+
+    status.textContent =
+        customText ||
+        (otpVerified ? t.sessionVerified : t.sessionActive);
+
+    status.style.color =
+        otpVerified ? "#1b5e20" : "#667085";
+}
+
+/* =========================================
+   TIMER
+   ========================================= */
+
+function startTimer(){
+
+    clearInterval(timerInterval);
+
+    function updateTimer(){
+
+        const remaining =
+            Math.max(0,otpExpiry - Date.now());
+
+        const t =
+            translations[getLanguage()] || translations.en;
+
+        if(remaining <= 0){
+
+            clearOTPSession();
+
+            document.getElementById("timer").textContent =
+                t.sessionExpired;
+
+            document.getElementById("resendBox").style.display =
+                "block";
+
+            const status =
+                document.getElementById("otpSessionStatus");
+
+            if(status){
+                status.textContent = t.sessionEnded;
+                status.style.color = "#b71c1c";
+            }
+
+            return;
+        }
+
+        const totalSeconds =
+            Math.ceil(remaining / 1000);
+
+        const minutes =
+            Math.floor(totalSeconds / 60);
+
+        const seconds =
+            totalSeconds % 60;
+
+        document.getElementById("timer").textContent =
+            "OTP session expires in " +
+            String(minutes).padStart(2,"0") +
+            ":" +
+            String(seconds).padStart(2,"0");
+    }
+
+    updateTimer();
+    timerInterval = setInterval(updateTimer,500);
+}
+
+/* =========================================
+   VERIFY OTP
+   ========================================= */
+
+function verifyOTP(){
+
+    const entered =
+        document.getElementById("otp").value.trim();
+
+    const t =
+        translations[getLanguage()] || translations.en;
+
+    if(!generatedOTP || !otpExpiry || Date.now() >= otpExpiry){
+        showMessage(t.expired,true);
+        return;
+    }
+
+    if(!/^[0-9]{4}$/.test(entered) || entered !== generatedOTP){
+        showMessage(t.invalidOTP,true);
+        return;
+    }
+
+    otpVerified = true;
+
+    sessionStorage.setItem(
+        OTP_VERIFIED_KEY,
+        "true"
+    );
+
+    clearInterval(timerInterval);
+
+    document.getElementById("timer").textContent =
+        t.otpVerifiedTimer;
+
+    document.getElementById("resendBox").style.display =
+        "none";
+
+    document.getElementById("resetBox").classList.add("show");
+
+    updateSessionText(t.sessionVerified);
+
+    showMessage(t.verified,false);
+}
+
+/* =========================================
+   CHANGE PASSWORD
+   ========================================= */
+
+function resetPassword(){
+
+    const newPassword =
+        document.getElementById("newPassword").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+    const mobile =
+        document.getElementById("mobile").value.trim();
+
+    const t =
+        translations[getLanguage()] || translations.en;
+
+    if(!otpVerified){
+        showMessage(t.pleaseVerify,true);
+        return;
+    }
+
+    if(newPassword.length < 6){
+        showMessage(t.passwordShort,true);
+        return;
+    }
+
+    if(newPassword !== confirmPassword){
+        showMessage(t.passwordMatch,true);
+        return;
+    }
+
+    const registeredMobile =
+        localStorage.getItem("registeredMobile");
+
+    if(!registeredMobile || mobile !== registeredMobile){
+        showMessage(t.notRegistered,true);
+        return;
+    }
+
+    // Connect the change-password page to the existing login system.
+    // login.html reads this exact key.
+    localStorage.setItem(
+        "registeredPassword",
+        newPassword
+    );
+
+    localStorage.removeItem("isLoggedIn");
+
+    showMessage(t.resetSuccess,false);
+
+    clearOTPSession();
+
+    document.getElementById("resetBox").classList.remove("show");
+
+    setTimeout(function(){
+        window.location.href = "login.html";
+    },1200);
+}
+
+/* =========================================
+   START
+   ========================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        applyLanguage();
+        restoreOTPSession();
+
+    }
+);
+</script>
+
+</body>
+</html>

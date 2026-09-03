@@ -1,0 +1,2239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Location & QR Verification - Digital Queue</title>
+
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f5f7fa;
+    color:#14213d;
+    min-height:100vh;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    min-height:100px;
+    background:#0D47A1;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:25px;
+    padding:12px 45px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    color:white;
+}
+
+.emblem{
+    width:55px;
+    height:65px;
+    object-fit:contain;
+}
+
+.gov-text h2{
+    font-size:20px;
+}
+
+.gov-text h3{
+    font-size:17px;
+    margin-top:3px;
+    text-transform:uppercase;
+}
+
+.gov-text p{
+    font-size:12px;
+    margin-top:3px;
+}
+
+.header-actions{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:12px;
+    flex:1;
+}
+
+.search-box{
+    width:390px;
+    height:42px;
+    background:white;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    padding-left:13px;
+}
+
+.search-box input{
+    width:100%;
+    border:none;
+    outline:none;
+    font-size:14px;
+}
+
+.search-icon{
+    border:none;
+    background:transparent;
+    color:#0D47A1;
+    cursor:pointer;
+    font-size:18px;
+    padding:0 12px;
+}
+
+.notification-wrapper{
+    position:relative;
+}
+
+.notification-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:6px;
+    background:white;
+    color:#0D47A1;
+    cursor:pointer;
+    font-size:18px;
+    position:relative;
+}
+
+.badge{
+    position:absolute;
+    top:-5px;
+    right:-4px;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#D32F2F;
+    color:white;
+    display:grid;
+    place-items:center;
+    font-size:10px;
+}
+
+.notification-panel{
+    display:none;
+    position:absolute;
+    right:0;
+    top:50px;
+    width:310px;
+    background:white;
+    color:#14213D;
+    border-radius:8px;
+    box-shadow:0 8px 25px rgba(0,0,0,.20);
+    z-index:1000;
+    overflow:hidden;
+}
+
+.notification-panel.show{
+    display:block;
+}
+
+.notification-header{
+    padding:14px;
+    font-weight:bold;
+    border-bottom:1px solid #eee;
+}
+
+.notification-item{
+    padding:13px;
+    border-bottom:1px solid #eee;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.language-select{
+    height:42px;
+    border:none;
+    border-radius:6px;
+    padding:0 10px;
+    background:white;
+    color:#14213D;
+    cursor:pointer;
+}
+
+.profile{
+    height:40px;
+    border:none;
+    border-radius:6px;
+    background:transparent;
+    color:white;
+    padding:0 14px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.profile:hover{
+    background:rgba(255,255,255,.12);
+}
+
+/* ================= NAVIGATION ================= */
+
+.navigation{
+    height:58px;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:38px;
+    padding-left:0;
+    box-shadow:0 2px 6px rgba(0,0,0,.08);
+}
+
+.navigation a{
+    color:#444;
+    font-size:15px;
+    padding:20px 5px;
+}
+
+.navigation a:hover{
+    color:#0757B8;
+    border-bottom:3px solid #0757B8;
+}
+
+/* ================= MAIN ================= */
+
+main{
+    max-width:950px;
+    margin:auto;
+    padding:35px 22px 60px;
+}
+
+.page-title{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.page-title h1{
+    color:#0D47A1;
+    font-size:29px;
+    margin-bottom:8px;
+}
+
+.page-title p{
+    color:#667085;
+    font-size:14px;
+}
+
+/* ================= STEPS ================= */
+
+.steps{
+    display:flex;
+    align-items:flex-start;
+    justify-content:center;
+    margin-bottom:30px;
+    overflow-x:auto;
+}
+
+.step{
+    display:flex;
+    align-items:flex-start;
+    flex-shrink:0;
+}
+
+.step-content{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.circle{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:#dbe7f8;
+    color:#0D47A1;
+    display:grid;
+    place-items:center;
+    font-weight:bold;
+}
+
+.circle.active{
+    background:#0D47A1;
+    color:white;
+}
+
+.line{
+    width:80px;
+    height:3px;
+    background:#dbe7f8;
+    margin-top:18px;
+}
+
+.line.active{
+    background:#0D47A1;
+}
+
+.step-label{
+    margin-top:6px;
+    font-size:11px;
+    color:#667085;
+    white-space:nowrap;
+}
+
+/* ================= CARD ================= */
+
+.card{
+    background:white;
+    border:1px solid #e1e6ee;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,.06);
+    padding:30px;
+    margin-bottom:22px;
+}
+
+.card h2{
+    font-size:20px;
+    margin-bottom:9px;
+}
+
+.card-note{
+    color:#667085;
+    font-size:13px;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+/* ================= STEP PANELS ================= */
+
+.step-panel{
+    display:none;
+}
+
+.step-panel.active-panel{
+    display:block;
+}
+
+.panel-box{
+    text-align:center;
+    padding:30px 20px;
+    border:1px solid #dce4ec;
+    border-radius:9px;
+    background:#f8fafc;
+}
+
+.panel-icon{
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+.panel-box h3{
+    font-size:19px;
+    margin-bottom:8px;
+}
+
+.panel-box p{
+    max-width:650px;
+    margin:0 auto 18px;
+    color:#667085;
+    font-size:13px;
+    line-height:1.6;
+}
+
+.primary-btn{
+    border:none;
+    border-radius:7px;
+    background:#0D47A1;
+    color:white;
+    padding:12px 25px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.primary-btn:hover{
+    background:#1565C0;
+}
+
+.primary-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+/* ================= STATUS ================= */
+
+.status{
+    display:none;
+    margin-top:18px;
+    padding:13px 15px;
+    border-radius:7px;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.status.success{
+    display:block;
+    background:#E8F5E9;
+    border:1px solid #A5D6A7;
+    color:#2E7D32;
+}
+
+.status.error{
+    display:block;
+    background:#FFEBEE;
+    border:1px solid #EF9A9A;
+    color:#C62828;
+}
+
+.status.processing{
+    display:block;
+    background:#E3F2FD;
+    border:1px solid #90CAF9;
+    color:#1565C0;
+}
+
+/* ================= LOCATION RESULT ================= */
+
+.location-result{
+    display:none;
+    margin-top:20px;
+    padding:18px;
+    border:1px solid #dce4ec;
+    border-radius:8px;
+}
+
+.location-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.result-item{
+    padding:13px;
+    background:#f8fafc;
+    border-radius:7px;
+}
+
+.result-label{
+    color:#667085;
+    font-size:11px;
+    margin-bottom:5px;
+}
+
+.result-value{
+    font-size:15px;
+    font-weight:bold;
+}
+
+/* ================= QR ================= */
+
+#qrPanel{
+    display:none;
+}
+
+#reader{
+    width:100%;
+    max-width:450px;
+    margin:20px auto;
+}
+
+.scan-note{
+    color:#667085;
+    font-size:13px;
+    text-align:center;
+}
+
+.qr-result{
+    display:none;
+    margin-top:20px;
+    padding:18px;
+    background:#E8F5E9;
+    border:1px solid #A5D6A7;
+    border-radius:8px;
+}
+
+.qr-result h3{
+    color:#2E7D32;
+    margin-bottom:13px;
+}
+
+.qr-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.qr-item{
+    background:white;
+    padding:10px;
+    border-radius:6px;
+}
+
+.qr-item span{
+    display:block;
+    color:#667085;
+    font-size:11px;
+    margin-bottom:4px;
+}
+
+.qr-item strong{
+    font-size:13px;
+}
+
+/* ================= FINAL CONFIRM ================= */
+
+#finalPanel{
+    display:none;
+    margin-top:22px;
+    text-align:center;
+    padding:25px;
+    background:#f8fafc;
+    border:1px solid #dce4ec;
+    border-radius:9px;
+}
+
+#finalPanel p{
+    color:#667085;
+    font-size:13px;
+    line-height:1.6;
+    margin-bottom:15px;
+}
+
+.confirm-btn{
+    border:none;
+    border-radius:7px;
+    background:#2E7D32;
+    color:white;
+    padding:13px 30px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.confirm-btn:hover{
+    background:#388E3C;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    background:#0D47A1;
+    color:white;
+    padding:35px 7% 18px;
+}
+
+.footer-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr 1fr;
+    gap:30px;
+}
+
+.footer-column h3{
+    font-size:15px;
+    margin-bottom:10px;
+}
+
+.footer-column p,
+.footer-column a{
+    color:#dce8fa;
+    font-size:13px;
+    line-height:1.9;
+    display:block;
+}
+
+.footer-bottom{
+    max-width:1200px;
+    margin:25px auto 0;
+    padding-top:15px;
+    border-top:1px solid rgba(255,255,255,.3);
+    text-align:center;
+    font-size:12px;
+}
+
+@media(max-width:900px){
+    header{
+        flex-direction:column;
+        padding:20px;
+    }
+
+    .header-actions{
+        width:100%;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .search-box{
+        width:min(390px,100%);
+    }
+}
+
+@media(max-width:650px){
+    .navigation{
+        overflow-x:auto;
+        gap:25px;
+    }
+
+    .location-grid,
+    .qr-grid{
+        grid-template-columns:1fr;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+
+    <a href="index.html" class="brand">
+
+        <img
+            src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
+            alt="State Emblem of India"
+            class="emblem"
+        >
+
+        <div class="gov-text">
+            <h2>Government of India</h2>
+            <h3>Digital Queue</h3>
+            <p>Easy. Quick. Transparent.</p>
+        </div>
+
+    </a>
+
+
+    <div class="header-actions">
+
+        <div class="search-box">
+
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Search services, documents, offices..."
+            >
+
+            <button
+                type="button"
+                class="search-icon"
+                onclick="performSearch()"
+            >
+                🔍
+            </button>
+
+        </div>
+
+
+        <div class="notification-wrapper">
+
+            <button
+                type="button"
+                class="notification-btn"
+                onclick="toggleNotifications(event)"
+            >
+                🔔
+                <span class="badge">3</span>
+            </button>
+
+
+            <div
+                class="notification-panel"
+                id="notificationPanel"
+            >
+
+                <div class="notification-header">
+                    Notifications
+                </div>
+
+                <div class="notification-item">
+                    🔔 Your application status has been updated.
+                </div>
+
+                <div class="notification-item">
+                    📍 Confirm your queue only after reaching the office.
+                </div>
+
+                <div class="notification-item">
+                    ℹ️ Your queue number will be generated after confirmation.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <select
+            id="languageSelect"
+            class="language-select"
+            onchange="changeLanguage(this.value)"
+        >
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="gu">ગુજરાતી</option>
+        </select>
+
+
+        <button
+            type="button"
+            class="profile"
+            onclick="openProfile()"
+        >
+            👤 Profile
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- ================= NAVIGATION ================= -->
+
+<nav class="navigation">
+
+    <a href="index.html">⌂ Home</a>
+
+    <a href="service.html">▣ Services</a>
+
+    <a href="myapplication.html">▤ My Applications</a>
+
+    <a href="queue.html">☷ Queue Status</a>
+
+    <a href="offinfo.html">🏛 Offices</a>
+
+</nav>
+
+
+<!-- ================= MAIN ================= -->
+
+<main>
+
+    <div class="page-title">
+
+        <h1>Location & QR Verification</h1>
+
+        <p>
+            Confirm your queue only after reaching the office.
+        </p>
+
+    </div>
+
+
+    <!-- ================= STEPS ================= -->
+
+    <div class="steps">
+
+        <div class="step">
+
+            <div class="step-content">
+
+                <div
+                    class="circle active"
+                    id="step1Circle"
+                >
+                    1
+                </div>
+
+                <div class="step-label">
+                    Location Permission
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="line"
+            id="line1"
+        ></div>
+
+
+        <div class="step">
+
+            <div class="step-content">
+
+                <div
+                    class="circle"
+                    id="step2Circle"
+                >
+                    2
+                </div>
+
+                <div class="step-label">
+                    QR Scanner
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="line"
+            id="line2"
+        ></div>
+
+
+        <div class="step">
+
+            <div class="step-content">
+
+                <div
+                    class="circle"
+                    id="step3Circle"
+                >
+                    3
+                </div>
+
+                <div class="step-label">
+                    Confirm Queue
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= LOCATION STEP ================= -->
+
+    <section
+        class="card"
+        id="locationPanel"
+    >
+
+        <h2>
+            Step 1: Location Permission
+        </h2>
+
+        <p class="card-note">
+            Allow location access so we can check whether you are
+            within 100 metres of Bahumali office.
+        </p>
+
+
+        <div class="panel-box">
+
+            <div class="panel-icon">
+                📍
+            </div>
+
+            <h3>
+                Allow Location Access
+            </h3>
+
+            <p>
+                Location access is required before the QR scanner
+                can be opened. You must be within 100 metres of the
+                office to continue.
+            </p>
+
+
+            <button
+                type="button"
+                class="primary-btn"
+                id="locationButton"
+                onclick="checkLocation()"
+            >
+                Allow Location
+            </button>
+
+
+
+        </div>
+
+
+        <div
+            class="status"
+            id="statusBox"
+        ></div>
+
+
+        <div
+            class="location-result"
+            id="locationResult"
+        >
+
+            <div class="location-grid">
+
+                <div class="result-item">
+
+                    <div class="result-label">
+                        Distance From Office
+                    </div>
+
+                    <div
+                        class="result-value"
+                        id="distanceValue"
+                    >
+                        --
+                    </div>
+
+                </div>
+
+
+                <div class="result-item">
+
+                    <div class="result-label">
+                        Location Status
+                    </div>
+
+                    <div
+                        class="result-value"
+                        id="locationStatus"
+                    >
+                        --
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= QR STEP ================= -->
+
+    <section
+        class="card"
+        id="qrPanel"
+    >
+
+        <h2>
+            Step 2: Scan Office QR Code
+        </h2>
+
+        <p class="card-note">
+            You are within the allowed 100 metre area.
+            Scan the official QR code displayed at Bahumali office.
+        </p>
+
+
+        <div id="reader"></div>
+
+
+        <p
+            class="scan-note"
+            id="scanNote"
+        >
+            Your camera will open here after location verification.
+        </p>
+
+
+        <div
+            class="qr-result"
+            id="qrResult"
+        >
+
+            <h3>
+                ✓ QR Code Verified
+            </h3>
+
+
+            <div class="qr-grid">
+
+                <div class="qr-item">
+
+                    <span>
+                        Office Name
+                    </span>
+
+                    <strong id="officeName">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="qr-item">
+
+                    <span>
+                        Office ID
+                    </span>
+
+                    <strong id="officeId">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="qr-item">
+
+                    <span>
+                        QR Status
+                    </span>
+
+                    <strong id="qrStatus">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= FINAL CONFIRM ================= -->
+
+        <div id="finalPanel">
+
+            <p>
+                QR code verified successfully. You can now confirm
+                your queue.
+            </p>
+
+            <button
+                type="button"
+                class="confirm-btn"
+                onclick="confirmQueue()"
+            >
+                ✓ Confirm Queue
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-grid">
+
+        <div class="footer-column">
+
+            <h3>
+                Digital Queue
+            </h3>
+
+            <p>
+                A digital platform designed to make government services
+                easier, faster and more transparent.
+            </p>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <a href="index.html">Home</a>
+            <a href="service.html">Services</a>
+            <a href="myapplication.html">My Applications</a>
+            <a href="queue.html">Queue Status</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>
+                Services
+            </h3>
+
+            <a href="service.html">Aadhaar</a>
+            <a href="service.html">PAN Card</a>
+            <a href="service.html">Certificates</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>
+                Support
+            </h3>
+
+            <a href="offinfo.html">Offices</a>
+            <a href="profile.html">Profile</a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+        © 2026 Digital Queue. All Rights Reserved.
+    </div>
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   OFFICE LOCATION
+===================================================== */
+
+/*
+   Replace these coordinates with the exact coordinates
+   of your Bahumali office if required.
+*/
+const OFFICE_LATITUDE = 21.1915;
+const OFFICE_LONGITUDE = 72.8196;
+
+const MAX_DISTANCE_METERS = 100;
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+let scanner = null;
+
+let locationPassed = false;
+let qrVerified = false;
+
+let officeId = "";
+let officeName = "";
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function showStatus(message, type){
+
+    const box =
+        document.getElementById("statusBox");
+
+    box.className =
+        "status " + type;
+
+    box.textContent =
+        message;
+
+    box.style.display =
+        "block";
+}
+
+
+/* =====================================================
+   STEP INDICATOR
+===================================================== */
+
+function activateStep(step){
+
+    for(let i = 1; i <= 3; i++){
+
+        const circle =
+            document.getElementById(
+                "step" + i + "Circle"
+            );
+
+        if(i <= step){
+
+            circle.classList.add("active");
+
+        }
+        else{
+
+            circle.classList.remove("active");
+
+        }
+    }
+
+
+    document
+        .getElementById("line1")
+        .classList.toggle(
+            "active",
+            step >= 2
+        );
+
+
+    document
+        .getElementById("line2")
+        .classList.toggle(
+            "active",
+            step >= 3
+        );
+}
+
+
+/* =====================================================
+   LOCATION CHECK
+===================================================== */
+
+function checkLocation(){
+
+    const button =
+        document.getElementById(
+            "locationButton"
+        );
+
+
+    if(!navigator.geolocation){
+
+        showStatus(
+            getTranslation("unsupported"),
+            "error"
+        );
+
+        return;
+    }
+
+
+    button.disabled =
+        true;
+
+
+    showStatus(
+        getTranslation("locationPermission"),
+        "processing"
+    );
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            const userLat =
+                position.coords.latitude;
+
+            const userLng =
+                position.coords.longitude;
+
+
+            const officeLat = OFFICE_LATITUDE;
+            const officeLng = OFFICE_LONGITUDE;
+
+            const distance =
+                calculateDistance(
+                    userLat,
+                    userLng,
+                    officeLat,
+                    officeLng
+                );
+
+
+            document.getElementById(
+                "locationResult"
+            ).style.display =
+                "block";
+
+
+            document.getElementById(
+                "distanceValue"
+            ).textContent =
+                Math.round(distance) +
+                " metres";
+
+
+            if(
+                distance <=
+                MAX_DISTANCE_METERS
+            ){
+
+                locationPassed =
+                    true;
+
+
+                document.getElementById(
+                    "locationStatus"
+                ).textContent =
+                    getTranslation("within");
+
+
+                document.getElementById(
+                    "locationStatus"
+                ).style.color =
+                    "#2E7D32";
+
+
+                showStatus(
+                    getTranslation("withinMsg"),
+                    "success"
+                );
+
+
+                document.getElementById(
+                    "locationPanel"
+                ).style.display =
+                    "none";
+
+
+                document.getElementById(
+                    "qrPanel"
+                ).style.display =
+                    "block";
+
+
+                activateStep(2);
+
+
+                startScanner();
+
+            }
+            else{
+
+                locationPassed =
+                    false;
+
+
+                document.getElementById(
+                    "locationStatus"
+                ).textContent =
+                    getTranslation("outside");
+
+
+                document.getElementById(
+                    "locationStatus"
+                ).style.color =
+                    "#C62828";
+
+
+                button.disabled =
+                    false;
+
+
+                showStatus(
+                    getTranslation("outsideMsg"),
+                    "error"
+                );
+
+            }
+
+        },
+
+
+        function(error){
+
+            button.disabled =
+                false;
+
+
+            if(
+                error.code ===
+                1
+            ){
+
+                showStatus(
+                    getTranslation("denied"),
+                    "error"
+                );
+
+            }
+            else if(
+                error.code ===
+                2
+            ){
+
+                showStatus(
+                    getTranslation("gps"),
+                    "error"
+                );
+
+            }
+            else if(
+                error.code ===
+                3
+            ){
+
+                showStatus(
+                    getTranslation("timeout"),
+                    "error"
+                );
+
+            }
+            else{
+
+                showStatus(
+                    "Unable to access your location. Please try again.",
+                    "error"
+                );
+
+            }
+
+        },
+
+
+        {
+            enableHighAccuracy:true,
+            timeout:15000,
+            maximumAge:0
+        }
+
+    );
+
+}
+
+
+/* =====================================================
+   DISTANCE
+===================================================== */
+
+function calculateDistance(
+    lat1,
+    lon1,
+    lat2,
+    lon2
+){
+
+    const earthRadius =
+        6371000;
+
+
+    const lat1Rad =
+        lat1 *
+        Math.PI /
+        180;
+
+
+    const lat2Rad =
+        lat2 *
+        Math.PI /
+        180;
+
+
+    const deltaLat =
+        (lat2 - lat1) *
+        Math.PI /
+        180;
+
+
+    const deltaLon =
+        (lon2 - lon1) *
+        Math.PI /
+        180;
+
+
+    const a =
+        Math.sin(
+            deltaLat / 2
+        ) ** 2 +
+
+        Math.cos(lat1Rad) *
+        Math.cos(lat2Rad) *
+
+        Math.sin(
+            deltaLon / 2
+        ) ** 2;
+
+
+    const c =
+        2 *
+        Math.atan2(
+            Math.sqrt(a),
+            Math.sqrt(1 - a)
+        );
+
+
+    return earthRadius * c;
+}
+
+
+/* =====================================================
+   QR SCANNER
+===================================================== */
+
+function startScanner(){
+
+    if(scanner !== null){
+        return;
+    }
+
+
+    scanner =
+        new Html5QrcodeScanner(
+            "reader",
+            {
+                fps:10,
+
+                qrbox:{
+                    width:250,
+                    height:250
+                },
+
+                rememberLastUsedCamera:true
+            },
+
+            false
+        );
+
+
+    scanner.render(
+        onQRSuccess,
+        onQRFailure
+    );
+
+
+    document.getElementById(
+        "scanNote"
+    ).textContent =
+        "Scan the Bahumali office QR code.";
+}
+
+
+/* =====================================================
+   QR SUCCESS
+===================================================== */
+
+function onQRSuccess(
+    decodedText,
+    decodedResult
+){
+
+    console.log(
+        "QR scanned:",
+        decodedText
+    );
+
+
+    /*
+       Expected QR format:
+
+       OFFICE_ID=BAHUMALI01;
+       OFFICE_NAME=Bahumali
+    */
+
+    const data =
+        decodedText.split(";");
+
+
+    officeId = "";
+    officeName = "";
+
+
+    data.forEach(
+        function(item){
+
+            const parts =
+                item.split("=");
+
+
+            if(
+                parts.length !==
+                2
+            ){
+
+                return;
+
+            }
+
+
+            const key =
+                parts[0]
+                    .trim()
+                    .toUpperCase();
+
+
+            const value =
+                parts[1].trim();
+
+
+            if(
+                key ===
+                "OFFICE_ID"
+            ){
+
+                officeId =
+                    value;
+
+            }
+
+
+            if(
+                key ===
+                "OFFICE_NAME"
+            ){
+
+                officeName =
+                    value;
+
+            }
+
+        }
+    );
+
+
+    if(!officeId){
+
+        showStatus(
+            getTranslation("invalidQR"),
+            "error"
+        );
+
+        return;
+    }
+
+
+    qrVerified =
+        true;
+
+
+    document.getElementById(
+        "officeName"
+    ).textContent =
+        officeName ||
+        "Bahumali";
+
+
+    document.getElementById(
+        "officeId"
+    ).textContent =
+        officeId;
+
+
+    document.getElementById(
+        "qrStatus"
+    ).textContent =
+        "VERIFIED";
+
+
+    document.getElementById(
+        "qrResult"
+    ).style.display =
+        "block";
+
+
+    document.getElementById(
+        "finalPanel"
+    ).style.display =
+        "block";
+
+
+    activateStep(3);
+
+
+    showStatus(
+        getTranslation("qrSuccess"),
+        "success"
+    );
+
+
+    if(scanner !== null){
+
+        scanner
+            .clear()
+            .catch(
+                function(error){
+                    console.log(
+                        "Scanner stop error:",
+                        error
+                    );
+                }
+            );
+
+        scanner =
+            null;
+    }
+
+}
+
+
+function onQRFailure(error){
+
+    /*
+       Continuous scan failures are normal.
+    */
+
+}
+
+
+/* =====================================================
+   CONFIRM QUEUE
+===================================================== */
+
+function confirmQueue(){
+
+    if(!locationPassed){
+
+        alert(
+            getTranslation("needLocation")
+        );
+
+        return;
+    }
+
+
+    if(!qrVerified){
+
+        alert(
+            getTranslation("needQR")
+        );
+
+        return;
+    }
+
+
+    sessionStorage.setItem(
+        "queueConfirmed",
+        "true"
+    );
+
+
+    sessionStorage.setItem(
+        "queueConfirmedAt",
+        new Date().toISOString()
+    );
+
+
+    sessionStorage.setItem(
+        "officeId",
+        officeId
+    );
+
+
+    sessionStorage.setItem(
+        "officeName",
+        officeName ||
+        "Bahumali"
+    );
+
+
+    window.location.href =
+        "queue.html";
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+function openProfile(){
+
+    window.location.href =
+        "profile.html";
+}
+
+
+/* =====================================================
+   NOTIFICATIONS
+===================================================== */
+
+function toggleNotifications(event){
+
+    if(event){
+        event.stopPropagation();
+    }
+
+
+    const panel =
+        document.getElementById(
+            "notificationPanel"
+        );
+
+
+    if(panel){
+
+        panel.classList.toggle(
+            "show"
+        );
+
+    }
+
+}
+
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const wrapper =
+            document.querySelector(
+                ".notification-wrapper"
+            );
+
+
+        const panel =
+            document.getElementById(
+                "notificationPanel"
+            );
+
+
+        if(
+            wrapper &&
+            panel &&
+            !wrapper.contains(
+                event.target
+            )
+        ){
+
+            panel.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+function performSearch(){
+
+    const input =
+        document.getElementById(
+            "searchInput"
+        );
+
+
+    if(!input){
+        return;
+    }
+
+
+    const query =
+        input.value.trim();
+
+
+    if(query === ""){
+
+        input.focus();
+
+        return;
+    }
+
+
+    window.location.href =
+        "service.html?search=" +
+        encodeURIComponent(
+            query
+        );
+}
+
+
+const searchInput =
+    document.getElementById(
+        "searchInput"
+    );
+
+
+if(searchInput){
+
+    searchInput.addEventListener(
+        "keydown",
+        function(event){
+
+            if(
+                event.key ===
+                "Enter"
+            ){
+
+                performSearch();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   LANGUAGE
+===================================================== */
+
+function changeLanguage(language){
+
+    localStorage.setItem(
+        "selectedLanguage",
+        language
+    );
+
+}
+
+</script>
+
+
+<script>
+/* ================= COMPLETE WORKING LANGUAGE SYSTEM ================= */
+(function(){
+
+    const T = {
+        en: {
+            gov:"Government of India",
+            brand:"Digital Queue",
+            tagline:"Easy. Quick. Transparent.",
+            home:"⌂ Home",
+            services:"▣ Services",
+            applications:"▤ My Applications",
+            queue:"☷ Queue Status",
+            offices:"🏛 Offices",
+            search:"Search services, documents, offices...",
+            profile:"👤 Profile",
+            notifications:"Notifications",
+            notice1:"🔔 Your application status has been updated.",
+            notice2:"📍 Confirm your queue only after reaching the office.",
+            notice3:"ℹ️ Your queue number will be generated after confirmation.",
+            pageTitle:"Location & QR Verification",
+            pageSubtitle:"Confirm your queue only after reaching the office.",
+            stepLocation:"Location Permission",
+            stepQR:"QR Scanner",
+            stepConfirm:"Confirm Queue",
+            step1:"Step 1: Location Permission",
+            locationNote:"Allow location access so we can check whether you are within 100 metres of Bahumali office.",
+            allowTitle:"Allow Location Access",
+            allowText:"Location access is required before the QR scanner can be opened. You must be within 100 metres of the office to continue.",
+            allow:"Allow Location",
+            distance:"Distance From Office",
+            locationStatus:"Location Status",
+            step2:"Step 2: Scan Office QR Code",
+            qrNote:"You are within the allowed 100 metre area. Scan the office QR code displayed at Bahumali office.",
+            scan:"Scan the Bahumali office QR code.",
+            verified:"✓ QR Code Verified",
+            officeName:"Office Name",
+            officeId:"Office ID",
+            qrStatus:"QR Status",
+            qrVerified:"VERIFIED",
+            confirmText:"QR code verified successfully. You can now confirm your queue.",
+            confirm:"✓ Confirm Queue",
+            footerText:"A digital platform designed to make government services easier, faster and more transparent.",
+            quick:"Quick Links",
+            serviceTitle:"Services",
+            support:"Support",
+            footHome:"Home",
+            footServices:"Services",
+            footApplications:"My Applications",
+            footQueue:"Queue Status",
+            footAadhaar:"Aadhaar",
+            footPAN:"PAN Card",
+            footCertificates:"Certificates",
+            footOffices:"Offices",
+            footProfile:"Profile",
+            copyright:"© 2026 Digital Queue. All Rights Reserved.",
+            locationPermission:"Requesting your location permission...",
+            within:"Within 100 metres",
+            outside:"Outside 100 metres",
+            withinMsg:"Location permission granted. You are within 100 metres of Bahumali office. QR scanner is now available.",
+            outsideMsg:"You are outside 100 metres of Bahumali office. Please reach Bahumali office and allow location again. The QR scanner opens only within 100 metres.",
+            denied:"Location permission was denied. Please allow location permission and try again.",
+            gps:"Your location could not be determined. Please turn on GPS/location services and try again.",
+            timeout:"Location request timed out. Please try again.",
+            unsupported:"Location service is not available in this browser.",
+            invalidQR:"Invalid QR code. Please scan the Bahumali office QR code.",
+            qrSuccess:"QR code verified successfully. You can now confirm your queue.",
+            needLocation:"Location verification is required first.",
+            needQR:"Please scan the Bahumali office QR code first.",
+            confirmed:"Queue confirmed successfully."
+        },
+
+        hi: {
+            gov:"भारत सरकार",
+            brand:"डिजिटल कतार",
+            tagline:"आसान। त्वरित। पारदर्शी।",
+            home:"⌂ होम",
+            services:"▣ सेवाएँ",
+            applications:"▤ मेरे आवेदन",
+            queue:"☷ कतार स्थिति",
+            offices:"🏛 कार्यालय",
+            search:"सेवाएँ, दस्तावेज़, कार्यालय खोजें...",
+            profile:"👤 प्रोफ़ाइल",
+            notifications:"सूचनाएँ",
+            notice1:"🔔 आपके आवेदन की स्थिति अपडेट कर दी गई है।",
+            notice2:"📍 कार्यालय पहुँचने के बाद ही अपनी कतार की पुष्टि करें।",
+            notice3:"ℹ️ पुष्टि के बाद आपका कतार नंबर जनरेट किया जाएगा।",
+            pageTitle:"स्थान और QR सत्यापन",
+            pageSubtitle:"कार्यालय पहुँचने के बाद ही अपनी कतार की पुष्टि करें।",
+            stepLocation:"स्थान अनुमति",
+            stepQR:"QR स्कैनर",
+            stepConfirm:"कतार की पुष्टि",
+            step1:"चरण 1: स्थान अनुमति",
+            locationNote:"यह जाँचने के लिए स्थान की अनुमति दें कि आप बहुमाली कार्यालय से 100 मीटर के भीतर हैं या नहीं।",
+            allowTitle:"स्थान की अनुमति दें",
+            allowText:"QR स्कैनर खोलने से पहले स्थान की अनुमति आवश्यक है। आगे बढ़ने के लिए आपको कार्यालय से 100 मीटर के भीतर होना चाहिए।",
+            allow:"स्थान की अनुमति दें",
+            distance:"कार्यालय से दूरी",
+            locationStatus:"स्थान स्थिति",
+            step2:"चरण 2: कार्यालय QR कोड स्कैन करें",
+            qrNote:"आप 100 मीटर की अनुमति वाली सीमा के भीतर हैं। बहुमाली कार्यालय पर प्रदर्शित QR कोड स्कैन करें।",
+            scan:"बहुमाली कार्यालय का QR कोड स्कैन करें।",
+            verified:"✓ QR कोड सत्यापित",
+            officeName:"कार्यालय का नाम",
+            officeId:"कार्यालय ID",
+            qrStatus:"QR स्थिति",
+            qrVerified:"सत्यापित",
+            confirmText:"QR कोड सफलतापूर्वक सत्यापित हो गया है। अब आप अपनी कतार की पुष्टि कर सकते हैं।",
+            confirm:"✓ कतार की पुष्टि करें",
+            footerText:"सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए एक डिजिटल प्लेटफ़ॉर्म।",
+            quick:"त्वरित लिंक",
+            serviceTitle:"सेवाएँ",
+            support:"सहायता",
+            footHome:"होम",
+            footServices:"सेवाएँ",
+            footApplications:"मेरे आवेदन",
+            footQueue:"कतार स्थिति",
+            footAadhaar:"आधार",
+            footPAN:"पैन कार्ड",
+            footCertificates:"प्रमाणपत्र",
+            footOffices:"कार्यालय",
+            footProfile:"प्रोफ़ाइल",
+            copyright:"© 2026 डिजिटल कतार। सर्वाधिकार सुरक्षित।",
+            locationPermission:"आपके स्थान की अनुमति माँगी जा रही है...",
+            within:"100 मीटर के भीतर",
+            outside:"100 मीटर के बाहर",
+            withinMsg:"स्थान की अनुमति मिल गई है। आप बहुमाली कार्यालय से 100 मीटर के भीतर हैं। QR स्कैनर अब उपलब्ध है।",
+            outsideMsg:"आप बहुमाली कार्यालय से 100 मीटर के बाहर हैं। कृपया बहुमाली कार्यालय पहुँचें और फिर से स्थान की अनुमति दें। QR स्कैनर केवल 100 मीटर के भीतर होने पर ही खुलेगा।",
+            denied:"स्थान की अनुमति अस्वीकार कर दी गई। कृपया स्थान की अनुमति दें और फिर प्रयास करें।",
+            gps:"आपका स्थान निर्धारित नहीं हो सका। कृपया GPS/स्थान सेवा चालू करके फिर प्रयास करें।",
+            timeout:"स्थान अनुरोध का समय समाप्त हो गया। कृपया फिर से प्रयास करें।",
+            unsupported:"इस ब्राउज़र में स्थान सेवा उपलब्ध नहीं है।",
+            invalidQR:"अमान्य QR कोड। कृपया बहुमाली कार्यालय का QR कोड स्कैन करें।",
+            qrSuccess:"QR कोड सफलतापूर्वक सत्यापित हो गया है। अब आप अपनी कतार की पुष्टि कर सकते हैं।",
+            needLocation:"पहले स्थान सत्यापन आवश्यक है।",
+            needQR:"कृपया पहले बहुमाली कार्यालय का QR कोड स्कैन करें।",
+            confirmed:"कतार सफलतापूर्वक पुष्टि हो गई।"
+        },
+
+        gu: {
+            gov:"ભારત સરકાર",
+            brand:"ડિજિટલ કતાર",
+            tagline:"સરળ. ઝડપી. પારદર્શક.",
+            home:"⌂ હોમ",
+            services:"▣ સેવાઓ",
+            applications:"▤ મારી અરજીઓ",
+            queue:"☷ કતાર સ્થિતિ",
+            offices:"🏛 કચેરીઓ",
+            search:"સેવાઓ, દસ્તાવેજો, કચેરીઓ શોધો...",
+            profile:"👤 પ્રોફાઇલ",
+            notifications:"સૂચનાઓ",
+            notice1:"🔔 તમારી અરજીની સ્થિતિ અપડેટ કરવામાં આવી છે.",
+            notice2:"📍 કચેરી પહોંચ્યા પછી જ તમારી કતારની પુષ્ટિ કરો.",
+            notice3:"ℹ️ પુષ્ટિ પછી તમારો કતાર નંબર જનરેટ કરવામાં આવશે.",
+            pageTitle:"સ્થાન અને QR ચકાસણી",
+            pageSubtitle:"કચેરી પહોંચ્યા પછી જ તમારી કતારની પુષ્ટિ કરો.",
+            stepLocation:"સ્થાનની પરવાનગી",
+            stepQR:"QR સ્કેનર",
+            stepConfirm:"કતારની પુષ્ટિ",
+            step1:"પગલું 1: સ્થાનની પરવાનગી",
+            locationNote:"તમે બહુમાળી કચેરીથી 100 મીટરની અંદર છો કે નહીં તે ચકાસવા માટે સ્થાનની પરવાનગી આપો.",
+            allowTitle:"સ્થાનની પરવાનગી આપો",
+            allowText:"QR સ્કેનર ખોલતા પહેલાં સ્થાનની પરવાનગી જરૂરી છે. આગળ વધવા માટે તમે કચેરીથી 100 મીટરની અંદર હોવા જોઈએ.",
+            allow:"સ્થાનની પરવાનગી આપો",
+            distance:"કચેરીથી અંતર",
+            locationStatus:"સ્થાન સ્થિતિ",
+            step2:"પગલું 2: કચેરીનો QR કોડ સ્કેન કરો",
+            qrNote:"તમે 100 મીટરની મંજૂર સીમાની અંદર છો. બહુમાળી કચેરીમાં દર્શાવેલ QR કોડ સ્કેન કરો.",
+            scan:"બહુમાળી કચેરીનો QR કોડ સ્કેન કરો.",
+            verified:"✓ QR કોડ ચકાસાયેલ",
+            officeName:"કચેરીનું નામ",
+            officeId:"કચેરી ID",
+            qrStatus:"QR સ્થિતિ",
+            qrVerified:"ચકાસાયેલ",
+            confirmText:"QR કોડ સફળતાપૂર્વક ચકાસાઈ ગયો છે. હવે તમે તમારી કતારની પુષ્ટિ કરી શકો છો.",
+            confirm:"✓ કતારની પુષ્ટિ કરો",
+            footerText:"સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ.",
+            quick:"ઝડપી લિંક્સ",
+            serviceTitle:"સેવાઓ",
+            support:"સહાય",
+            footHome:"હોમ",
+            footServices:"સેવાઓ",
+            footApplications:"મારી અરજીઓ",
+            footQueue:"કતાર સ્થિતિ",
+            footAadhaar:"આધાર",
+            footPAN:"પાન કાર્ડ",
+            footCertificates:"પ્રમાણપત્રો",
+            footOffices:"કચેરીઓ",
+            footProfile:"પ્રોફાઇલ",
+            copyright:"© 2026 ડિજિટલ કતાર. સર્વાધિકાર સુરક્ષિત.",
+            locationPermission:"તમારા સ્થાનની પરવાનગી માંગવામાં આવી રહી છે...",
+            within:"100 મીટરની અંદર",
+            outside:"100 મીટરની બહાર",
+            withinMsg:"સ્થાનની પરવાનગી મળી ગઈ છે. તમે બહુમાળી કચેરીથી 100 મીટરની અંદર છો. QR સ્કેનર હવે ઉપલબ્ધ છે.",
+            outsideMsg:"તમે બહુમાળી કચેરીથી 100 મીટરની બહાર છો. કૃપા કરીને બહુમાળી કચેરી પહોંચો અને ફરીથી સ્થાનની પરવાનગી આપો. QR સ્કેનર માત્ર 100 મીટરની અંદર હોવા પર જ ખુલશે.",
+            denied:"સ્થાનની પરવાનગી નકારી દેવામાં આવી છે. કૃપા કરીને સ્થાનની પરવાનગી આપો અને ફરી પ્રયાસ કરો.",
+            gps:"તમારું સ્થાન નક્કી થઈ શક્યું નથી. કૃપા કરીને GPS/સ્થાન સેવા ચાલુ કરીને ફરી પ્રયાસ કરો.",
+            timeout:"સ્થાન વિનંતીનો સમય સમાપ્ત થયો. કૃપા કરીને ફરી પ્રયાસ કરો.",
+            unsupported:"આ બ્રાઉઝરમાં સ્થાન સેવા ઉપલબ્ધ નથી.",
+            invalidQR:"અમાન્ય QR કોડ. કૃપા કરીને બહુમાળી કચેરીનો QR કોડ સ્કેન કરો.",
+            qrSuccess:"QR કોડ સફળતાપૂર્વક ચકાસાઈ ગયો છે. હવે તમે તમારી કતારની પુષ્ટિ કરી શકો છો.",
+            needLocation:"પહેલા સ્થાન ચકાસણી જરૂરી છે.",
+            needQR:"કૃપા કરીને પહેલા બહુમાળી કચેરીનો QR કોડ સ્કેન કરો.",
+            confirmed:"કતારની સફળતાપૂર્વક પુષ્ટિ થઈ ગઈ."
+        }
+    };
+
+    function getT(){
+        const lang = localStorage.getItem("selectedLanguage") || "en";
+        return T[lang] || T.en;
+    }
+
+    window.getTranslation = function(key){
+        const t = getT();
+        return t[key] !== undefined ? t[key] : (T.en[key] !== undefined ? T.en[key] : key);
+    };
+
+    function applyLanguage(lang){
+        lang = T[lang] ? lang : "en";
+        localStorage.setItem("selectedLanguage", lang);
+        const t = T[lang];
+
+        const gov = document.querySelector(".gov-text h2");
+        const brand = document.querySelector(".gov-text h3");
+        const tagline = document.querySelector(".gov-text p");
+        if(gov) gov.textContent = t.gov;
+        if(brand) brand.textContent = t.brand;
+        if(tagline) tagline.textContent = t.tagline;
+
+        const nav = document.querySelectorAll(".navigation a");
+        if(nav.length >= 5){
+            nav[0].textContent=t.home;
+            nav[1].textContent=t.services;
+            nav[2].textContent=t.applications;
+            nav[3].textContent=t.queue;
+            nav[4].textContent=t.offices;
+        }
+
+        const search=document.getElementById("searchInput");
+        if(search) search.placeholder=t.search;
+
+        const profile=document.querySelector(".profile");
+        if(profile) profile.textContent=t.profile;
+
+        const nh=document.querySelector(".notification-header");
+        if(nh) nh.textContent=t.notifications;
+
+        const ni=document.querySelectorAll(".notification-item");
+        if(ni.length>=3){
+            ni[0].textContent=t.notice1;
+            ni[1].textContent=t.notice2;
+            ni[2].textContent=t.notice3;
+        }
+
+        const title=document.querySelector(".page-title h1");
+        if(title) title.textContent=t.pageTitle;
+        const subtitle=document.querySelector(".page-title p");
+        if(subtitle) subtitle.textContent=t.pageSubtitle;
+
+        const labels=document.querySelectorAll(".step-label");
+        if(labels.length>=3){
+            labels[0].textContent=t.stepLocation;
+            labels[1].textContent=t.stepQR;
+            labels[2].textContent=t.stepConfirm;
+        }
+
+        const h2=document.querySelector("#locationPanel h2");
+        if(h2) h2.textContent=t.step1;
+
+        const note=document.querySelector("#locationPanel .card-note");
+        if(note) note.textContent=t.locationNote;
+
+        const ah3=document.querySelector("#locationPanel .panel-box h3");
+        if(ah3) ah3.textContent=t.allowTitle;
+
+        const ap=document.querySelector("#locationPanel .panel-box p");
+        if(ap) ap.textContent=t.allowText;
+
+        const ab=document.getElementById("locationButton");
+        if(ab) ab.textContent=t.allow;
+
+        const rlabels=document.querySelectorAll("#locationResult .result-label");
+        if(rlabels.length>=2){
+            rlabels[0].textContent=t.distance;
+            rlabels[1].textContent=t.locationStatus;
+        }
+
+        const qh2=document.querySelector("#qrPanel h2");
+        if(qh2) qh2.textContent=t.step2;
+
+        const qnote=document.querySelector("#qrPanel .card-note");
+        if(qnote) qnote.textContent=t.qrNote;
+
+        const sn=document.getElementById("scanNote");
+        if(sn && !qrVerified) sn.textContent=t.scan;
+
+        const qrh3=document.querySelector("#qrResult h3");
+        if(qrh3) qrh3.textContent=t.verified;
+
+        const qitems=document.querySelectorAll("#qrResult .qr-item span");
+        if(qitems.length>=3){
+            qitems[0].textContent=t.officeName;
+            qitems[1].textContent=t.officeId;
+            qitems[2].textContent=t.qrStatus;
+        }
+
+        const qs=document.getElementById("qrStatus");
+        if(qs && qrVerified) qs.textContent=t.qrVerified;
+
+        const fp=document.querySelector("#finalPanel p");
+        if(fp) fp.textContent=t.confirmText;
+
+        const cb=document.querySelector(".confirm-btn");
+        if(cb) cb.textContent=t.confirm;
+
+        const fcols=document.querySelectorAll(".footer-column");
+        if(fcols.length>=4){
+            const p=fcols[0].querySelector("p");
+            if(p) p.textContent=t.footerText;
+
+            fcols[1].querySelector("h3").textContent=t.quick;
+            fcols[2].querySelector("h3").textContent=t.serviceTitle;
+            fcols[3].querySelector("h3").textContent=t.support;
+
+            const links1=fcols[1].querySelectorAll("a");
+            if(links1.length>=4){
+                links1[0].textContent=t.footHome;
+                links1[1].textContent=t.footServices;
+                links1[2].textContent=t.footApplications;
+                links1[3].textContent=t.footQueue;
+            }
+
+            const links2=fcols[2].querySelectorAll("a");
+            if(links2.length>=3){
+                links2[0].textContent=t.footAadhaar;
+                links2[1].textContent=t.footPAN;
+                links2[2].textContent=t.footCertificates;
+            }
+
+            const links3=fcols[3].querySelectorAll("a");
+            if(links3.length>=2){
+                links3[0].textContent=t.footOffices;
+                links3[1].textContent=t.footProfile;
+            }
+        }
+
+        const bottom=document.querySelector(".footer-bottom");
+        if(bottom) bottom.textContent=t.copyright;
+    }
+
+    window.changeLanguage=function(lang){
+        applyLanguage(lang);
+    };
+
+    document.addEventListener("DOMContentLoaded",function(){
+        const select=document.getElementById("languageSelect");
+        const lang=localStorage.getItem("selectedLanguage") || "en";
+        if(select) select.value=lang;
+        applyLanguage(lang);
+    });
+
+})();
+</script>
+
+</body>
+</html>

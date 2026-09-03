@@ -1,410 +1,277 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OTP Verification - Digital Queue</title>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title id="pageTitle"><span id="stepOtp">OTP Verification</span> - Digital <span id="stepQueue">Queue</span></title>
+
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-}
-
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
 body{
-    background:#f5f7fa;
+    background:#f4f7fb;
     color:#14213d;
     min-height:100vh;
 }
+a{text-decoration:none;color:inherit}
 
-a{
-    text-decoration:none;
-    color:inherit;
-}
-
-/* ================= HEADER ================= */
-
+/* ===== HEADER ===== */
 header{
-    background:#0D47A1;
-    color:#fff;
     min-height:100px;
+    background:#0D47A1;
+    color:white;
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:25px;
     padding:12px 45px;
 }
-
 .brand{
     display:flex;
     align-items:center;
-    gap:15px;
-    text-decoration:none;
-    color:#fff;
-    flex-shrink:0;
+    gap:14px;
+    color:white;
 }
-
-.brand .emblem{
-    width:55px;
-    height:65px;
+.logo{
+    width:62px;
+    height:68px;
     object-fit:contain;
 }
-
-.government-text h2{
-    font-size:20px;
-}
-
-.government-text h3{
-    font-size:17px;
-    margin-top:3px;
-}
-
-.government-text p{
-    font-size:12px;
-    margin-top:3px;
-}
-
-.header-actions{
+.brand h2{font-size:20px}
+.brand h3{font-size:17px;margin-top:3px;text-transform:none}
+.brand p{font-size:12px;margin-top:3px}
+.header-right{
     display:flex;
     align-items:center;
     justify-content:flex-end;
-    gap:12px;
-    flex:1;
+    gap:10px;
 }
-
 .search-box{
-    width:390px;
-    height:42px;
-    background:#fff;
+    width:310px;
+    height:40px;
+    background:white;
     border-radius:6px;
     display:flex;
     align-items:center;
-    padding:0 12px 0 14px;
+    padding:0 10px;
 }
-
 .search-box input{
+    border:0;
+    outline:0;
     width:100%;
-    border:none;
-    outline:none;
     font-size:14px;
 }
-
-.search-icon{
-    border:none;
-    background:transparent;
-    color:#0D47A1;
-    font-size:18px;
+.search-box button{
+    border:0;
+    background:none;
     cursor:pointer;
-    padding:0;
+    font-size:18px;
 }
-
-.notification-wrapper{
-    position:relative;
-}
-
+.notification-wrapper{position:relative}
 .notification-btn{
-    width:42px;
-    height:42px;
-    border:none;
-    border-radius:6px;
-    background:#fff;
-    color:#0D47A1;
-    cursor:pointer;
-    font-size:18px;
-    position:relative;
+    width:42px;height:40px;border:none;border-radius:6px;
+    background:white;color:#0D47A1;cursor:pointer;font-size:18px;position:relative;
 }
-
 .badge{
-    position:absolute;
-    top:-5px;
-    right:-4px;
-    width:18px;
-    height:18px;
-    border-radius:50%;
-    background:#D32F2F;
-    color:#fff;
-    display:grid;
-    place-items:center;
-    font-size:10px;
+    position:absolute;top:-5px;right:-4px;width:18px;height:18px;
+    border-radius:50%;background:#D32F2F;color:white;
+    display:grid;place-items:center;font-size:10px;
 }
-
 .notification-panel{
-    display:none;
-    position:absolute;
-    right:0;
-    top:50px;
-    width:310px;
-    background:#fff;
-    color:#14213D;
-    border-radius:8px;
-    box-shadow:0 8px 25px rgba(0,0,0,.20);
-    z-index:1000;
-    overflow:hidden;
+    display:none;position:absolute;right:0;top:48px;width:310px;
+    background:white;color:#14213D;border-radius:8px;
+    box-shadow:0 8px 25px rgba(0,0,0,.2);z-index:1000;overflow:hidden;
 }
-
-.notification-panel.show{
-    display:block;
-}
-
-.notification-header{
-    padding:14px;
-    font-weight:bold;
-    border-bottom:1px solid #eee;
-}
-
-.notification-item{
-    padding:13px;
-    border-bottom:1px solid #eee;
-    font-size:13px;
-    line-height:1.5;
-}
-
+.notification-panel.show{display:block}
+.notification-header{padding:14px;font-weight:bold;border-bottom:1px solid #eee}
+.notification-item{padding:13px;border-bottom:1px solid #eee;font-size:13px;line-height:1.5}
 .language-select{
-    height:42px;
-    border:none;
-    border-radius:6px;
-    padding:0 10px;
-    cursor:pointer;
-    font-size:13px;
-    background:#fff;
-    color:#14213D;
+    height:40px;border:none;border-radius:6px;padding:0 10px;
+    background:white;color:#14213d;cursor:pointer;
 }
-
-.profile{
-    border:none;
-    background:transparent;
-    color:#fff;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-    white-space:nowrap;
-    padding:10px 4px;
+.profile-btn{
+    height:40px;border:none;border-radius:6px;background:white;
+    color:#0D47A1;padding:0 14px;font-weight:bold;cursor:pointer;
 }
+.profile-btn:hover{background:#e8f1ff}
 
-/* ================= NAVIGATION ================= */
-
-.navigation{
-    height:58px;
-    background:#fff;
+/* ===== NAV ===== */
+nav{
+    background:white;
+    box-shadow:0 2px 7px rgba(0,0,0,.08);
     display:flex;
-    align-items:center;
-    justify-content:flex-start;
-    gap:38px;
-    padding-left:0;
-    box-shadow:0 2px 6px rgba(0,0,0,.08);
+    overflow-x:auto;
+}
+nav a{
+    color:#14213d;
+    padding:17px 20px;
+    white-space:nowrap;
+    font-size:14px;
+}
+nav a:hover,nav a.active{
+    color:#0D47A1;
+    background:#f5f8ff;
+    font-weight:bold;
+    border-bottom:3px solid #0D47A1;
 }
 
-.navigation a{
-    text-decoration:none;
-    color:#444;
-    font-size:15px;
-    padding:20px 5px;
-}
-
-.navigation a:hover{
-    color:#0757b8;
-    border-bottom:3px solid #0757b8;
-}
-
-/* ================= MAIN ================= */
-
+/* ===== OTP PAGE ===== */
 main{
-    max-width:950px;
+    max-width:1050px;
     margin:auto;
-    padding:35px 22px 60px;
+    padding:42px 22px 60px;
 }
-
 .page-heading{
     text-align:center;
-    margin-bottom:25px;
+    margin-bottom:30px;
 }
-
 .page-heading h1{
-    font-size:30px;
     color:#0D47A1;
+    font-size:30px;
     margin-bottom:8px;
 }
-
 .page-heading p{
     color:#667085;
     font-size:14px;
 }
 
-/* ================= PROGRESS BAR ================= */
-/* LEFT ALIGNED */
-
+/* progress */
 .progress{
     display:flex;
     align-items:flex-start;
     justify-content:center;
-    width:100%;
-    margin-bottom:30px;
+    margin:0 auto 34px;
+    max-width:800px;
     overflow-x:auto;
-    padding:0;
 }
-
-.progress-step{
-    display:flex;
-    align-items:center;
-    flex-shrink:0;
-}
-
-.progress-step > div{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-}
-
+.progress-step{text-align:center;min-width:125px}
 .circle{
-    width:36px;
-    height:36px;
-    border-radius:50%;
-    background:#dbe7f8;
-    color:#0D47A1;
-    display:grid;
-    place-items:center;
-    font-weight:bold;
+    width:42px;height:42px;border-radius:50%;
+    background:#e1eaf6;color:#0D47A1;
+    display:grid;place-items:center;
+    font-weight:bold;margin:auto;
+    border:2px solid #d3dfef;
 }
-
 .circle.active{
-    background:#0D47A1;
-    color:#fff;
+    background:#0D47A1;color:white;border-color:#0D47A1;
 }
-
-.line{
-    width:75px;
-    height:3px;
-    background:#dbe7f8;
-    margin-top:17px;
-    flex-shrink:0;
-}
-
-.line.active{
-    background:#0D47A1;
-}
-
 .step-label{
-    font-size:11px;
+    margin-top:8px;
+    font-size:12px;
     color:#667085;
-    text-align:center;
-    margin-top:5px;
     white-space:nowrap;
 }
+.progress-step .circle.active + .step-label{color:#0D47A1;font-weight:bold}
+.line{
+    width:90px;height:3px;background:#dbe5f1;margin-top:20px;flex:none;
+}
+.line.active{background:#0D47A1}
 
-/* ================= OTP CARD ================= */
-
+/* OTP card */
 .otp-card{
-    max-width:650px;
-    margin:0 auto;
-    background:#fff;
-    border:1px solid #e1e6ee;
-    border-radius:14px;
-    box-shadow:0 4px 16px rgba(0,0,0,.06);
-    padding:38px 35px;
+    width:min(560px,100%);
+    margin:auto;
+    background:white;
+    border:1px solid #dfe6ef;
+    border-radius:18px;
+    padding:38px 42px 34px;
+    box-shadow:0 10px 30px rgba(13,71,161,.10);
     text-align:center;
 }
-
 .otp-icon{
-    width:64px;
-    height:64px;
+    width:72px;height:72px;
     border-radius:50%;
     background:#e8f1ff;
-    color:#0D47A1;
     display:grid;
     place-items:center;
-    font-size:28px;
+    font-size:34px;
     margin:0 auto 18px;
 }
-
 .otp-card h2{
-    color:#14213D;
+    color:#14213d;
+    font-size:25px;
     margin-bottom:10px;
-    font-size:23px;
 }
-
 .otp-description{
     color:#667085;
     font-size:14px;
     line-height:1.6;
-    margin-bottom:8px;
+    max-width:410px;
+    margin:auto;
 }
-
 .mobile-number{
+    display:inline-block;
+    margin:15px 0 25px;
+    padding:8px 15px;
+    background:#f4f7fb;
+    border-radius:7px;
     color:#0D47A1;
     font-weight:bold;
-    margin-bottom:25px;
+    letter-spacing:1px;
 }
-
 .otp-inputs{
     display:flex;
     justify-content:center;
-    gap:12px;
-    margin:20px 0 25px;
+    gap:13px;
+    margin-bottom:25px;
 }
-
 .otp{
-    width:55px;
-    height:55px;
-    border:1px solid #d0d5dd;
-    border-radius:8px;
+    width:58px;height:62px;
+    border:2px solid #d5deea;
+    border-radius:10px;
     text-align:center;
-    font-size:22px;
+    font-size:25px;
     font-weight:bold;
+    color:#14213d;
     outline:none;
+    background:#fff;
+    transition:.2s;
 }
-
 .otp:focus{
     border-color:#0D47A1;
-    box-shadow:0 0 0 3px rgba(13,71,161,.10);
+    box-shadow:0 0 0 3px rgba(13,71,161,.12);
 }
-
 .verify-btn{
     width:100%;
     border:none;
-    border-radius:7px;
-    padding:13px 20px;
+    border-radius:8px;
     background:#0D47A1;
-    color:#fff;
-    font-size:14px;
+    color:white;
+    padding:14px 20px;
+    font-size:15px;
     font-weight:bold;
     cursor:pointer;
 }
-
-.verify-btn:hover{
-    background:#1565C0;
-}
-
+.verify-btn:hover{background:#1565C0}
 .resend-text{
     margin-top:18px;
-    font-size:13px;
     color:#667085;
+    font-size:13px;
 }
-
 .resend-text a{
     color:#0D47A1;
     font-weight:bold;
 }
-
+.resend-text a:hover{text-decoration:underline}
 .success-message{
     display:none;
     margin-top:18px;
-    padding:12px;
-    border-radius:7px;
-    background:#e8f5e9;
-    color:#2e7d32;
+    padding:12px 14px;
+    border-radius:8px;
+    background:#E8F5E9;
+    border:1px solid #A5D6A7;
+    color:#2E7D32;
     font-size:13px;
+    line-height:1.5;
 }
 
-/* ================= FOOTER ================= */
-
+/* ===== FOOTER ===== */
 footer{
     background:#0D47A1;
-    color:#fff;
+    color:white;
     padding:35px 7% 18px;
 }
-
 .footer-grid{
     max-width:1200px;
     margin:auto;
@@ -412,24 +279,14 @@ footer{
     grid-template-columns:1.5fr 1fr 1fr 1fr;
     gap:30px;
 }
-
-.footer-column h3{
-    font-size:15px;
-    margin-bottom:10px;
-}
-
-.footer-column p,
-.footer-column a{
+.footer-column h3{font-size:15px;margin-bottom:10px}
+.footer-column p,.footer-column a{
     color:#dce8fa;
     font-size:13px;
     line-height:1.9;
     display:block;
 }
-
-.footer-column a:hover{
-    text-decoration:underline;
-}
-
+.footer-column a:hover{text-decoration:underline}
 .footer-bottom{
     max-width:1200px;
     margin:25px auto 0;
@@ -439,463 +296,204 @@ footer{
     font-size:12px;
 }
 
-/* ================= RESPONSIVE ================= */
-
-@media(max-width:950px){
-
-    header{
-        flex-direction:column;
-        gap:15px;
-        padding:20px;
-    }
-
-    .brand{
-        justify-content:center;
-    }
-
-    .header-actions{
-        width:100%;
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-
-    .search-box{
-        width:min(390px,100%);
-    }
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+    header{flex-direction:column;align-items:stretch}
+    .brand{justify-content:center}
+    .header-right{justify-content:center;flex-wrap:wrap}
+    .search-box{width:100%}
+    .footer-grid{grid-template-columns:1fr 1fr}
 }
-
-@media(max-width:600px){
-
-    .header-actions{
-        flex-direction:column;
-    }
-
-    .search-box{
-        width:100%;
-    }
-
-    .notification-panel{
-        position:fixed;
-        left:15px;
-        right:15px;
-        top:120px;
-        width:auto;
-    }
-
-    main{
-        padding:25px 15px 45px;
-    }
-
-    .otp-card{
-        padding:28px 18px;
-    }
-
-    .otp-inputs{
-        gap:7px;
-    }
-
-    .otp{
-        width:48px;
-        height:50px;
-    }
-
-    .navigation{
-        overflow-x:auto;
-        justify-content:flex-start;
-        padding:0 15px;
-        gap:25px;
-    }
-
-    .footer-grid{
-        grid-template-columns:1fr;
-    }
+@media(max-width:650px){
+    .otp-card{padding:30px 20px}
+    .otp-inputs{gap:8px}
+    .otp{width:52px;height:58px}
+    .progress{justify-content:flex-start}
+    .line{width:55px}
+    .footer-grid{grid-template-columns:1fr}
 }
-</style>
-</head>
-
+</style></head>
 <body>
-
 <!-- ================= HEADER ================= -->
-
 <header>
-
-    <a href="index.html" class="brand">
-
-        <img
-            class="emblem"
-            src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
-            alt="State Emblem of India"
-        >
-
-        <div class="government-text">
-            <h2>Government of India</h2>
-            <h3>DIGITAL QUEUE</h3>
-            <p>Easy. Quick. Transparent.</p>
-        </div>
-
-    </a>
-
-
-    <div class="header-actions">
-
-        <!-- SEARCH -->
-        <div class="search-box">
-
-            <input
-                id="searchInput"
-                type="text"
-                placeholder="Search services, documents, offices..."
-                aria-label="Search"
-            >
-
-            <button
-                type="button"
-                class="search-icon"
-                onclick="performSearch()"
-                aria-label="Search"
-            >
-                🔍
-            </button>
-
-        </div>
-
-
-        <!-- NOTIFICATIONS -->
-        <div class="notification-wrapper">
-
-            <button
-                type="button"
-                class="notification-btn"
-                onclick="toggleNotifications(event)"
-                aria-label="Notifications"
-            >
+<a class="brand" href="index.html">
+<img alt="Digital Queue Logo" class="logo" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg';" src="digital-queue-logo.png"/>
+<div>
+<h2 id="governmentText">Government of India</h2>
+<h3 id="brandText">Digital Queue</h3>
+<p id="taglineText">Easy. Quick. Transparent.</p>
+</div>
+</a>
+<div class="header-right">
+<div class="search-box">
+<input autocomplete="off" id="searchInput" placeholder="Search services, documents, offices..." type="text"/>
+<button aria-label="Search" onclick="performSearch()" type="button">🔍</button>
+</div>
+<div class="notification-wrapper">
+<button aria-label="Notifications" class="notification-btn" onclick="toggleNotifications(event)" type="button">
                 🔔
                 <span class="badge">3</span>
-            </button>
-
-            <div
-                class="notification-panel"
-                id="notificationPanel"
-            >
-
-                <div class="notification-header">
+</button>
+<div class="notification-panel" id="notificationPanel">
+<div class="notification-header" id="notificationTitle">
                     Notifications
                 </div>
-
-                <div class="notification-item">
-                    🔔 Your application status has been updated.
-                </div>
-
-                <div class="notification-item">
-                    📍 Queue confirmation is required before visiting the office.
-                </div>
-
-                <div class="notification-item">
-                    ℹ️ Check your queue status for updates.
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- LANGUAGE -->
-        <select
-            id="languageSelect"
-            class="language-select"
-            onchange="changeLanguage(this.value)"
-            aria-label="Language"
-        >
-            <option value="en">English</option>
-            <option value="hi">हिन्दी</option>
-            <option value="gu">ગુજરાતી</option>
-        </select>
-
-
-        <!-- PROFILE -->
-        <button
-            type="button"
-            class="profile"
-            onclick="goToProfile()"
-        >
-            👤 &nbsp; <span id="profileText">Profile</span>
-        </button>
-
-    </div>
-
+<div class="notification-item">
+                    🔔 <span id="notification1">
+                        Your application status has been updated.
+                    </span>
+</div>
+<div class="notification-item">
+                    📍 <span id="notification2">
+                        Queue confirmation is required before visiting the office.
+                    </span>
+</div>
+<div class="notification-item">
+                    ℹ️ <span id="notification3">
+                        Check your queue status for updates.
+                    </span>
+</div>
+</div>
+</div>
+<select aria-label="Language" class="language-select" id="languageSelect" onchange="changeLanguage(this.value)">
+<option value="en">English</option>
+<option value="hi">हिन्दी</option>
+<option value="gu">ગુજરાતી</option>
+</select>
+<button class="profile-btn" onclick="openProfile()" type="button">
+            👤 <span id="profileButtonText">Profile</span>
+</button>
+</div>
 </header>
-
-
 <!-- ================= NAVIGATION ================= -->
-
-<nav class="navigation">
-
-    <a href="index.html">⌂ Home</a>
-
-    <a href="service.html">▣ Services</a>
-
-    <a href="myapplication.html">▣ My Applications</a>
-
-    <a href="queue.html">☷ Queue Status</a>
-
-    <a href="offinfo.html">▥ Offices</a>
-
+<nav>
+<a class="" href="index.html" id="navHome">⌂   Home</a>
+<a class="" href="service.html" id="navServices">▣   Services</a>
+<a class="" href="myapplication.html" id="navApplications">▤   My Applications</a>
+<a class="" href="queue.html" id="navQueue">☷   Queue Status</a>
+<a class="" href="offinfo.html" id="navOffices">🏛   Offices</a>
 </nav>
-
-
 <!-- ================= MAIN ================= -->
-
 <main>
-
-    <div class="page-heading">
-
-        <h1>OTP Verification</h1>
-
-        <p>
-            Verify your mobile number to continue your application.
+<div class="page-heading">
+<h1 id="pageHeading">OTP Verification</h1>
+<p>
+            <span id="pageDescription">Verify your mobile number to continue your application.</span>
         </p>
-
-    </div>
-
-
-    <!-- PROGRESS - LEFT SIDE -->
-
-    <div class="progress">
-
-        <div class="progress-step">
-
-            <div>
-
-                <div class="circle active">1</div>
-
-                <div class="step-label">
+</div>
+<!-- PROGRESS - LEFT SIDE -->
+<div class="progress">
+<div class="progress-step">
+<div>
+<div class="circle active">1</div>
+<div class="step-label">
                     Application
                 </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="line active"></div>
-
-
-        <div class="progress-step">
-
-            <div>
-
-                <div class="circle active">2</div>
-
-                <div class="step-label">
+</div>
+</div>
+<div class="line active"></div>
+<div class="progress-step">
+<div>
+<div class="circle active">2</div>
+<div class="step-label">
                     OTP Verification
                 </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="line"></div>
-
-
-        <div class="progress-step">
-
-            <div>
-
-                <div class="circle">3</div>
-
-                <div class="step-label">
+</div>
+</div>
+<div class="line"></div>
+<div class="progress-step">
+<div>
+<div class="circle">3</div>
+<div class="step-label">
                     Queue
                 </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="line"></div>
-
-
-        <div class="progress-step">
-
-            <div>
-
-                <div class="circle">4</div>
-
-                <div class="step-label">
-                    Confirmation
+</div>
+</div>
+<div class="line"></div>
+<div class="progress-step">
+<div>
+<div class="circle">4</div>
+<div class="step-label">
+                    <span id="stepConfirmation">Confirmation</span>
                 </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- OTP CARD -->
-
-    <section class="otp-card">
-
-        <div class="otp-icon">
+</div>
+</div>
+</div>
+<!-- OTP CARD -->
+<section class="otp-card">
+<div class="otp-icon">
             🔐
         </div>
-
-        <h2>
-            Enter OTP
+<h2>
+            <span id="enterOtpText">Enter OTP</span>
         </h2>
-
-        <p class="otp-description">
-            A 4-digit OTP has been sent to your registered mobile number.
+<p class="otp-description">
+            <span id="otpDescriptionText">A 4-digit OTP has been sent to your registered mobile number.</span>
         </p>
-
-        <p
-            class="mobile-number"
-            id="mobileNumber"
-        >
+<p class="mobile-number" id="mobileNumber">
             ******1234
         </p>
-
-
-        <div class="otp-inputs">
-
-            <input
-                class="otp"
-                type="text"
-                inputmode="numeric"
-                maxlength="1"
-                autocomplete="one-time-code"
-                aria-label="OTP digit 1"
-            >
-
-            <input
-                class="otp"
-                type="text"
-                inputmode="numeric"
-                maxlength="1"
-                aria-label="OTP digit 2"
-            >
-
-            <input
-                class="otp"
-                type="text"
-                inputmode="numeric"
-                maxlength="1"
-                aria-label="OTP digit 3"
-            >
-
-            <input
-                class="otp"
-                type="text"
-                inputmode="numeric"
-                maxlength="1"
-                aria-label="OTP digit 4"
-            >
-
-        </div>
-
-
-        <button
-            type="button"
-            class="verify-btn"
-            onclick="verifyOTP()"
-        >
-            Verify OTP
+<div class="otp-inputs">
+<input aria-label="OTP digit 1" autocomplete="one-time-code" class="otp" inputmode="numeric" maxlength="1" type="text"/>
+<input aria-label="OTP digit 2" class="otp" inputmode="numeric" maxlength="1" type="text"/>
+<input aria-label="OTP digit 3" class="otp" inputmode="numeric" maxlength="1" type="text"/>
+<input aria-label="OTP digit 4" class="otp" inputmode="numeric" maxlength="1" type="text"/>
+</div>
+<button class="verify-btn" onclick="verifyOTP()" type="button">
+            <span id="verifyOtpText">Verify OTP</span>
         </button>
+<p class="resend-text">
 
+            <span id="resendQuestion">Didn't receive the OTP?</span>
 
-        <p class="resend-text">
-
-            Didn't receive the OTP?
-
-            <a
-                href="#"
-                onclick="resendOTP(event)"
-            >
-                Resend OTP
+            <a href="#" onclick="resendOTP(event)">
+                <span id="resendOtpText">Resend OTP</span>
             </a>
-
-        </p>
-
-
-        <div
-            id="successMessage"
-            class="success-message"
-        >
-            OTP verified successfully. Redirecting to Queue...
+</p>
+<div class="success-message" id="successMessage">
+            <span id="successText">OTP verified successfully. Redirecting to Queue...</span>
         </div>
-
-    </section>
-
+</section>
 </main>
-
-
 <!-- ================= FOOTER ================= -->
-
 <footer>
-
-    <div class="footer-grid">
-
-        <div class="footer-column">
-
-            <h3>Digital Queue</h3>
-
-            <p>
-                A digital platform designed to make government services
-                easier, faster and more transparent.
+<div class="footer-grid">
+<div class="footer-column">
+<h3 id="footerBrandTitle">Digital Queue</h3>
+<p id="footerDescription">
+                A digital platform designed to make government
+                services easier, faster and more transparent.
             </p>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h3>Quick Links</h3>
-
-            <a href="index.html">Home</a>
-
-            <a href="service.html">Services</a>
-
-            <a href="myapplication.html">My Applications</a>
-
-            <a href="queue.html">Queue Status</a>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h3>Services</h3>
-
-            <a href="service.html">Aadhaar</a>
-
-            <a href="service.html">PAN Card</a>
-
-            <a href="service.html">Certificates</a>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h3>Support</h3>
-
-            <a href="offinfo.html">Offices</a>
-
-            <a href="profile.html">Profile</a>
-
-        </div>
-
+</div>
+<div class="footer-column">
+<h3 id="quickTitle">
+                Quick Links
+            </h3>
+<a href="index.html" id="footerHome">Home</a>
+<a href="service.html" id="footerServices">Services</a>
+<a href="myapplication.html" id="footerApplications">My Applications</a>
+<a href="queue.html" id="footerQueue">Queue Status</a>
+</div>
+<div class="footer-column">
+<h3 id="serviceFooterTitle">
+                Services
+            </h3>
+<a href="service.html" id="footerAadhaar">Aadhaar</a>
+<a href="service.html" id="footerPan">PAN Card</a>
+<a href="service.html" id="footerCertificates">Certificates</a>
+</div>
+<div class="footer-column">
+<h3 id="supportTitle">
+                Support
+            </h3>
+<a href="offinfo.html" id="footerOffices">Offices</a>
+<a href="profile.html" id="footerProfile">Profile</a>
+</div>
+</div>
+<div class="footer-bottom">
+        <span id="footerCopyright">© 2026 Digital Queue. All Rights Reserved.</span>
     </div>
-
-
-    <div class="footer-bottom">
-        © 2026 Digital Queue. All Rights Reserved.
-    </div>
-
 </footer>
-
-
 <script>
 
 /* ================= LOGIN ================= */
@@ -1115,7 +713,7 @@ function loadApplication(){
     if(!saved){
 
         alert(
-            "No application was found. Please fill and submit the application form first."
+            (window.getOtpPageTranslation ? window.getOtpPageTranslation().missing : "No application was found. Please fill and submit the application form first.")
         );
 
         window.location.replace(
@@ -1173,7 +771,7 @@ function loadApplication(){
 
 
         alert(
-            "The application data is invalid. Please submit the application again."
+            (window.getOtpPageTranslation ? window.getOtpPageTranslation().invalid : "The application data is invalid. Please submit the application again.")
         );
 
 
@@ -1205,7 +803,7 @@ function verifyOTP(){
     if(otp.length !== 4){
 
         alert(
-            "Please enter the complete 4-digit OTP."
+            (window.getOtpPageTranslation ? window.getOtpPageTranslation().incomplete : "Please enter the complete 4-digit OTP.")
         );
 
         return;
@@ -1291,7 +889,7 @@ function resendOTP(event){
 
 
     alert(
-        "A new OTP has been requested. Real OTP delivery will be connected to the backend."
+        (window.getOtpPageTranslation ? window.getOtpPageTranslation().resendAlert : "A new OTP has been requested. Real OTP delivery will be connected to the backend.")
     );
 
 }
@@ -1332,6 +930,238 @@ document.addEventListener(
 );
 
 </script>
+<script id="shared-site-script">
+(function(){
+    const sharedTranslations = {
+        en:{government:"Government of India",brand:"Digital Queue",tagline:"Easy. Quick. Transparent.",search:"Search services, documents, offices...",notifications:"Notifications",n1:"Your application status has been updated.",n2:"Queue confirmation is required before visiting the office.",n3:"Check your queue status for updates.",home:"Home",services:"Services",apps:"My Applications",queue:"Queue Status",offices:"Offices",profile:"Profile",quick:"Quick Links",service:"Services",support:"Support",footer:"A digital platform designed to make government services easier, faster and more transparent."},
+        hi:{government:"भारत सरकार",brand:"डिजिटल क्यू",tagline:"आसान। तेज़। पारदर्शी।",search:"सेवाएँ, दस्तावेज़, कार्यालय खोजें...",notifications:"सूचनाएँ",n1:"आपके आवेदन की स्थिति अपडेट की गई है।",n2:"कार्यालय जाने से पहले कतार की पुष्टि आवश्यक है।",n3:"अपनी कतार स्थिति के अपडेट देखें।",home:"होम",services:"सेवाएँ",apps:"मेरे आवेदन",queue:"कतार स्थिति",offices:"कार्यालय",profile:"प्रोफ़ाइल",quick:"त्वरित लिंक",service:"सेवाएँ",support:"सहायता",footer:"सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए एक डिजिटल प्लेटफॉर्म।"},
+        gu:{government:"ભારત સરકાર",brand:"ડિજિટલ કતાર",tagline:"સરળ. ઝડપી. પારદર્શક.",search:"સેવાઓ, દસ્તાવેજો, કચેરીઓ શોધો...",notifications:"સૂચનાઓ",n1:"તમારી અરજીની સ્થિતિ અપડેટ કરવામાં આવી છે.",n2:"કચેરીની મુલાકાત પહેલાં કતારની પુષ્ટિ જરૂરી છે.",n3:"તમારી કતાર સ્થિતિના અપડેટ્સ જુઓ.",home:"હોમ",services:"સેવાઓ",apps:"મારી અરજીઓ",queue:"કતાર સ્થિતિ",offices:"કચેરીઓ",profile:"પ્રોફાઇલ",quick:"ઝડપી લિંક્સ",service:"સેવાઓ",support:"સહાય",footer:"સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ."}
+    };
 
+    const t = lang => sharedTranslations[lang] || sharedTranslations.en;
+    const setText = (id, value) => { const el=document.getElementById(id); if(el) el.textContent=value; };
+
+    window.applySharedLanguage = function(lang){
+        lang = lang || localStorage.getItem("selectedLanguage") || "en";
+        localStorage.setItem("selectedLanguage", lang);
+        document.documentElement.lang = lang;
+        const d=t(lang);
+        const select=document.getElementById("languageSelect");
+        if(select) select.value=lang;
+        setText("governmentText",d.government);
+        setText("brandText",d.brand);
+        setText("taglineText",d.tagline);
+        const search=document.getElementById("searchInput");
+        if(search) search.placeholder=d.search;
+        setText("notificationTitle",d.notifications);
+        setText("notification1",d.n1);
+        setText("notification2",d.n2);
+        setText("notification3",d.n3);
+        setText("navHome","⌂  "+d.home);
+        setText("navServices","▣  "+d.services);
+        setText("navApplications","▤  "+d.apps);
+        setText("navQueue","☷  "+d.queue);
+        setText("navOffices","🏛  "+d.offices);
+        setText("profileButtonText",d.profile);
+        setText("quickTitle",d.quick);
+        setText("serviceFooterTitle",d.service);
+        setText("supportTitle",d.support);
+        setText("footerDescription",d.footer);
+        setText("footerBrandTitle",d.brand);
+        setText("footerHome",d.home);
+        setText("footerServices",d.services);
+        setText("footerApplications",d.apps);
+        setText("footerQueue",d.queue);
+        setText("footerAadhaar", lang==="hi" ? "आधार" : lang==="gu" ? "આધાર" : "Aadhaar");
+        setText("footerPan", lang==="hi" ? "पैन कार्ड" : lang==="gu" ? "પાન કાર્ડ" : "PAN Card");
+        setText("footerCertificates", lang==="hi" ? "प्रमाणपत्र" : lang==="gu" ? "પ્રમાણપત્રો" : "Certificates");
+        setText("footerOffices",d.offices);
+        setText("footerProfile",d.profile);
+        setText("footerCopyright",
+            lang==="hi" ? "© 2026 डिजिटल क्यू। सर्वाधिकार सुरक्षित।" :
+            lang==="gu" ? "© 2026 ડિજિટલ કતાર. સર્વાધિકાર સુરક્ષિત." :
+            "© 2026 Digital Queue. All Rights Reserved."
+        );
+
+        const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+        document.querySelectorAll('nav a').forEach(a=>{
+            const href=(a.getAttribute('href')||'').split('?')[0].toLowerCase();
+            a.classList.toggle('active', href===path || (path==='' && href==='index.html'));
+        });
+    };
+
+    const oldChangeLanguage = window.changeLanguage;
+    window.changeLanguage = function(lang){
+        localStorage.setItem("selectedLanguage",lang);
+        try{
+            if(typeof oldChangeLanguage === "function") oldChangeLanguage(lang);
+            else if(typeof window.setLanguage === "function") window.setLanguage(lang);
+        }catch(e){ console.warn("Page language handler error:",e); }
+        window.applySharedLanguage(lang);
+    };
+
+    window.performSearch = function(){
+        const input=document.getElementById("searchInput");
+        if(!input) return;
+        const query=input.value.trim().toLowerCase();
+        if(!query){ input.focus(); return; }
+
+        document.querySelectorAll("[data-search-highlight]").forEach(el=>{
+            el.style.outline="";
+            el.removeAttribute("data-search-highlight");
+        });
+
+        const selectors="main h1, main h2, main h3, main h4, main p, main li, main td, main th, main label, main button, main a, main .card, main .section, main .info-card";
+        const candidates=Array.from(document.querySelectorAll(selectors));
+        const found=candidates.find(el=>{
+            const text=(el.innerText||el.textContent||"").toLowerCase();
+            return text.includes(query);
+        });
+
+        if(found){
+            found.setAttribute("data-search-highlight","true");
+            found.style.outline="3px solid #1565c0";
+            found.style.outlineOffset="4px";
+            found.scrollIntoView({behavior:"smooth",block:"center"});
+            setTimeout(()=>{
+                found.style.outline="";
+                found.removeAttribute("data-search-highlight");
+            },2500);
+        }else{
+            alert("No matching information found on this page.");
+        }
+    };
+
+    window.toggleNotifications = function(event){
+        if(event) event.stopPropagation();
+        const panel=document.getElementById("notificationPanel");
+        if(panel) panel.classList.toggle("show");
+    };
+
+    window.openProfile = function(){
+        if(localStorage.getItem("isLoggedIn")==="true") window.location.href="profile.html";
+        else window.location.href="register.html";
+    };
+    window.goToProfile = window.openProfile;
+
+    document.addEventListener("DOMContentLoaded",function(){
+        const input=document.getElementById("searchInput");
+        if(input) input.addEventListener("keydown",function(e){ if(e.key==="Enter") window.performSearch(); });
+        const wrapper=document.querySelector(".notification-wrapper");
+        const panel=document.getElementById("notificationPanel");
+        document.addEventListener("click",function(e){
+            if(panel && wrapper && !wrapper.contains(e.target)) panel.classList.remove("show");
+        });
+        window.applySharedLanguage(localStorage.getItem("selectedLanguage")||"en");
+    });
+})();
+</script>
+<script id="otp-page-language">
+(function(){
+    const otpTranslations = {
+        en: {
+            title:"OTP Verification - Digital Queue",
+            heading:"OTP Verification",
+            description:"Verify your mobile number to continue your application.",
+            application:"Application",
+            otp:"OTP Verification",
+            queue:"Queue",
+            confirmation:"Confirmation",
+            enterOtp:"Enter OTP",
+            otpDescription:"A 4-digit OTP has been sent to your registered mobile number.",
+            verifyOtp:"Verify OTP",
+            resendQuestion:"Didn't receive the OTP?",
+            resendOtp:"Resend OTP",
+            success:"OTP verified successfully. Redirecting to Queue...",
+            missing:"No application was found. Please fill and submit the application form first.",
+            invalid:"The application data is invalid. Please submit the application again.",
+            incomplete:"Please enter the complete 4-digit OTP.",
+            resendAlert:"A new OTP has been requested. Real OTP delivery will be connected to the backend."
+        },
+        hi: {
+            title:"ओटीपी सत्यापन - डिजिटल क्यू",
+            heading:"ओटीपी सत्यापन",
+            description:"अपना आवेदन जारी रखने के लिए अपने मोबाइल नंबर का सत्यापन करें।",
+            application:"आवेदन",
+            otp:"ओटीपी सत्यापन",
+            queue:"कतार",
+            confirmation:"पुष्टि",
+            enterOtp:"ओटीपी दर्ज करें",
+            otpDescription:"आपके पंजीकृत मोबाइल नंबर पर 4 अंकों का ओटीपी भेजा गया है।",
+            verifyOtp:"ओटीपी सत्यापित करें",
+            resendQuestion:"ओटीपी प्राप्त नहीं हुआ?",
+            resendOtp:"ओटीपी पुनः भेजें",
+            success:"ओटीपी सफलतापूर्वक सत्यापित हुआ। कतार पर भेजा जा रहा है...",
+            missing:"कोई आवेदन नहीं मिला। कृपया पहले आवेदन फॉर्म भरकर जमा करें।",
+            invalid:"आवेदन का डेटा मान्य नहीं है। कृपया आवेदन फिर से जमा करें।",
+            incomplete:"कृपया पूरा 4 अंकों का ओटीपी दर्ज करें।",
+            resendAlert:"नया ओटीपी अनुरोध किया गया है। वास्तविक ओटीपी भेजने की सुविधा बाद में बैकएंड से जोड़ी जाएगी।"
+        },
+        gu: {
+            title:"OTP ચકાસણી - ડિજિટલ કતાર",
+            heading:"OTP ચકાસણી",
+            description:"તમારી અરજી ચાલુ રાખવા માટે તમારા મોબાઇલ નંબરની ચકાસણી કરો.",
+            application:"અરજી",
+            otp:"OTP ચકાસણી",
+            queue:"કતાર",
+            confirmation:"પુષ્ટિ",
+            enterOtp:"OTP દાખલ કરો",
+            otpDescription:"તમારા નોંધાયેલા મોબાઇલ નંબર પર 4 અંકનો OTP મોકલવામાં આવ્યો છે.",
+            verifyOtp:"OTP ચકાસો",
+            resendQuestion:"OTP મળ્યો નથી?",
+            resendOtp:"OTP ફરી મોકલો",
+            success:"OTP સફળતાપૂર્વક ચકાસાઈ ગયું. કતાર પર મોકલવામાં આવી રહ્યું છે...",
+            missing:"કોઈ અરજી મળી નથી. કૃપા કરીને પહેલા અરજી ફોર્મ ભરીને સબમિટ કરો.",
+            invalid:"અરજીનો ડેટા માન્ય નથી. કૃપા કરીને અરજી ફરીથી સબમિટ કરો.",
+            incomplete:"કૃપા કરીને સંપૂર્ણ 4 અંકનો OTP દાખલ કરો.",
+            resendAlert:"નવો OTP વિનંતી કરવામાં આવ્યો છે. વાસ્તવિક OTP મોકલવાની સુવિધા પછી બેકએન્ડ સાથે જોડવામાં આવશે."
+        }
+    };
+
+    const set = (id, value) => {
+        const el = document.getElementById(id);
+        if(el) el.textContent = value;
+    };
+
+    window.applyOtpPageLanguage = function(lang){
+        const d = otpTranslations[lang] || otpTranslations.en;
+        document.documentElement.lang = lang || "en";
+        document.title = d.title;
+
+        set("pageHeading", d.heading);
+        set("pageDescription", d.description);
+        set("stepApplication", d.application);
+        set("stepOtp", d.otp);
+        set("stepQueue", d.queue);
+        set("stepConfirmation", d.confirmation);
+        set("enterOtpText", d.enterOtp);
+        set("otpDescriptionText", d.otpDescription);
+        set("verifyOtpText", d.verifyOtp);
+        set("resendQuestion", d.resendQuestion);
+        set("resendOtpText", d.resendOtp);
+        set("successText", d.success);
+
+        window.otpPageLanguage = d;
+    };
+
+    window.getOtpPageTranslation = function(){
+        return window.otpPageLanguage || otpTranslations.en;
+    };
+
+    const oldOtpChangeLanguage = window.changeLanguage;
+    window.changeLanguage = function(lang){
+        localStorage.setItem("selectedLanguage", lang);
+        if(typeof oldOtpChangeLanguage === "function") oldOtpChangeLanguage(lang);
+        applyOtpPageLanguage(lang);
+    };
+
+    const runOtpLanguage = function(){
+        applyOtpPageLanguage(localStorage.getItem("selectedLanguage") || "en");
+    };
+
+    if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", runOtpLanguage);
+    else runOtpLanguage();
+})();
+</script>
 </body>
 </html>

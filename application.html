@@ -293,12 +293,12 @@ The service is selected automatically from the service you chose on the previous
 <div class="form-grid">
 
 <div class="field">
-<label for="service">Selected Service</label>
+<label for="service" id="selectedServiceLabel">Selected Service</label>
 <input id="service" class="readonly" type="text" readonly required>
 </div>
 
 <div class="field">
-<label for="office">Office</label>
+<label for="office" id="officeLabel">Office</label>
 <input id="office" class="readonly" type="text" value="Bahumali" readonly>
 </div>
 
@@ -314,32 +314,32 @@ The service is selected automatically from the service you chose on the previous
 <div class="form-grid">
 
 <div class="field">
-<label for="fullName">Full Name <span class="required">*</span></label>
+<label for="fullName" id="fullNameLabel">Full Name <span class="required">\*</span></label>
 <input id="fullName" type="text" autocomplete="name" required placeholder="Enter your full name">
 </div>
 
 <div class="field">
-<label for="mobile">Mobile Number <span class="required">*</span></label>
+<label for="mobile" id="mobileLabel">Mobile Number <span class="required">\*</span></label>
 <input id="mobile" type="tel" maxlength="10" inputmode="numeric" autocomplete="tel" required placeholder="Enter 10-digit mobile number">
 </div>
 
 <div class="field">
-<label for="email">Email Address <span class="required">*</span></label>
+<label for="email" id="emailLabel">Email Address <span class="required">\*</span></label>
 <input id="email" type="email" autocomplete="email" required placeholder="Enter your email address">
 </div>
 
 <div class="field">
-<label for="dob">Date of Birth <span class="required">*</span></label>
+<label for="dob" id="dobLabel">Date of Birth <span class="required">\*</span></label>
 <input id="dob" type="date" required>
 </div>
 
 <div class="field">
-<label for="gender">Gender <span class="required">*</span></label>
+<label for="gender" id="genderLabel">Gender <span class="required">\*</span></label>
 <select id="gender" required>
-<option value="">Select gender</option>
-<option value="Male">Male</option>
-<option value="Female">Female</option>
-<option value="Other">Other</option>
+<option id="genderSelectOption" value="">Select gender</option>
+<option id="genderMale" value="Male">Male</option>
+<option id="genderFemale" value="Female">Female</option>
+<option id="genderOther" value="Other">Other</option>
 </select>
 </div>
 
@@ -386,7 +386,7 @@ Submit Application
 <div class="footer-grid">
 
 <div class="footer-column">
-<h3>Digital Queue</h3>
+<h3><span id="footerBrandTitle">Digital Queue</span></h3>
 <p id="footerDescription">
 A digital platform designed to make government services easier, faster and more transparent.
 </p>
@@ -394,28 +394,28 @@ A digital platform designed to make government services easier, faster and more 
 
 <div class="footer-column">
 <h3 id="quickTitle">Quick Links</h3>
-<a href="index.html">Home</a>
-<a href="service.html">Services</a>
-<a href="myapplication.html">My Applications</a>
-<a href="queue.html">Queue Status</a>
+<a href="index.html"><span id="footerHome">Home</span></a>
+<a href="service.html"><span id="footerServices">Services</span></a>
+<a href="myapplication.html"><span id="footerApplications">My Applications</span></a>
+<a href="queue.html"><span id="footerQueue">Queue Status</span></a>
 </div>
 
 <div class="footer-column">
 <h3 id="serviceFooterTitle">Services</h3>
-<a href="service.html">Aadhaar</a>
-<a href="service.html">PAN Card</a>
-<a href="service.html">Certificates</a>
+<a href="service.html"><span id="footerAadhaar">Aadhaar</span></a>
+<a href="service.html"><span id="footerPan">PAN Card</span></a>
+<a href="service.html"><span id="footerCertificates">Certificates</span></a>
 </div>
 
 <div class="footer-column">
 <h3 id="supportTitle">Support</h3>
-<a href="offinfo.html">Offices</a>
-<a href="profile.html">Profile</a>
+<a href="offinfo.html"><span id="footerOffices">Offices</span></a>
+<a href="profile.html"><span id="footerProfile">Profile</span></a>
 </div>
 
 </div>
 
-<div class="footer-bottom">© 2026 Digital Queue. All Rights Reserved.</div>
+<div class="footer-bottom"><span id="footerBottom">© 2026 Digital Queue. All Rights Reserved.</span></div>
 
 </footer>
 
@@ -447,26 +447,58 @@ function openProfile(){
 
 
 /* ================= SEARCH ================= */
-
 function performSearch(){
-
-    const value=document.getElementById("searchInput").value.trim();
+    const input = document.getElementById("searchInput");
+    const value = input ? input.value.trim().toLowerCase() : "";
 
     if(!value){
-        document.getElementById("searchInput").focus();
+        if(input) input.focus();
         return;
     }
 
-    window.location.href="service.html?search="+encodeURIComponent(value);
+    document.querySelectorAll(".search-highlight").forEach(function(el){
+        el.classList.remove("search-highlight");
+    });
 
+    const selectors = [
+        "main h1","main h2","main h3","main p","main label",
+        "main button","main option","main .step-label","main .info-box"
+    ];
+
+    const elements = Array.from(document.querySelectorAll(selectors.join(",")));
+    const found = elements.find(function(el){
+        return (el.textContent || "").toLowerCase().includes(value);
+    });
+
+    if(found){
+        found.classList.add("search-highlight");
+        found.scrollIntoView({behavior:"smooth",block:"center"});
+    }else{
+        const lang = localStorage.getItem("selectedLanguage") || "en";
+        const message =
+            lang === "hi" ? "इस पेज पर कुछ नहीं मिला।" :
+            lang === "gu" ? "આ પેજ પર કંઈ મળ્યું નથી." :
+            "Nothing found on this page.";
+
+        const old = document.getElementById("searchMessage");
+        if(old) old.remove();
+
+        const box = document.createElement("div");
+        box.id = "searchMessage";
+        box.textContent = message;
+        box.style.cssText =
+            "position:fixed;top:110px;right:20px;background:#0d47a1;color:#fff;" +
+            "padding:10px 14px;border-radius:6px;z-index:9999;font-size:13px;" +
+            "box-shadow:0 4px 14px rgba(0,0,0,.2)";
+        document.body.appendChild(box);
+        setTimeout(function(){box.remove();},1800);
+    }
 }
 
 document.getElementById("searchInput").addEventListener("keydown",function(event){
-
-    if(event.key==="Enter"){
+    if(event.key === "Enter"){
         performSearch();
     }
-
 });
 
 
@@ -815,6 +847,301 @@ document.addEventListener("DOMContentLoaded",function(){
 });
 
 </script>
+
+
+<script>
+/* =====================================================
+   APPLICATION FORM - COMPLETE FOOTER TRANSLATION
+   English / Hindi / Gujarati
+===================================================== */
+(function () {
+    const footerTranslations = {
+        en: {
+            desc: "A digital platform designed to make government services easier, faster and more transparent.",
+            quick: "Quick Links",
+            services: "Services",
+            support: "Support",
+            home: "Home",
+            apps: "My Applications",
+            queue: "Queue Status",
+            offices: "Offices",
+            profile: "Profile",
+            aadhaar: "Aadhaar",
+            pan: "PAN Card",
+            certificates: "Certificates",
+            bottom: "© 2026 Digital Queue. All Rights Reserved."
+        },
+        hi: {
+            desc: "सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए एक डिजिटल प्लेटफ़ॉर्म।",
+            quick: "त्वरित लिंक",
+            services: "सेवाएँ",
+            support: "सहायता",
+            home: "होम",
+            apps: "मेरे आवेदन",
+            queue: "कतार स्थिति",
+            offices: "कार्यालय",
+            profile: "प्रोफ़ाइल",
+            aadhaar: "आधार",
+            pan: "पैन कार्ड",
+            certificates: "प्रमाणपत्र",
+            bottom: "© 2026 डिजिटल क्यू. सर्वाधिकार सुरक्षित।"
+        },
+        gu: {
+            desc: "સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ.",
+            quick: "ઝડપી લિંક્સ",
+            services: "સેવાઓ",
+            support: "સહાય",
+            home: "હોમ",
+            apps: "મારી અરજીઓ",
+            queue: "કતાર સ્થિતિ",
+            offices: "કચેરીઓ",
+            profile: "પ્રોફાઇલ",
+            aadhaar: "આધાર",
+            pan: "પાન કાર્ડ",
+            certificates: "પ્રમાણપત્રો",
+            bottom: "© 2026 ડિજિટલ ક્યુ. સર્વાધિકાર સુરક્ષિત."
+        }
+    };
+
+    function setFooter(id, text) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+    }
+
+    window.applyApplicationFooterLanguage = function (lang) {
+        const t = footerTranslations[lang] || footerTranslations.en;
+
+        setFooter("footerBrandTitle", "Digital Queue");
+        setFooter("footerDescription", t.desc);
+        setFooter("quickTitle", t.quick);
+        setFooter("serviceFooterTitle", t.services);
+        setFooter("supportTitle", t.support);
+
+        setFooter("footerHome", t.home);
+        setFooter("footerServices", t.services);
+        setFooter("footerApplications", t.apps);
+        setFooter("footerQueue", t.queue);
+        setFooter("footerAadhaar", t.aadhaar);
+        setFooter("footerPan", t.pan);
+        setFooter("footerCertificates", t.certificates);
+        setFooter("footerOffices", t.offices);
+        setFooter("footerProfile", t.profile);
+        setFooter("footerBottom", t.bottom);
+    };
+
+    const languageSelect = document.getElementById("languageSelect");
+    if (languageSelect) {
+        languageSelect.addEventListener("change", function () {
+            window.applyApplicationFooterLanguage(this.value);
+        });
+    }
+
+    window.addEventListener("load", function () {
+        window.applyApplicationFooterLanguage(
+            localStorage.getItem("selectedLanguage") || "en"
+        );
+    });
+})();
+</script>
+
+
+<script>
+/* =====================================================
+   APPLICATION FORM - COMPLETE LANGUAGE SYSTEM
+   Header + Navigation + Form + Footer
+   English / Hindi / Gujarati
+===================================================== */
+(function(){
+    const T = {
+        en:{
+            government:"Government of India", brand:"Digital Queue",
+            tagline:"Easy. Quick. Transparent.",
+            search:"Search services, documents, offices...",
+            notifications:"Notifications",
+            n1:"Your application status has been updated.",
+            n2:"Queue confirmation is required before visiting the office.",
+            n3:"Check your queue status for updates.",
+            home:"Home", services:"Services", apps:"My Applications",
+            queue:"Queue Status", offices:"Offices", profile:"Profile",
+            title:"Application Form",
+            description:"Complete the required details to continue your application.",
+            application:"Application", otp:"OTP Verification",
+            queueStep:"Queue", confirmation:"Confirmation",
+            serviceDetails:"Service Details",
+            serviceInfo:"The service is selected automatically from the service you chose on the previous page.",
+            selectedService:"Selected Service", office:"Office",
+            personal:"Personal Information", fullName:"Full Name",
+            mobile:"Mobile Number", email:"Email Address", dob:"Date of Birth",
+            gender:"Gender", selectGender:"Select gender", male:"Male",
+            female:"Female", other:"Other",
+            declaration:"Declaration",
+            declarationText:"I confirm that the information provided in this application is true and correct to the best of my knowledge.",
+            back:"← Back to Services", submit:"Submit Application",
+            footer:"A digital platform designed to make government services easier, faster and more transparent.",
+            quick:"Quick Links", support:"Support",
+            aadhaar:"Aadhaar", pan:"PAN Card", certificates:"Certificates",
+            footerBottom:"© 2026 Digital Queue. All Rights Reserved."
+        },
+        hi:{
+            government:"भारत सरकार", brand:"डिजिटल क्यू",
+            tagline:"आसान। तेज़। पारदर्शी।",
+            search:"सेवाएँ, दस्तावेज़, कार्यालय खोजें...",
+            notifications:"सूचनाएँ",
+            n1:"आपके आवेदन की स्थिति अपडेट की गई है।",
+            n2:"कार्यालय जाने से पहले कतार की पुष्टि आवश्यक है।",
+            n3:"अपनी कतार स्थिति के अपडेट देखें।",
+            home:"होम", services:"सेवाएँ", apps:"मेरे आवेदन",
+            queue:"कतार स्थिति", offices:"कार्यालय", profile:"प्रोफ़ाइल",
+            title:"आवेदन फॉर्म",
+            description:"अपना आवेदन जारी रखने के लिए आवश्यक जानकारी भरें।",
+            application:"आवेदन", otp:"OTP सत्यापन",
+            queueStep:"कतार", confirmation:"पुष्टि",
+            serviceDetails:"सेवा विवरण",
+            serviceInfo:"पिछले पेज पर चुनी गई सेवा यहाँ अपने आप दिखाई जाएगी।",
+            selectedService:"चयनित सेवा", office:"कार्यालय",
+            personal:"व्यक्तिगत जानकारी", fullName:"पूरा नाम",
+            mobile:"मोबाइल नंबर", email:"ईमेल पता", dob:"जन्म तिथि",
+            gender:"लिंग", selectGender:"लिंग चुनें", male:"पुरुष",
+            female:"महिला", other:"अन्य",
+            declaration:"घोषणा",
+            declarationText:"मैं पुष्टि करता/करती हूँ कि इस आवेदन में दी गई जानकारी मेरी जानकारी के अनुसार सही है।",
+            back:"← सेवाओं पर वापस", submit:"आवेदन जमा करें",
+            footer:"सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए एक डिजिटल प्लेटफ़ॉर्म।",
+            quick:"त्वरित लिंक", support:"सहायता",
+            aadhaar:"आधार", pan:"पैन कार्ड", certificates:"प्रमाणपत्र",
+            footerBottom:"© 2026 डिजिटल क्यू. सर्वाधिकार सुरक्षित।"
+        },
+        gu:{
+            government:"ભારત સરકાર", brand:"ડિજિટલ કતાર",
+            tagline:"સરળ. ઝડપી. પારદર્શક.",
+            search:"સેવાઓ, દસ્તાવેજો, કચેરીઓ શોધો...",
+            notifications:"સૂચનાઓ",
+            n1:"તમારી અરજીની સ્થિતિ અપડેટ કરવામાં આવી છે.",
+            n2:"કચેરીની મુલાકાત પહેલાં કતારની પુષ્ટિ જરૂરી છે.",
+            n3:"તમારી કતાર સ્થિતિના અપડેટ્સ જુઓ.",
+            home:"હોમ", services:"સેવાઓ", apps:"મારી અરજીઓ",
+            queue:"કતાર સ્થિતિ", offices:"કચેરીઓ", profile:"પ્રોફાઇલ",
+            title:"અરજી ફોર્મ",
+            description:"અરજી ચાલુ રાખવા માટે જરૂરી વિગતો ભરો.",
+            application:"અરજી", otp:"OTP ચકાસણી",
+            queueStep:"કતાર", confirmation:"પુષ્ટિ",
+            serviceDetails:"સેવાની વિગતો",
+            serviceInfo:"પાછલા પેજ પર પસંદ કરેલી સેવા અહીં આપમેળે દેખાશે.",
+            selectedService:"પસંદ કરેલી સેવા", office:"કચેરી",
+            personal:"વ્યક્તિગત માહિતી", fullName:"પૂરું નામ",
+            mobile:"મોબાઇલ નંબર", email:"ઇમેઇલ સરનામું", dob:"જન્મ તારીખ",
+            gender:"લિંગ", selectGender:"લિંગ પસંદ કરો", male:"પુરુષ",
+            female:"સ્ત્રી", other:"અન્ય",
+            declaration:"ઘોષણા",
+            declarationText:"હું પુષ્ટિ કરું છું કે આ અરજીમાં આપેલી માહિતી મારી જાણ મુજબ સાચી છે.",
+            back:"← સેવાઓ પર પાછા", submit:"અરજી સબમિટ કરો",
+            footer:"સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ.",
+            quick:"ઝડપી લિંક્સ", support:"સહાય",
+            aadhaar:"આધાર", pan:"પાન કાર્ડ", certificates:"પ્રમાણપત્રો",
+            footerBottom:"© 2026 ડિજિટલ ક્યુ. સર્વાધિકાર સુરક્ષિત."
+        }
+    };
+
+    function set(id,value){
+        const el=document.getElementById(id);
+        if(el) el.textContent=value;
+    }
+
+    function applyAll(lang){
+        const t=T[lang]||T.en;
+        localStorage.setItem("selectedLanguage",lang);
+        document.documentElement.lang=lang;
+
+        const sel=document.getElementById("languageSelect");
+        if(sel) sel.value=lang;
+
+        set("governmentText",t.government);
+        set("brandText",t.brand);
+        set("taglineText",t.tagline);
+        const search=document.getElementById("searchInput");
+        if(search) search.placeholder=t.search;
+
+        set("notificationTitle",t.notifications);
+        set("notification1",t.n1);
+        set("notification2",t.n2);
+        set("notification3",t.n3);
+
+        set("navHome",t.home);
+        set("navServices",t.services);
+        set("navApplications",t.apps);
+        set("navQueue",t.queue);
+        set("navOffices",t.offices);
+        set("profileButtonText",t.profile);
+
+        set("pageTitle",t.title);
+        set("pageDescription",t.description);
+        set("step1",t.application);
+        set("step2",t.otp);
+        set("step3",t.queueStep);
+        set("step4",t.confirmation);
+
+        set("serviceSection",t.serviceDetails);
+        set("serviceInfo",t.serviceInfo);
+        set("selectedServiceLabel",t.selectedService);
+        set("officeLabel",t.office);
+
+        set("personalSection",t.personal);
+        set("fullNameLabel",t.fullName+" *");
+        set("mobileLabel",t.mobile+" *");
+        set("emailLabel",t.email+" *");
+        set("dobLabel",t.dob+" *");
+        set("genderLabel",t.gender+" *");
+
+        const full=document.getElementById("fullName");
+        const mob=document.getElementById("mobile");
+        const email=document.getElementById("email");
+        if(full) full.placeholder=lang==="hi"?"अपना पूरा नाम दर्ज करें":lang==="gu"?"તમારું પૂરું નામ દાખલ કરો":"Enter your full name";
+        if(mob) mob.placeholder=lang==="hi"?"10 अंकों का मोबाइल नंबर दर्ज करें":lang==="gu"?"10 અંકનો મોબાઇલ નંબર દાખલ કરો":"Enter 10-digit mobile number";
+        if(email) email.placeholder=lang==="hi"?"अपना ईमेल पता दर्ज करें":lang==="gu"?"તમારું ઇમેઇલ સરનામું દાખલ કરો":"Enter your email address";
+
+        set("genderSelectOption",t.selectGender);
+        set("genderMale",t.male);
+        set("genderFemale",t.female);
+        set("genderOther",t.other);
+
+        set("declarationSection",t.declaration);
+        set("declarationText",t.declarationText);
+        set("backButton",t.back);
+        set("submitButton",t.submit);
+
+        set("footerBrandTitle","Digital Queue");
+        set("footerDescription",t.footer);
+        set("quickTitle",t.quick);
+        set("serviceFooterTitle",t.services);
+        set("supportTitle",t.support);
+        set("footerHome",t.home);
+        set("footerServices",t.services);
+        set("footerApplications",t.apps);
+        set("footerQueue",t.queue);
+        set("footerAadhaar",t.aadhaar);
+        set("footerPan",t.pan);
+        set("footerCertificates",t.certificates);
+        set("footerOffices",t.offices);
+        set("footerProfile",t.profile);
+        set("footerBottom",t.footerBottom);
+    }
+
+    window.changeLanguage=function(lang){
+        applyAll(lang);
+    };
+
+    window.addEventListener("load",function(){
+        applyAll(localStorage.getItem("selectedLanguage")||"en");
+    });
+})();
+</script>
+<style>
+.search-highlight{
+    outline:3px solid #ffb300 !important;
+    border-radius:5px;
+    background:#fff8df !important;
+}
+</style>
 
 </body>
 </html>

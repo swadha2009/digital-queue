@@ -1,10 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Home - Digital Queue</title>
-
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#f5f7fa;color:#14213d;min-height:100vh}
@@ -101,1002 +101,280 @@ main{padding:22px 15px 45px}
 }
 </style>
 
-<style id="student-project-notice-style">
-.student-project-notice{width:100%;box-sizing:border-box;background:#fff3cd;border-bottom:1px solid #f0cf68;color:#5f4700;padding:10px 18px;text-align:center;font-size:13px;line-height:1.5}
-.student-project-notice strong{display:inline-block;margin-right:8px}
-.student-project-notice span{display:inline}
-@media(max-width:700px){.student-project-notice strong{display:block;margin:0 0 3px}.student-project-notice span{display:block}}
-</style>
 </head>
-
 <body>
-<div class="student-project-notice" role="note">
-<strong>STUDENT PROJECT — DEMONSTRATION ONLY</strong>
-<span>This website is an educational prototype created for academic purposes. It is not an official Government of India website or government service. Please do not enter real passwords, OTPs, or other sensitive information.</span>
+
+<header>
+<a class="brand" href="index.html">
+<img alt="Digital Queue Logo" class="logo" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg';" src="digital-queue-logo.png"/>
+<div>
+<h2 id="governmentText">Government of India</h2>
+<h3 id="brandText"><span id="footerBrandTitle">Digital Queue</span></h3>
+<p id="taglineText">Easy. Quick. Transparent.</p>
 </div>
-
-
-<header>
-
-    <a href="index.html" class="brand">
-        <img
-            src="digital-queue-logo.png"
-            class="logo"
-            alt="Digital Queue Logo"
-            onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg';">
-
-        <div>
-            <h2 id="governmentText">Government of India</h2>
-            <h3 id="brandText">Digital Queue</h3>
-            <p id="taglineText">Easy. Quick. Transparent.</p>
-        </div>
-    </a>
-
-    <div class="header-right">
-
-        <div class="search-box">
-            <input
-                id="searchInput"
-                type="text"
-                placeholder="Search services, documents, offices..."
-                autocomplete="off">
-            <button
-                type="button"
-                onclick="performSearch()"
-                aria-label="Search">🔍</button>
-        </div>
-
-        <div class="notification-wrapper">
-
-            <button
-                class="notification-btn"
-                type="button"
-                onclick="toggleNotifications(event)"
-                aria-label="Notifications">
+</a>
+<div class="header-right">
+<div class="search-box">
+<input autocomplete="off" id="searchInput" placeholder="Search services, documents, offices..." type="text"/>
+<button aria-label="Search" onclick="performSearch()" type="button">🔍</button>
+</div>
+<div class="notification-wrapper">
+<button aria-label="Notifications" class="notification-btn" onclick="toggleNotifications(event)" type="button">
                 🔔
                 <span class="badge">3</span>
-            </button>
-
-            <div class="notification-panel" id="notificationPanel">
-
-                <div class="notification-header" id="notificationTitle">
+</button>
+<div class="notification-panel" id="notificationPanel">
+<div class="notification-header" id="notificationTitle">
                     Notifications
                 </div>
-
-                <div class="notification-item">
+<div class="notification-item">
                     🔔 <span id="notification1">
                         Your application status has been updated.
                     </span>
-                </div>
-
-                <div class="notification-item">
+</div>
+<div class="notification-item">
                     📍 <span id="notification2">
                         Queue confirmation is required before visiting the office.
                     </span>
-                </div>
-
-                <div class="notification-item">
+</div>
+<div class="notification-item">
                     ℹ️ <span id="notification3">
                         Check your queue status for updates.
                     </span>
-                </div>
-
-            </div>
-        </div>
-
-        <select
-            id="languageSelect"
-            class="language-select"
-            onchange="changeLanguage(this.value)"
-            aria-label="Language">
-            <option value="en">English</option>
-            <option value="hi">हिन्दी</option>
-            <option value="gu">ગુજરાતી</option>
-        </select>
-
-        <button
-            class="profile-btn"
-            type="button"
-            onclick="openProfile()">
+</div>
+</div>
+</div>
+<select aria-label="Language" class="language-select" id="languageSelect" onchange="changeLanguage(this.value)">
+<option value="en">English</option>
+<option value="hi">हिन्दी</option>
+<option value="gu">ગુજરાતી</option>
+</select>
+<button class="profile-btn" onclick="openProfile()" type="button">
             👤 <span id="profileButtonText">Profile</span>
-        </button>
-
-    </div>
+</button>
+</div>
 </header>
-
 <nav>
-    <a href="index.html" class="active" id="navHome">⌂ &nbsp; Home</a>
-    <a href="service.html" id="navServices">▣ &nbsp; Services</a>
-    <a href="myapplication.html" id="navApplications">▤ &nbsp; My Applications</a>
-    <a href="queue.html" id="navQueue">☷ &nbsp; Queue Status</a>
-    <a href="offinfo.html" id="navOffices">🏛 &nbsp; Offices</a>
+<a class="active" href="index.html" id="navHome">⌂   Home</a>
+<a href="service.html" id="navServices">▣   Services</a>
+<a href="myapplication.html" id="navApplications">▤   My Applications</a>
+<a href="queue.html" id="navQueue">☷   Queue Status</a>
+<a href="offinfo.html" id="navOffices">🏛   Offices</a>
 </nav>
-
 <main>
-
-    <!-- HERO -->
-
-    <section class="hero">
-
-        <div class="hero-content">
-
-            <h1 id="heroTitle">
+<!-- HERO -->
+<section class="hero">
+<div class="hero-content">
+<h1 id="heroTitle">
                 Welcome to Digital Queue
             </h1>
-
-            <p id="heroDescription">
+<p id="heroDescription">
                 Access government services online, submit applications,
                 verify your identity and manage your queue easily from one place.
             </p>
-
-            <div class="hero-buttons">
-
-                <a
-                    href="service.html"
-                    class="btn btn-white"
-                    id="exploreButton">
+<div class="hero-buttons">
+<a class="btn btn-white" href="service.html" id="exploreButton">
                     Explore Services
                 </a>
-
-                <a
-                    href="myapplication.html"
-                    class="btn btn-outline"
-                    id="applicationButton">
+<a class="btn btn-outline" href="myapplication.html" id="applicationButton">
                     My Applications
                 </a>
-
-            </div>
-
-        </div>
-
-        <div class="hero-icon">
+</div>
+</div>
+<div class="hero-icon">
             🏛️
         </div>
-
-    </section>
-
-
-    <!-- POPULAR SERVICES -->
-
-    <section class="section">
-
-        <div class="section-heading">
-
-            <h2 id="popularTitle">
+</section>
+<!-- POPULAR SERVICES -->
+<section class="section">
+<div class="section-heading">
+<h2 id="popularTitle">
                 Popular Services
             </h2>
-
-            <a
-                href="service.html"
-                class="view-link"
-                id="viewAll">
+<a class="view-link" href="service.html" id="viewAll">
                 View All Services →
             </a>
-
-        </div>
-
-
-        <div class="grid">
-
-            <div class="card">
-
-                <div class="service-icon">
+</div>
+<div class="grid">
+<div class="card">
+<div class="service-icon">
                     🪪
                 </div>
-
-                <h3 id="aadhaarTitle">
+<h3 id="aadhaarTitle">
                     Aadhaar Services
                 </h3>
-
-                <p id="aadhaarDescription">
+<p id="aadhaarDescription">
                     Apply for or update Aadhaar-related services.
                 </p>
-
-                <a
-                    href="service.html?service=Aadhaar"
-                    class="btn"
-                    id="aadhaarButton">
+<a class="btn" href="service.html?service=Aadhaar" id="aadhaarButton">
                     Apply Now
                 </a>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="service-icon">
+</div>
+<div class="card">
+<div class="service-icon">
                     💳
                 </div>
-
-                <h3 id="panTitle">
+<h3 id="panTitle">
                     PAN Card
                 </h3>
-
-                <p id="panDescription">
+<p id="panDescription">
                     Apply for a new PAN card or related services.
                 </p>
-
-                <a
-                    href="service.html?service=PAN%20Card"
-                    class="btn"
-                    id="panButton">
+<a class="btn" href="service.html?service=PAN%20Card" id="panButton">
                     Apply Now
                 </a>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="service-icon">
+</div>
+<div class="card">
+<div class="service-icon">
                     📄
                 </div>
-
-                <h3 id="certificateTitle">
+<h3 id="certificateTitle">
                     Certificates
                 </h3>
-
-                <p id="certificateDescription">
+<p id="certificateDescription">
                     Access government certificate services.
                 </p>
-
-                <a
-                    href="service.html?service=Certificates"
-                    class="btn"
-                    id="certificateButton">
+<a class="btn" href="service.html?service=Certificates" id="certificateButton">
                     Apply Now
                 </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- HOW IT WORKS -->
-
-    <section class="section">
-
-        <div class="section-heading">
-            <h2 id="howTitle">
+</div>
+</div>
+</section>
+<!-- HOW IT WORKS -->
+<section class="section">
+<div class="section-heading">
+<h2 id="howTitle">
                 How Digital Queue Works
             </h2>
-        </div>
-
-
-        <div class="steps">
-
-            <div class="step">
-                <div class="step-number">1</div>
-                <h3 id="step1Title">Select Service</h3>
-                <p id="step1Text">
+</div>
+<div class="steps">
+<div class="step">
+<div class="step-number">1</div>
+<h3 id="step1Title">Select Service</h3>
+<p id="step1Text">
                     Choose the government service you need.
                 </p>
-            </div>
-
-            <div class="step">
-                <div class="step-number">2</div>
-                <h3 id="step2Title">Fill Application</h3>
-                <p id="step2Text">
+</div>
+<div class="step">
+<div class="step-number">2</div>
+<h3 id="step2Title">Fill Application</h3>
+<p id="step2Text">
                     Enter your details and submit the application.
                 </p>
-            </div>
-
-            <div class="step">
-                <div class="step-number">3</div>
-                <h3 id="step3Title">Verify OTP</h3>
-                <p id="step3Text">
+</div>
+<div class="step">
+<div class="step-number">3</div>
+<h3 id="step3Title">Verify OTP</h3>
+<p id="step3Text">
                     Verify your application using OTP.
                 </p>
-            </div>
-
-            <div class="step">
-                <div class="step-number">4</div>
-                <h3 id="step4Title">Manage Queue</h3>
-                <p id="step4Text">
+</div>
+<div class="step">
+<div class="step-number">4</div>
+<h3 id="step4Title">Manage Queue</h3>
+<p id="step4Text">
                     Track your token and queue status online.
                 </p>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- QUICK ACCESS -->
-
-    <section class="section">
-
-        <div class="section-heading">
-
-            <h2 id="quickAccessTitle">
+</div>
+</div>
+</section>
+<!-- QUICK ACCESS -->
+<section class="section">
+<div class="section-heading">
+<h2 id="quickAccessTitle">
                 Quick Access
             </h2>
-
-        </div>
-
-
-        <div class="grid">
-
-            <div class="card quick-card">
-
-                <div class="quick-icon">
+</div>
+<div class="grid">
+<div class="card quick-card">
+<div class="quick-icon">
                     🎫
                 </div>
-
-                <div>
-                    <h3 id="queueCardTitle">
+<div>
+<h3 id="queueCardTitle">
                         Queue Status
                     </h3>
-
-                    <p id="queueCardText">
+<p id="queueCardText">
                         Check your current token and queue position.
                     </p>
-
-                    <a
-                        href="queue.html"
-                        class="btn"
-                        id="queueButton">
+<a class="btn" href="queue.html" id="queueButton">
                         Check Queue
                     </a>
-                </div>
-
-            </div>
-
-
-            <div class="card quick-card">
-
-                <div class="quick-icon">
+</div>
+</div>
+<div class="card quick-card">
+<div class="quick-icon">
                     📝
                 </div>
-
-                <div>
-                    <h3 id="myAppTitle">
+<div>
+<h3 id="myAppTitle">
                         My Applications
                     </h3>
-
-                    <p id="myAppText">
+<p id="myAppText">
                         View and track your submitted applications.
                     </p>
-
-                    <a
-                        href="myapplication.html"
-                        class="btn"
-                        id="myAppButton">
+<a class="btn" href="myapplication.html" id="myAppButton">
                         View Applications
                     </a>
-                </div>
-
-            </div>
-
-
-            <div class="card quick-card">
-
-                <div class="quick-icon">
+</div>
+</div>
+<div class="card quick-card">
+<div class="quick-icon">
                     🏢
                 </div>
-
-                <div>
-                    <h3 id="officeTitle">
+<div>
+<h3 id="officeTitle">
                         Office Information
                     </h3>
-
-                    <p id="officeText">
+<p id="officeText">
                         Find government office information and details.
                     </p>
-
-                    <a
-                        href="offinfo.html"
-                        class="btn"
-                        id="officeButton">
+<a class="btn" href="offinfo.html" id="officeButton">
                         View Offices
                     </a>
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
+</div>
+</div>
+</div>
+</section>
 </main>
-
-
 <footer>
-
-    <div class="footer-grid">
-
-        <div class="footer-column">
-
-            <h3>Digital Queue</h3>
-
-            <p id="footerDescription">
+<div class="footer-grid">
+<div class="footer-column">
+<h3>Digital Queue</h3>
+<p id="footerDescription">
                 A digital platform designed to make government
                 services easier, faster and more transparent.
             </p>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h3 id="quickTitle">
+</div>
+<div class="footer-column">
+<h3 id="quickTitle">
                 Quick Links
             </h3>
-
-            <a href="index.html">Home</a>
-            <a href="service.html">Services</a>
-            <a href="myapplication.html">My Applications</a>
-            <a href="queue.html">Queue Status</a>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h3 id="serviceFooterTitle">
+<a href="index.html"><span id="footerHome">Home</span></a>
+<a href="service.html"><span id="footerServices">Services</span></a>
+<a href="myapplication.html"><span id="footerApplications">My Applications</span></a>
+<a href="queue.html"><span id="footerQueue">Queue Status</span></a>
+</div>
+<div class="footer-column">
+<h3 id="serviceFooterTitle">
                 Services
             </h3>
-
-            <a href="service.html">Aadhaar</a>
-            <a href="service.html">PAN Card</a>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home - Digital Queue</title>
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#f5f7fa;color:#14213d;min-height:100vh}
-a{text-decoration:none;color:inherit}
-
-/* HEADER */
-header{background:#0d47a1;color:white;min-height:100px;padding:12px 35px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:white}
-.logo{width:62px;height:68px;object-fit:contain}
-.brand h2{font-size:20px}.brand h3{font-size:17px;margin-top:3px}.brand p{font-size:12px;margin-top:3px}
-.header-right{display:flex;align-items:center;gap:10px}
-.search-box{width:310px;height:40px;background:white;border-radius:6px;display:flex;align-items:center;padding:0 10px}
-.search-box input{border:0;outline:0;width:100%;font-size:14px}
-.search-box button{border:0;background:none;cursor:pointer;font-size:18px}
-.language-select{height:40px;border:none;border-radius:6px;padding:0 10px;cursor:pointer}
-.notification-wrapper{position:relative}
-.notification-btn{width:42px;height:40px;border:none;border-radius:6px;background:white;color:#0d47a1;cursor:pointer;font-size:18px;position:relative}
-.badge{position:absolute;top:-5px;right:-4px;width:18px;height:18px;border-radius:50%;background:#d32f2f;color:white;display:grid;place-items:center;font-size:10px}
-.notification-panel{display:none;position:absolute;right:0;top:48px;width:310px;background:white;color:#14213d;border-radius:8px;box-shadow:0 8px 25px rgba(0,0,0,.2);z-index:100}
-.notification-panel.show{display:block}
-.notification-header{padding:14px;font-weight:bold;border-bottom:1px solid #eee}
-.notification-item{padding:13px;border-bottom:1px solid #eee;font-size:13px;line-height:1.5}
-.profile-btn{height:40px;border:none;border-radius:6px;background:white;color:#0d47a1;padding:0 14px;font-weight:bold;cursor:pointer}
-.profile-btn:hover{background:#e8f1ff}
-
-/* NAV */
-nav{background:white;box-shadow:0 2px 7px rgba(0,0,0,.08);display:flex;overflow-x:auto}
-nav a{color:#14213d;text-decoration:none;padding:17px 20px;white-space:nowrap;font-size:14px}
-nav a:hover,nav a.active{color:#0d47a1;background:#f5f8ff;font-weight:bold;border-bottom:3px solid #0d47a1}
-
-/* HOME */
-main{max-width:1200px;margin:auto;padding:35px 22px 55px}
-.hero{background:linear-gradient(135deg,#0d47a1,#1565c0);color:white;border-radius:16px;padding:58px 45px;display:flex;align-items:center;justify-content:space-between;gap:35px;box-shadow:0 7px 20px rgba(13,71,161,.18)}
-.hero-content{max-width:700px}
-.hero h1{font-size:38px;line-height:1.2;margin-bottom:14px}
-.hero p{font-size:17px;line-height:1.7;color:#eaf2ff}
-.hero-buttons{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
-.btn{display:inline-block;border:none;border-radius:7px;padding:13px 20px;font-weight:bold;cursor:pointer;font-size:14px}
-.btn-white{background:white;color:#0d47a1}
-.btn-outline{background:transparent;color:white;border:1px solid white}
-.hero-icon{font-size:90px;opacity:.95}
-
-/* SECTION */
-.section{margin-top:38px}
-.section-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:17px}
-.section-heading h2{font-size:24px;color:#14213d}
-.view-link{color:#0d47a1;font-weight:bold;font-size:14px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.card{background:white;border:1px solid #e1e6ee;border-radius:12px;padding:23px;box-shadow:0 3px 12px rgba(0,0,0,.05)}
-.service-icon{width:50px;height:50px;border-radius:10px;background:#e8f1ff;color:#0d47a1;display:grid;place-items:center;font-size:24px;margin-bottom:14px}
-.card h3{font-size:18px;margin-bottom:8px}
-.card p{color:#667085;font-size:14px;line-height:1.6}
-.card .btn{margin-top:15px;background:#0d47a1;color:white}
-
-/* HOW IT WORKS */
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.step{text-align:center;background:white;border:1px solid #e1e6ee;border-radius:12px;padding:25px 18px}
-.step-number{width:45px;height:45px;border-radius:50%;background:#0d47a1;color:white;display:grid;place-items:center;font-weight:bold;margin:0 auto 14px}
-.step h3{font-size:16px;margin-bottom:8px}
-.step p{color:#667085;font-size:13px;line-height:1.5}
-
-/* QUICK CARDS */
-.quick-card{display:flex;align-items:center;gap:18px}
-.quick-icon{width:55px;height:55px;border-radius:50%;background:#e8f1ff;color:#0d47a1;display:grid;place-items:center;font-size:24px;flex:none}
-.quick-card .btn{margin-top:12px}
-
-/* FOOTER */
-footer{background:#0d47a1;color:white;padding:35px 7% 18px}
-.footer-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px}
-.footer-column h3{font-size:15px;margin-bottom:10px}
-.footer-column p,.footer-column a{color:#dce8fa;font-size:13px;line-height:1.9;text-decoration:none;display:block}
-.footer-column a:hover{text-decoration:underline}
-.footer-bottom{max-width:1200px;margin:25px auto 0;padding-top:15px;border-top:1px solid rgba(255,255,255,.3);text-align:center;font-size:12px}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-header{flex-direction:column;align-items:stretch}
-.brand{justify-content:center}
-.header-right{justify-content:center;flex-wrap:wrap}
-.search-box{width:100%}
-.hero{flex-direction:column;text-align:center}
-.hero-buttons{justify-content:center}
-.grid{grid-template-columns:1fr 1fr}
-.steps{grid-template-columns:1fr 1fr}
-.footer-grid{grid-template-columns:1fr 1fr}
-}
-@media(max-width:600px){
-main{padding:22px 15px 45px}
-.hero{padding:40px 22px}
-.hero h1{font-size:29px}
-.hero-icon{font-size:65px}
-.grid,.steps,.footer-grid{grid-template-columns:1fr}
-.notification-panel{position:fixed;left:15px;right:15px;top:115px;width:auto}
-}
-</style>
-</head>
-
-<body>
-<header>
-
-    <a href="index.html" class="brand">
-        <img
-            src="digital-queue-logo.png"
-            class="logo"
-            alt="Digital Queue Logo"
-            onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg';">
-
-        <div>
-            <h2 id="governmentText">Government of India</h2>
-            <h3 id="brandText">Digital Queue</h3>
-            <p id="taglineText">Easy. Quick. Transparent.</p>
-        </div>
-    </a>
-
-    <div class="header-right">
-
-        <div class="search-box">
-            <input
-                id="searchInput"
-                type="text"
-                placeholder="Search services, documents, offices..."
-                autocomplete="off">
-            <button
-                type="button"
-                onclick="performSearch()"
-                aria-label="Search">🔍</button>
-        </div>
-
-        <div class="notification-wrapper">
-
-            <button
-                class="notification-btn"
-                type="button"
-                onclick="toggleNotifications(event)"
-                aria-label="Notifications">
-                🔔
-                <span class="badge">3</span>
-            </button>
-
-            <div class="notification-panel" id="notificationPanel">
-
-                <div class="notification-header" id="notificationTitle">
-                    Notifications
-                </div>
-
-                <div class="notification-item">
-                    🔔 <span id="notification1">
-                        Your application status has been updated.
-                    </span>
-                </div>
-
-                <div class="notification-item">
-                    📍 <span id="notification2">
-                        Queue confirmation is required before visiting the office.
-                    </span>
-                </div>
-
-                <div class="notification-item">
-                    ℹ️ <span id="notification3">
-                        Check your queue status for updates.
-                    </span>
-                </div>
-
-            </div>
-        </div>
-
-        <select
-            id="languageSelect"
-            class="language-select"
-            onchange="changeLanguage(this.value)"
-            aria-label="Language">
-            <option value="en">English</option>
-            <option value="hi">हिन्दी</option>
-            <option value="gu">ગુજરાતી</option>
-        </select>
-
-        <button
-            class="profile-btn"
-            type="button"
-            onclick="openProfile()">
-            👤 <span id="profileButtonText">Profile</span>
-        </button>
-
-    </div>
-</header>
-
-<nav>
-    <a href="index.html" class="active" id="navHome">⌂ &nbsp; Home</a>
-    <a href="service.html" id="navServices">▣ &nbsp; Services</a>
-    <a href="myapplication.html" id="navApplications">▤ &nbsp; My Applications</a>
-    <a href="queue.html" id="navQueue">☷ &nbsp; Queue Status</a>
-    <a href="offinfo.html" id="navOffices">🏛 &nbsp; Offices</a>
-</nav>
-
-<main>
-
-    <!-- HERO -->
-
-    <section class="hero">
-
-        <div class="hero-content">
-
-            <h1 id="heroTitle">
-                Welcome to Digital Queue
-            </h1>
-
-            <p id="heroDescription">
-                Access government services online, submit applications,
-                verify your identity and manage your queue easily from one place.
-            </p>
-
-            <div class="hero-buttons">
-
-                <a
-                    href="service.html"
-                    class="btn btn-white"
-                    id="exploreButton">
-                    Explore Services
-                </a>
-
-                <a
-                    href="myapplication.html"
-                    class="btn btn-outline"
-                    id="applicationButton">
-                    My Applications
-                </a>
-
-            </div>
-
-        </div>
-
-        <div class="hero-icon">
-            🏛️
-        </div>
-
-    </section>
-
-
-    <!-- POPULAR SERVICES -->
-
-    <section class="section">
-
-        <div class="section-heading">
-
-            <h2 id="popularTitle">
-                Popular Services
-            </h2>
-
-            <a
-                href="service.html"
-                class="view-link"
-                id="viewAll">
-                View All Services →
-            </a>
-
-        </div>
-
-
-        <div class="grid">
-
-            <div class="card">
-
-                <div class="service-icon">
-                    🪪
-                </div>
-
-                <h3 id="aadhaarTitle">
-                    Aadhaar Services
-                </h3>
-
-                <p id="aadhaarDescription">
-                    Apply for or update Aadhaar-related services.
-                </p>
-
-                <a
-                    href="service.html?service=Aadhaar"
-                    class="btn"
-                    id="aadhaarButton">
-                    Apply Now
-                </a>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="service-icon">
-                    💳
-                </div>
-
-                <h3 id="panTitle">
-                    PAN Card
-                </h3>
-
-                <p id="panDescription">
-                    Apply for a new PAN card or related services.
-                </p>
-
-                <a
-                    href="service.html?service=PAN%20Card"
-                    class="btn"
-                    id="panButton">
-                    Apply Now
-                </a>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="service-icon">
-                    📄
-                </div>
-
-                <h3 id="certificateTitle">
-                    Certificates
-                </h3>
-
-                <p id="certificateDescription">
-                    Access government certificate services.
-                </p>
-
-                <a
-                    href="service.html?service=Certificates"
-                    class="btn"
-                    id="certificateButton">
-                    Apply Now
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- HOW IT WORKS -->
-
-    <section class="section">
-
-        <div class="section-heading">
-            <h2 id="howTitle">
-                How Digital Queue Works
-            </h2>
-        </div>
-
-
-        <div class="steps">
-
-            <div class="step">
-                <div class="step-number">1</div>
-                <h3 id="step1Title">Select Service</h3>
-                <p id="step1Text">
-                    Choose the government service you need.
-                </p>
-            </div>
-
-            <div class="step">
-                <div class="step-number">2</div>
-                <h3 id="step2Title">Fill Application</h3>
-                <p id="step2Text">
-                    Enter your details and submit the application.
-                </p>
-            </div>
-
-            <div class="step">
-                <div class="step-number">3</div>
-                <h3 id="step3Title">Verify OTP</h3>
-                <p id="step3Text">
-                    Verify your application using OTP.
-                </p>
-            </div>
-
-            <div class="step">
-                <div class="step-number">4</div>
-                <h3 id="step4Title">Manage Queue</h3>
-                <p id="step4Text">
-                    Track your token and queue status online.
-                </p>
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- QUICK ACCESS -->
-
-    <section class="section">
-
-        <div class="section-heading">
-
-            <h2 id="quickAccessTitle">
-                Quick Access
-            </h2>
-
-        </div>
-
-
-        <div class="grid">
-
-            <div class="card quick-card">
-
-                <div class="quick-icon">
-                    🎫
-                </div>
-
-                <div>
-                    <h3 id="queueCardTitle">
-                        Queue Status
-                    </h3>
-
-                    <p id="queueCardText">
-                        Check your current token and queue position.
-                    </p>
-
-                    <a
-                        href="queue.html"
-                        class="btn"
-                        id="queueButton">
-                        Check Queue
-                    </a>
-                </div>
-
-            </div>
-
-
-            <div class="card quick-card">
-
-                <div class="quick-icon">
-                    📝
-                </div>
-
-                <div>
-                    <h3 id="myAppTitle">
-                        My Applications
-                    </h3>
-
-                    <p id="myAppText">
-                        View and track your submitted applications.
-                    </p>
-
-                    <a
-                        href="myapplication.html"
-                        class="btn"
-                        id="myAppButton">
-                        View Applications
-                    </a>
-                </div>
-
-            </div>
-
-
-            <div class="card quick-card">
-
-                <div class="quick-icon">
-                    🏢
-                </div>
-
-                <div>
-                    <h3 id="officeTitle">
-                        Office Information
-                    </h3>
-
-                    <p id="officeText">
-                        Find government office information and details.
-                    </p>
-
-                    <a
-                        href="offinfo.html"
-                        class="btn"
-                        id="officeButton">
-                        View Offices
-                    </a>
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-</main>
-
-
-<footer>
-
-    <div class="footer-grid">
-
-        <div class="footer-column">
-
-            <h3>Digital Queue</h3>
-
-            <p id="footerDescription">
-                A digital platform designed to make government
-                services easier, faster and more transparent.
-            </p>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h3 id="quickTitle">
-                Quick Links
-            </h3>
-
-            <a href="index.html">Home</a>
-            <a href="service.html">Services</a>
-            <a href="myapplication.html">My Applications</a>
-            <a href="queue.html">Queue Status</a>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h3 id="serviceFooterTitle">
-                Services
-            </h3>
-
-            <a href="service.html">Aadhaar</a>
-            <a href="service.html">PAN Card</a>
-            <a href="service.html">Certificates</a>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h3 id="supportTitle">
+<a href="service.html"><span id="footerAadhaar">Aadhaar</span></a>
+<a href="service.html"><span id="footerPan">PAN Card</span></a>
+<a href="service.html"><span id="footerCertificates">Certificates</span></a>
+</div>
+<div class="footer-column">
+<h3 id="supportTitle">
                 Support
             </h3>
-
-            <a href="offinfo.html">Offices</a>
-            <a href="profile.html">Profile</a>
-
-        </div>
-
-    </div>
-
-
-    <div class="footer-bottom">
+<a href="offinfo.html"><span id="footerOffices">Offices</span></a>
+<a href="profile.html"><span id="footerProfile">Profile</span></a>
+</div>
+</div>
+<div class="footer-bottom"><span id="footerBottom">
         © 2026 Digital Queue. All Rights Reserved.
-    </div>
-
+    </span></div>
 </footer>
-
-
 <script>
 
 /* =====================================================
@@ -1104,28 +382,7 @@ main{padding:22px 15px 45px}
 ===================================================== */
 
 function checkLogin(){
-
-    if(
-        localStorage.getItem("isLoggedIn")
-        !== "true"
-    ){
-
-        /*
-            index.html is HOME.
-
-            If a visitor has not logged in,
-            send them to the Login page.
-        */
-
-        window.location.replace(
-            "login.html"
-        );
-
-        return false;
-
-    }
-
-    return true;
+    return localStorage.getItem("isLoggedIn") === "true";
 }
 
 
@@ -1150,28 +407,33 @@ function openProfile(){
 ===================================================== */
 
 function performSearch(){
+    const input = document.getElementById("searchInput");
+    if(!input) return;
+    const query = input.value.trim().toLowerCase();
+    if(!query){ input.focus(); return; }
 
-    const value =
-        document.getElementById(
-            "searchInput"
-        ).value.trim();
+    document.querySelectorAll("[data-search-highlight]").forEach(function(el){
+        el.style.outline="";
+        el.removeAttribute("data-search-highlight");
+    });
 
+    const candidates = Array.from(document.querySelectorAll("main h1, main h2, main h3, main h4, main p, main li, main td, main th, main label, main button, main a, main .card, main .section"));
+    const found = candidates.find(function(el){
+        return (el.innerText || el.textContent || "").toLowerCase().includes(query);
+    });
 
-    if(!value){
-
-        document.getElementById(
-            "searchInput"
-        ).focus();
-
-        return;
-
+    if(found){
+        found.setAttribute("data-search-highlight","true");
+        found.style.outline="3px solid #1565c0";
+        found.style.outlineOffset="4px";
+        found.scrollIntoView({behavior:"smooth",block:"center"});
+        setTimeout(function(){
+            found.style.outline="";
+            found.removeAttribute("data-search-highlight");
+        },2500);
+    }else{
+        alert("No matching information found on this page.");
     }
-
-
-    window.location.href =
-        "service.html?search=" +
-        encodeURIComponent(value);
-
 }
 
 
@@ -1535,431 +797,74 @@ document.addEventListener(
 );
 
 </script>
-
-</body>
-</html>
-            If a visitor has not logged in,
-            send them to the Login page.
-        */
-
-        window.location.replace(
-            "login.html"
-        );
-
-        return false;
-
-    }
-
-    return true;
-}
-
-
-/* =====================================================
-   PROFILE
-===================================================== */
-
-function openProfile(){
-
-    if(checkLogin()){
-
-        window.location.href =
-            "profile.html";
-
-    }
-
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-function performSearch(){
-
-    const value =
-        document.getElementById(
-            "searchInput"
-        ).value.trim();
-
-
-    if(!value){
-
-        document.getElementById(
-            "searchInput"
-        ).focus();
-
-        return;
-
-    }
-
-
-    window.location.href =
-        "service.html?search=" +
-        encodeURIComponent(value);
-
-}
-
-
-document
-.getElementById("searchInput")
-.addEventListener(
-    "keydown",
-    function(event){
-
-        if(event.key === "Enter"){
-
-            performSearch();
-
+<script>
+/* COMPLETE FOOTER TRANSLATION - ENGLISH / HINDI / GUJARATI */
+(function () {
+    const footerT = {
+        en: {
+            desc:"A digital platform designed to make government services easier, faster and more transparent.",
+            quick:"Quick Links", services:"Services", support:"Support",
+            home:"Home", apps:"My Applications", queue:"Queue Status",
+            offices:"Offices", profile:"Profile", aadhaar:"Aadhaar",
+            pan:"PAN Card", certificates:"Certificates",
+            bottom:"© 2026 Digital Queue. All Rights Reserved."
+        },
+        hi: {
+            desc:"सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए बनाया गया डिजिटल प्लेटफ़ॉर्म।",
+            quick:"त्वरित लिंक", services:"सेवाएँ", support:"सहायता",
+            home:"होम", apps:"मेरी अर्ज़ियाँ", queue:"कतार स्थिति",
+            offices:"कार्यालय", profile:"प्रोफ़ाइल", aadhaar:"आधार",
+            pan:"पैन कार्ड", certificates:"प्रमाणपत्र",
+            bottom:"© 2026 डिजिटल क्यू. सर्वाधिकार सुरक्षित।"
+        },
+        gu: {
+            desc:"સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ.",
+            quick:"ઝડપી લિંક્સ", services:"સેવાઓ", support:"સહાય",
+            home:"હોમ", apps:"મારી અરજીઓ", queue:"કતાર સ્થિતિ",
+            offices:"કચેરીઓ", profile:"પ્રોફાઇલ", aadhaar:"આધાર",
+            pan:"પાન કાર્ડ", certificates:"પ્રમાણપત્રો",
+            bottom:"© 2026 ડિજિટલ ક્યુ. સર્વાધિકાર સુરક્ષિત."
         }
-
-    }
-);
-
-
-/* =====================================================
-   NOTIFICATIONS
-===================================================== */
-
-function toggleNotifications(event){
-
-    if(event){
-        event.stopPropagation();
-    }
-
-
-    document
-    .getElementById(
-        "notificationPanel"
-    )
-    .classList.toggle("show");
-
-}
-
-
-document.addEventListener(
-    "click",
-    function(event){
-
-        const panel =
-            document.getElementById(
-                "notificationPanel"
-            );
-
-        const wrapper =
-            document.querySelector(
-                ".notification-wrapper"
-            );
-
-
-        if(
-            panel &&
-            wrapper &&
-            !wrapper.contains(event.target)
-        ){
-
-            panel.classList.remove(
-                "show"
-            );
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   LANGUAGE
-===================================================== */
-
-const translations = {
-
-    en:{
-        government:"Government of India",
-        brand:"Digital Queue",
-        tagline:"Easy. Quick. Transparent.",
-        search:"Search services, documents, offices...",
-        notifications:"Notifications",
-        n1:"Your application status has been updated.",
-        n2:"Queue confirmation is required before visiting the office.",
-        n3:"Check your queue status for updates.",
-        home:"Home",
-        services:"Services",
-        apps:"My Applications",
-        queue:"Queue Status",
-        offices:"Offices",
-        profile:"Profile",
-        hero:"Welcome to Digital Queue",
-        heroDesc:"Access government services online, submit applications, verify your identity and manage your queue easily from one place.",
-        explore:"Explore Services",
-        myApplications:"My Applications",
-        popular:"Popular Services",
-        viewAll:"View All Services →",
-        aadhaar:"Aadhaar Services",
-        aadhaarDesc:"Apply for or update Aadhaar-related services.",
-        pan:"PAN Card",
-        panDesc:"Apply for a new PAN card or related services.",
-        certificates:"Certificates",
-        certDesc:"Access government certificate services.",
-        apply:"Apply Now",
-        how:"How Digital Queue Works",
-        s1:"Select Service",
-        s1t:"Choose the government service you need.",
-        s2:"Fill Application",
-        s2t:"Enter your details and submit the application.",
-        s3:"Verify OTP",
-        s3t:"Verify your application using OTP.",
-        s4:"Manage Queue",
-        s4t:"Track your token and queue status online.",
-        quickAccess:"Quick Access",
-        queueStatus:"Queue Status",
-        queueText:"Check your current token and queue position.",
-        checkQueue:"Check Queue",
-        myApp:"My Applications",
-        myAppText:"View and track your submitted applications.",
-        viewApps:"View Applications",
-        office:"Office Information",
-        officeText:"Find government office information and details.",
-        viewOffices:"View Offices",
-        footer:"A digital platform designed to make government services easier, faster and more transparent.",
-        quick:"Quick Links",
-        service:"Services",
-        support:"Support"
-    },
-
-    hi:{
-        government:"भारत सरकार",
-        brand:"डिजिटल क्यू",
-        tagline:"आसान। तेज़। पारदर्शी।",
-        search:"सेवाएँ, दस्तावेज़, कार्यालय खोजें...",
-        notifications:"सूचनाएँ",
-        n1:"आपके आवेदन की स्थिति अपडेट की गई है।",
-        n2:"कार्यालय जाने से पहले कतार की पुष्टि आवश्यक है।",
-        n3:"अपनी कतार स्थिति के अपडेट देखें।",
-        home:"होम",
-        services:"सेवाएँ",
-        apps:"मेरे आवेदन",
-        queue:"कतार स्थिति",
-        offices:"कार्यालय",
-        profile:"प्रोफ़ाइल",
-        hero:"डिजिटल क्यू में आपका स्वागत है",
-        heroDesc:"सरकारी सेवाओं तक ऑनलाइन पहुँच प्राप्त करें, आवेदन जमा करें, पहचान सत्यापित करें और अपनी कतार को आसानी से प्रबंधित करें।",
-        explore:"सेवाएँ देखें",
-        myApplications:"मेरे आवेदन",
-        popular:"लोकप्रिय सेवाएँ",
-        viewAll:"सभी सेवाएँ देखें →",
-        aadhaar:"आधार सेवाएँ",
-        aadhaarDesc:"आधार से संबंधित सेवाओं के लिए आवेदन करें या अपडेट करें।",
-        pan:"पैन कार्ड",
-        panDesc:"नए पैन कार्ड या संबंधित सेवाओं के लिए आवेदन करें।",
-        certificates:"प्रमाणपत्र",
-        certDesc:"सरकारी प्रमाणपत्र सेवाओं तक पहुँच प्राप्त करें।",
-        apply:"अभी आवेदन करें",
-        how:"डिजिटल क्यू कैसे काम करता है",
-        s1:"सेवा चुनें",
-        s1t:"अपनी आवश्यक सरकारी सेवा चुनें।",
-        s2:"आवेदन भरें",
-        s2t:"अपनी जानकारी दर्ज करें और आवेदन जमा करें।",
-        s3:"OTP सत्यापित करें",
-        s3t:"OTP का उपयोग करके अपना आवेदन सत्यापित करें।",
-        s4:"कतार प्रबंधित करें",
-        s4t:"अपने टोकन और कतार की स्थिति ऑनलाइन देखें।",
-        quickAccess:"त्वरित पहुँच",
-        queueStatus:"कतार स्थिति",
-        queueText:"अपना वर्तमान टोकन और कतार स्थिति देखें।",
-        checkQueue:"कतार देखें",
-        myApp:"मेरे आवेदन",
-        myAppText:"अपने जमा किए गए आवेदनों को देखें और ट्रैक करें।",
-        viewApps:"आवेदन देखें",
-        office:"कार्यालय की जानकारी",
-        officeText:"सरकारी कार्यालय की जानकारी और विवरण देखें।",
-        viewOffices:"कार्यालय देखें",
-        footer:"सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए एक डिजिटल प्लेटफॉर्म।",
-        quick:"त्वरित लिंक",
-        service:"सेवाएँ",
-        support:"सहायता"
-    },
-
-    gu:{
-        government:"ભારત સરકાર",
-        brand:"ડિજિટલ કતાર",
-        tagline:"સરળ. ઝડપી. પારદર્શક.",
-        search:"સેવાઓ, દસ્તાવેજો, કચેરીઓ શોધો...",
-        notifications:"સૂચનાઓ",
-        n1:"તમારી અરજીની સ્થિતિ અપડેટ કરવામાં આવી છે.",
-        n2:"કચેરીની મુલાકાત પહેલાં કતારની પુષ્ટિ જરૂરી છે.",
-        n3:"તમારી કતાર સ્થિતિના અપડેટ્સ જુઓ.",
-        home:"હોમ",
-        services:"સેવાઓ",
-        apps:"મારી અરજીઓ",
-        queue:"કતાર સ્થિતિ",
-        offices:"કચેરીઓ",
-        profile:"પ્રોફાઇલ",
-        hero:"ડિજિટલ કતારમાં આપનું સ્વાગત છે",
-        heroDesc:"સરકારી સેવાઓને ઓનલાઈન ઍક્સેસ કરો, અરજીઓ સબમિટ કરો, ઓળખ ચકાસો અને તમારી કતાર સરળતાથી મેનેજ કરો.",
-        explore:"સેવાઓ જુઓ",
-        myApplications:"મારી અરજીઓ",
-        popular:"લોકપ્રિય સેવાઓ",
-        viewAll:"બધી સેવાઓ જુઓ →",
-        aadhaar:"આધાર સેવાઓ",
-        aadhaarDesc:"આધાર સંબંધિત સેવાઓ માટે અરજી કરો અથવા અપડેટ કરો.",
-        pan:"પાન કાર્ડ",
-        panDesc:"નવા પાન કાર્ડ અથવા સંબંધિત સેવાઓ માટે અરજી કરો.",
-        certificates:"પ્રમાણપત્રો",
-        certDesc:"સરકારી પ્રમાણપત્ર સેવાઓનો ઉપયોગ કરો.",
-        apply:"હમણાં અરજી કરો",
-        how:"ડિજિટલ કતાર કેવી રીતે કામ કરે છે",
-        s1:"સેવા પસંદ કરો",
-        s1t:"તમને જરૂરી સરકારી સેવા પસંદ કરો.",
-        s2:"અરજી ભરો",
-        s2t:"તમારી વિગતો દાખલ કરો અને અરજી સબમિટ કરો.",
-        s3:"OTP ચકાસો",
-        s3t:"OTP દ્વારા તમારી અરજી ચકાસો.",
-        s4:"કતાર મેનેજ કરો",
-        s4t:"તમારો ટોકન અને કતાર સ્થિતિ ઓનલાઈન ટ્રેક કરો.",
-        quickAccess:"ઝડપી ઍક્સેસ",
-        queueStatus:"કતાર સ્થિતિ",
-        queueText:"તમારો વર્તમાન ટોકન અને કતાર સ્થિતિ જુઓ.",
-        checkQueue:"કતાર જુઓ",
-        myApp:"મારી અરજીઓ",
-        myAppText:"તમારી સબમિટ કરેલી અરજીઓ જુઓ અને ટ્રેક કરો.",
-        viewApps:"અરજીઓ જુઓ",
-        office:"કચેરીની માહિતી",
-        officeText:"સરકારી કચેરીની માહિતી અને વિગતો શોધો.",
-        viewOffices:"કચેરીઓ જુઓ",
-        footer:"સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ.",
-        quick:"ઝડપી લિંક્સ",
-        service:"સેવાઓ",
-        support:"સહાય"
-    }
-};
-
-
-function changeLanguage(lang){
-
-    localStorage.setItem(
-        "selectedLanguage",
-        lang
-    );
-
-    applyLanguage();
-
-}
-
-
-function applyLanguage(){
-
-    const lang =
-        localStorage.getItem(
-            "selectedLanguage"
-        ) || "en";
-
-
-    const t =
-        translations[lang] ||
-        translations.en;
-
-
-    document.getElementById(
-        "languageSelect"
-    ).value =
-        lang;
-
-
-    const set = function(id,value){
-        const el=document.getElementById(id);
-        if(el)el.textContent=value;
     };
 
-
-    set("governmentText",t.government);
-    set("brandText",t.brand);
-    set("taglineText",t.tagline);
-
-    document.getElementById(
-        "searchInput"
-    ).placeholder=t.search;
-
-    set("notificationTitle",t.notifications);
-    set("notification1",t.n1);
-    set("notification2",t.n2);
-    set("notification3",t.n3);
-
-    set("navHome","⌂  "+t.home);
-    set("navServices","▣  "+t.services);
-    set("navApplications","▤  "+t.apps);
-    set("navQueue","☷  "+t.queue);
-    set("navOffices","🏛  "+t.offices);
-
-    set("profileButtonText",t.profile);
-
-    set("heroTitle",t.hero);
-    set("heroDescription",t.heroDesc);
-    set("exploreButton",t.explore);
-    set("applicationButton",t.myApplications);
-
-    set("popularTitle",t.popular);
-    set("viewAll",t.viewAll);
-
-    set("aadhaarTitle",t.aadhaar);
-    set("aadhaarDescription",t.aadhaarDesc);
-    set("aadhaarButton",t.apply);
-
-    set("panTitle",t.pan);
-    set("panDescription",t.panDesc);
-    set("panButton",t.apply);
-
-    set("certificateTitle",t.certificates);
-    set("certificateDescription",t.certDesc);
-    set("certificateButton",t.apply);
-
-    set("howTitle",t.how);
-    set("step1Title",t.s1);
-    set("step1Text",t.s1t);
-    set("step2Title",t.s2);
-    set("step2Text",t.s2t);
-    set("step3Title",t.s3);
-    set("step3Text",t.s3t);
-    set("step4Title",t.s4);
-    set("step4Text",t.s4t);
-
-    set("quickAccessTitle",t.quickAccess);
-    set("queueCardTitle",t.queueStatus);
-    set("queueCardText",t.queueText);
-    set("queueButton",t.checkQueue);
-
-    set("myAppTitle",t.myApp);
-    set("myAppText",t.myAppText);
-    set("myAppButton",t.viewApps);
-
-    set("officeTitle",t.office);
-    set("officeText",t.officeText);
-    set("officeButton",t.viewOffices);
-
-    set("footerDescription",t.footer);
-    set("quickTitle",t.quick);
-    set("serviceFooterTitle",t.service);
-    set("supportTitle",t.support);
-}
-
-
-/* =====================================================
-   START
-===================================================== */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        if(!checkLogin()){
-            return;
-        }
-
-        applyLanguage();
-
+    function setF(id, value) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
     }
-);
 
+    window.applyFooterLanguage = function(lang) {
+        const t = footerT[lang] || footerT.en;
+        setF("footerBrandTitle", "Digital Queue");
+        setF("footerDescription", t.desc);
+        setF("quickTitle", t.quick);
+        setF("serviceFooterTitle", t.services);
+        setF("supportTitle", t.support);
+        setF("footerHome", t.home);
+        setF("footerServices", t.services);
+        setF("footerApplications", t.apps);
+        setF("footerQueue", t.queue);
+        setF("footerAadhaar", t.aadhaar);
+        setF("footerPan", t.pan);
+        setF("footerCertificates", t.certificates);
+        setF("footerOffices", t.offices);
+        setF("footerProfile", t.profile);
+        setF("footerBottom", t.bottom);
+    };
+
+    // Wrap the existing language function without breaking the page's other translations.
+    const previousChangeLanguage = window.changeLanguage;
+    window.changeLanguage = function(lang) {
+        localStorage.setItem("selectedLanguage", lang);
+        if (typeof previousChangeLanguage === "function") {
+            try { previousChangeLanguage(lang); } catch (e) {}
+        }
+        window.applyFooterLanguage(lang);
+    };
+
+    window.addEventListener("load", function() {
+        window.applyFooterLanguage(localStorage.getItem("selectedLanguage") || "en");
+    });
+})();
 </script>
-
 </body>
 </html>

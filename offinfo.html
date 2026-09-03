@@ -1,13 +1,10 @@
 <!DOCTYPE html>
+
 <html lang="en">
-
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Office Information - Digital Queue</title>
-
 <style>
 
 /* =====================================================
@@ -779,1162 +776,627 @@ footer {
 }
 
 </style>
+<style>
+/* =====================================================
+   INDEX.HTML SHARED HEADER / NAV / FOOTER FORMAT
+   ===================================================== */
+header{
+    background:#0d47a1;
+    color:white;
+    min-height:100px;
+    padding:12px 35px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+.brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    text-decoration:none;
+    color:white;
+}
+.logo{
+    width:62px;
+    height:68px;
+    object-fit:contain;
+}
+.brand h2{font-size:20px}
+.brand h3{font-size:17px;margin-top:3px}
+.brand p{font-size:12px;margin-top:3px}
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+.search-box{
+    width:310px;
+    height:40px;
+    background:white;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    padding:0 10px;
+}
+.search-box input{
+    border:0;
+    outline:0;
+    width:100%;
+    font-size:14px;
+}
+.search-box button{
+    border:0;
+    background:none;
+    cursor:pointer;
+    font-size:18px;
+}
+.language-select{
+    height:40px;
+    border:none;
+    border-radius:6px;
+    padding:0 10px;
+    cursor:pointer;
+}
+.notification-wrapper{position:relative}
+.notification-btn{
+    width:42px;
+    height:40px;
+    border:none;
+    border-radius:6px;
+    background:white;
+    color:#0d47a1;
+    cursor:pointer;
+    font-size:18px;
+    position:relative;
+}
+.badge{
+    position:absolute;
+    top:-5px;
+    right:-4px;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#d32f2f;
+    color:white;
+    display:grid;
+    place-items:center;
+    font-size:10px;
+}
+.notification-panel{
+    display:none;
+    position:absolute;
+    right:0;
+    top:48px;
+    width:310px;
+    background:white;
+    color:#14213d;
+    border-radius:8px;
+    box-shadow:0 8px 25px rgba(0,0,0,.2);
+    z-index:1000;
+}
+.notification-panel.show{display:block}
+.notification-header{
+    padding:14px;
+    font-weight:bold;
+    border-bottom:1px solid #eee;
+}
+.notification-item{
+    padding:13px;
+    border-bottom:1px solid #eee;
+    font-size:13px;
+    line-height:1.5;
+}
+.profile-btn{
+    height:40px;
+    border:none;
+    border-radius:6px;
+    background:white;
+    color:#0d47a1;
+    padding:0 14px;
+    font-weight:bold;
+    cursor:pointer;
+}
+.profile-btn:hover{background:#e8f1ff}
 
-</head>
+nav{
+    background:white;
+    box-shadow:0 2px 7px rgba(0,0,0,.08);
+    display:flex;
+    overflow-x:auto;
+}
+nav a{
+    color:#14213d;
+    text-decoration:none;
+    padding:17px 20px;
+    white-space:nowrap;
+    font-size:14px;
+}
+nav a:hover,
+nav a.active{
+    color:#0d47a1;
+    background:#f5f8ff;
+    font-weight:bold;
+    border-bottom:3px solid #0d47a1;
+}
 
+footer{
+    background:#0d47a1;
+    color:white;
+    padding:35px 7% 18px;
+}
+.footer-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1.5fr 1fr 1fr 1fr;
+    gap:30px;
+}
+.footer-column h3{
+    font-size:15px;
+    margin-bottom:10px;
+}
+.footer-column p,
+.footer-column a{
+    color:#dce8fa;
+    font-size:13px;
+    line-height:1.9;
+    text-decoration:none;
+    display:block;
+}
+.footer-column a:hover{text-decoration:underline}
+.footer-bottom{
+    max-width:1200px;
+    margin:25px auto 0;
+    padding-top:15px;
+    border-top:1px solid rgba(255,255,255,.3);
+    text-align:center;
+    font-size:12px;
+}
 
+@media(max-width:900px){
+    header{
+        flex-direction:column;
+        align-items:stretch;
+    }
+    .brand{justify-content:center}
+    .header-right{
+        justify-content:center;
+        flex-wrap:wrap;
+    }
+    .search-box{width:100%}
+    .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+    .footer-grid{grid-template-columns:1fr}
+    .notification-panel{
+        position:fixed;
+        left:15px;
+        right:15px;
+        top:115px;
+        width:auto;
+    }
+}
+</style><style>
+.search-hit{
+  outline:3px solid #1565c0 !important;
+  outline-offset:4px;
+  border-radius:5px;
+}
+</style></head>
 <body>
-
-
 <!-- =====================================================
      HEADER
 ===================================================== -->
-
 <header>
-
-
-    <!-- LOGO -->
-
-    <div class="gov-logo">
-
-        <img
-            class="emblem"
-            src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
-            alt="Ashoka Emblem">
-
-        <div class="gov-text">
-
-            <h2 data-key="government">
-                Government of India
-            </h2>
-
-            <h3>
-                Digital Queue
-            </h3>
-
-            <p data-key="tagline">
-                Easy. Quick. Transparent.
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <!-- HEADER RIGHT -->
-
-    <div class="header-right">
-
-
-        <!-- SEARCH -->
-
-        <div class="search-box">
-
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="Search services, documents, offices..."
-                data-placeholder="searchPlaceholder">
-
-            <span
-                class="search-icon"
-                onclick="performSearch()">
-
-                🔍
-
-            </span>
-
-        </div>
-
-
-        <!-- NOTIFICATION -->
-
-        <div class="notification-wrapper">
-
-            <button
-                class="notification-btn"
-                onclick="toggleNotifications()">
-
+<a class="brand" href="index.html">
+<img alt="Digital Queue Logo" class="logo" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg';" src="digital-queue-logo.png"/>
+<div>
+<h2 data-key="government" id="governmentText">Government of India</h2>
+<h3 data-key="brand" id="brandText">Digital Queue</h3>
+<p data-key="tagline" id="taglineText">Easy. Quick. Transparent.</p>
+</div>
+</a>
+<div class="header-right">
+<div class="search-box">
+<input autocomplete="off" data-placeholder="searchPlaceholder" id="searchInput" placeholder="Search services, documents, offices..." type="text"/>
+<button aria-label="Search" onclick="performSearch()" type="button">🔍</button>
+</div>
+<div class="notification-wrapper">
+<button aria-label="Notifications" class="notification-btn" onclick="toggleNotifications(event)" type="button">
                 🔔
-
-                <span class="notification-badge">
-                    3
-                </span>
-
-            </button>
-
-
-            <div
-                class="notification-panel"
-                id="notificationPanel">
-
-                <div
-                    class="notification-header"
-                    data-key="notifications">
-
+                <span class="badge">3</span>
+</button>
+<div class="notification-panel" id="notificationPanel">
+<div class="notification-header" data-key="notifications" id="notificationTitle">
                     Notifications
-
                 </div>
-
-                <div class="notification-item">
-
-                    🔔
-
-                    <span data-key="notification1">
+<div class="notification-item">
+                    🔔 <span data-key="notification1" id="notification1">
                         Your application status has been updated.
                     </span>
-
-                </div>
-
-                <div class="notification-item">
-
-                    📍
-
-                    <span data-key="notification2">
+</div>
+<div class="notification-item">
+                    📍 <span data-key="notification2" id="notification2">
                         Queue confirmation is required before visiting the office.
                     </span>
-
-                </div>
-
-                <div class="notification-item">
-
-                    ℹ️
-
-                    <span data-key="notification3">
-                        Check available government services.
+</div>
+<div class="notification-item">
+                    ℹ️ <span data-key="notification3" id="notification3">
+                        Check your queue status for updates.
                     </span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- LANGUAGE -->
-
-        <select
-            class="language-select"
-            id="languageSelect"
-            onchange="changeLanguage(this.value)">
-
-            <option value="en">
-                English
-            </option>
-
-            <option value="hi">
-                हिन्दी
-            </option>
-
-            <option value="gu">
-                ગુજરાતી
-            </option>
-
-        </select>
-
-
-        <!-- PROFILE -->
-
-        <div
-            class="profile"
-            onclick="openProfile()">
-
-            👤
-
-            <span data-key="loginProfile">
-                 Profile
-            </span>
-
-            ▾
-
-        </div>
-
-
-    </div>
-
+</div>
+</div>
+</div>
+<select aria-label="Language" class="language-select" id="languageSelect" onchange="changeLanguage(this.value)">
+<option value="en">English</option>
+<option value="hi">हिन्दी</option>
+<option value="gu">ગુજરાતી</option>
+</select>
+<button class="profile-btn" onclick="openProfile()" type="button">
+            👤 <span data-key="loginProfile" id="profileButtonText">Profile</span>
+</button>
+</div>
 </header>
-
-
-
 <!-- =====================================================
      NAVIGATION
 ===================================================== -->
-
 <nav>
-
-
-    <a href="index.html">
-
-        ⌂ &nbsp;
-
-        <span data-key="home">
-            Home
-        </span>
-
-    </a>
-
-
-    <a href="service.html">
-
-        ▣ &nbsp;
-
-        <span data-key="services">
-            Services
-        </span>
-
-    </a>
-
-
-    <a href="myapplication.html">
-
-        ▤ &nbsp;
-
-        <span data-key="applications">
-            My Applications
-        </span>
-
-    </a>
-
-
-    <a href="queue.html">
-
-        ☷ &nbsp;
-
-        <span data-key="queue">
-            Queue Status
-        </span>
-
-    </a>
-
-
-    <a
-        href="offinfo.html"
-        class="active">
-
-        🏛 &nbsp;
-
-        <span data-key="offices">
-            Offices
-        </span>
-
-    </a>
-
+<a class="" href="index.html" id="navHome"> <span data-key="home">Home</span></a>
+<a class="" href="service.html" id="navServices"> <span data-key="services">Services</span></a>
+<a class="" href="myapplication.html" id="navApplications"> <span data-key="applications">My Applications</span></a>
+<a class="" href="queue.html" id="navQueue"> <span data-key="queue">Queue Status</span></a>
+<a class="active" href="offinfo.html" id="navOffices"> <span data-key="offices">Offices</span></a>
 </nav>
-
-
-
 <!-- =====================================================
      MAIN CONTENT
 ===================================================== -->
-
 <main class="container">
-
-
-    <div class="title"
-         data-key="officeInformation">
+<div class="title" data-key="officeInformation">
 
         Office Information
 
     </div>
-
-
-    <div class="card">
-
-        <!-- INFORMATION -->
-
-        <div class="info-grid">
-
-
-            <div class="info">
-
-                <h3 data-key="officeName">
+<div class="card">
+<!-- INFORMATION -->
+<div class="info-grid">
+<div class="info">
+<h3 data-key="officeName">
                     Office Name
                 </h3>
-
-                <p>
+<p data-key="officeNameValue">
                     District Seva Sadan / Bahumali Bhavan
                 </p>
-
-            </div>
-
-
-            <div class="info">
-
-                <h3 data-key="officeAddress">
+</div>
+<div class="info">
+<h3 data-key="officeAddress">
                     Office Address
                 </h3>
-
-                <p>
-                    Bahumali Bhavan Campus,<br>
+<p data-key="officeAddressValue">
+                    Bahumali Bhavan Campus,<br/>
                     Nanpura, Surat, Gujarat - 395001
                 </p>
-
-            </div>
-
-
-            <div class="info">
-
-                <h3 data-key="workingHours">
+</div>
+<div class="info">
+<h3 data-key="workingHours">
                     Working Hours
                 </h3>
-
-                <p>
+<p data-key="workingHoursValue">
                     Monday - Friday : 11:00 AM - 4:00 PM
                 </p>
-
-            </div>
-
-
-            <div class="info">
-
-                <h3 data-key="contactNumber">
+</div>
+<div class="info">
+<h3 data-key="contactNumber">
                     Contact Number
                 </h3>
-
-                <p>
+<p data-key="contactNumberValue">
                     0261-2460698
                 </p>
-
-            </div>
-
-
-            <div class="info">
-
-                <h3 data-key="email">
+</div>
+<div class="info">
+<h3 data-key="email">
                     Email
                 </h3>
-
-                <p>
+<p data-key="emailValue">
                     Government Office, Surat
                 </p>
-
-            </div>
-
-
-            <div class="info">
-
-                <h3 data-key="holidays">
+</div>
+<div class="info">
+<h3 data-key="holidays">
                     Holidays
                 </h3>
-
-                <p>
-                    Saturday, Sunday & Government Holidays
+<p data-key="holidaysValue">
+                    Saturday, Sunday &amp; Government Holidays
                 </p>
-
-            </div>
-
-
-        </div>
-
+</div>
+</div>
 <!-- QUEUE -->
-
-        <div class="queue">
-
-            <h3 data-key="queueInformation">
+<div class="queue">
+<h3 data-key="queueInformation">
 
                 Current Queue / Waiting Information
 
             </h3>
-
-
-            <div class="queue-row">
-
-                <span data-key="currentToken">
+<div class="queue-row">
+<span data-key="currentToken">
                     Current Token
                 </span>
-
-                <strong>
+<strong>
                     D-39
                 </strong>
-
-            </div>
-
-
-            <div class="queue-row">
-
-                <span data-key="tokensBefore">
+</div>
+<div class="queue-row">
+<span data-key="tokensBefore">
                     Tokens Before You
                 </span>
-
-                <strong>
+<strong>
                     6
                 </strong>
-
-            </div>
-
-
-            <div class="queue-row">
-
-                <span data-key="waitingTime">
+</div>
+<div class="queue-row">
+<span data-key="waitingTime">
                     Estimated Waiting Time
                 </span>
-
-                <strong>
+<strong>
                     15 mins
                 </strong>
-
-            </div>
-
-
-            <div class="queue-row">
-
-                <span data-key="queueStatus">
+</div>
+<div class="queue-row">
+<span data-key="queueStatus">
                     Queue Status
                 </span>
-
-                <span class="processing"
-                      data-key="processing">
+<span class="processing" data-key="processing">
 
                     Processing
 
                 </span>
-
-            </div>
-
-
-        </div>
-
-
-        <!-- BUTTONS -->
-
-        <div class="buttons">
-
-
-            <a
-                class="btn"
-                href="https://www.google.com/maps/search/?api=1&query=Bahumali+Bhavan+Nanpura+Surat"
-                target="_blank">
+</div>
+</div>
+<!-- BUTTONS -->
+<div class="buttons">
+<a class="btn" href="https://www.google.com/maps/search/?api=1&amp;query=Bahumali+Bhavan+Nanpura+Surat" target="_blank">
 
                 📍
 
                 <span data-key="viewLocation">
                     View Location
                 </span>
-
-            </a>
-
-
-            <button
-                class="btn"
-                onclick="history.back()">
+</a>
+<button class="btn" onclick="history.back()">
 
                 ←
 
                 <span data-key="back">
                     Back
                 </span>
-
-            </button>
-
-
-        </div>
-
-
-    </div>
-
+</button>
+</div>
+</div>
 </main>
-
-
-
 <!-- =====================================================
      FOOTER
 ===================================================== -->
-
 <footer>
-
-
-    <div class="footer-content">
-
-
-        <div class="footer-column">
-
-            <div class="footer-logo">
-                Government of India
-            </div>
-
-            <p>
-                Digital Queue
+<div class="footer-grid">
+<div class="footer-column">
+<h3 data-key="brand">Digital Queue</h3>
+<p data-key="footer" id="footerDescription">
+                A digital platform designed to make government
+                services easier, faster and more transparent.
             </p>
-
-            <p>
-                © 2026 All Rights Reserved
-            </p>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h3 data-key="importantLinks">
-                Important Links
+</div>
+<div class="footer-column">
+<h3 data-key="quick" id="quickTitle">
+                Quick Links
             </h3>
-
-            <a href="#"
-               data-key="about">
-                About Us
-            </a>
-
-            <a href="#"
-               data-key="terms">
-                Terms & Conditions
-            </a>
-
-            <a href="#"
-               data-key="privacy">
-                Privacy Policy
-            </a>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h3 data-key="support">
+<a href="index.html"><span data-key="home">Home</span></a>
+<a href="service.html"><span data-key="services">Services</span></a>
+<a href="myapplication.html"><span data-key="applications">My Applications</span></a>
+<a href="queue.html"><span data-key="queue">Queue Status</span></a>
+</div>
+<div class="footer-column">
+<h3 data-key="service" id="serviceFooterTitle">
+                Services
+            </h3>
+<a href="service.html"><span data-key="aadhaarFooter">Aadhaar</span></a>
+<a href="service.html"><span data-key="panFooter">PAN Card</span></a>
+<a href="service.html"><span data-key="certificatesFooter">Certificates</span></a>
+</div>
+<div class="footer-column">
+<h3 data-key="support" id="supportTitle">
                 Support
             </h3>
-
-            <a href="#"
-               data-key="helpCenter">
-                Help Center
-            </a>
-
-            <a href="#"
-               data-key="faqs">
-                FAQs
-            </a>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h3 data-key="follow">
-                Follow Us
-            </h3>
-
-            <p>
-                Facebook
-            </p>
-
-            <p>
-                Twitter
-            </p>
-
-            <p>
-                YouTube
-            </p>
-
-        </div>
-
-
-        <div class="footer-column">
-
-            <h3 data-key="download">
-                Download Our App
-            </h3>
-
-            <p>
-                Google Play
-            </p>
-
-            <p>
-                App Store
-            </p>
-
-        </div>
-
-
+<a href="offinfo.html"><span data-key="offices">Offices</span></a>
+<a href="profile.html"><span data-key="profileFooter">Profile</span></a>
+</div>
+</div>
+<div class="footer-bottom" data-key="footerBottom">
+        © 2026 Digital Queue. All Rights Reserved.
     </div>
-
-
-    <div class="footer-bottom">
-
-        Government of India e-Q Service Portal |
-        Easy. Quick. Transparent.
-
-    </div>
-
-
 </footer>
 
-
-
 <script>
-
-/* =====================================================
-   LANGUAGE DATA
-===================================================== */
-
 const translations = {
-
-    en: {
-
-        government: "Government of India",
-        tagline: "Easy. Quick. Transparent.",
-
-        searchPlaceholder:
-            "Search services, documents, offices...",
-
-        notifications: "Notifications",
-
-        notification1:
-            "Your application status has been updated.",
-
-        notification2:
-            "Queue confirmation is required before visiting the office.",
-
-        notification3:
-            "Check available government services.",
-
-        loginProfile:
-            "Profile",
-
-        home: "Home",
-        services: "Services",
-        applications: "My Applications",
-        queue: "Queue Status",
-        offices: "Offices",
-        help: "Help",
-
-        officeInformation:
-            "Office Information",
-
-        officeName:
-            "Office Name",
-
-        officeAddress:
-            "Office Address",
-
-        workingHours:
-            "Working Hours",
-
-        contactNumber:
-            "Contact Number",
-
-        email:
-            "Email",
-
-        holidays:
-            "Holidays",
-
-        location:
-            "Google Map / Location",
-
-        officePhoto:
-            "Government Office",
-
-        queueInformation:
-            "Current Queue / Waiting Information",
-
-        currentToken:
-            "Current Token",
-
-        tokensBefore:
-            "Tokens Before You",
-
-        waitingTime:
-            "Estimated Waiting Time",
-
-        queueStatus:
-            "Queue Status",
-
-        processing:
-            "Processing",
-
-        viewLocation:
-            "View Location",
-
-        back:
-            "Back",
-
-        importantLinks:
-            "Important Links",
-
-        about:
-            "About Us",
-
-        terms:
-            "Terms & Conditions",
-
-        privacy:
-            "Privacy Policy",
-
-        support:
-            "Support",
-
-        helpCenter:
-            "Help Center",
-
-        faqs:
-            "FAQs",
-
-        follow:
-            "Follow Us",
-
-        download:
-            "Download Our App"
-
-    },
-
-
-    hi: {
-
-        government:
-            "भारत सरकार",
-
-        tagline:
-            "आसान। त्वरित। पारदर्शी।",
-
-        searchPlaceholder:
-            "सेवाएँ, दस्तावेज़, कार्यालय खोजें...",
-
-        notifications:
-            "सूचनाएँ",
-
-        notification1:
-            "आपके आवेदन की स्थिति अपडेट की गई है।",
-
-        notification2:
-            "कार्यालय जाने से पहले कतार की पुष्टि आवश्यक है।",
-
-        notification3:
-            "उपलब्ध सरकारी सेवाएँ देखें।",
-
-        loginProfile:
-            "प्रोफ़ाइल",
-
-        home:
-            "होम",
-
-        services:
-            "सेवाएँ",
-
-        applications:
-            "मेरे आवेदन",
-
-        queue:
-            "कतार स्थिति",
-
-        offices:
-            "कार्यालय",
-
-        help:
-            "सहायता",
-
-        officeInformation:
-            "कार्यालय की जानकारी",
-
-        officeName:
-            "कार्यालय का नाम",
-
-        officeAddress:
-            "कार्यालय का पता",
-
-        workingHours:
-            "कार्य समय",
-
-        contactNumber:
-            "संपर्क नंबर",
-
-        email:
-            "ईमेल",
-
-        holidays:
-            "छुट्टियाँ",
-
-        location:
-            "गूगल मैप / स्थान",
-
-        officePhoto:
-            "सरकारी कार्यालय",
-
-        queueInformation:
-            "वर्तमान कतार / प्रतीक्षा जानकारी",
-
-        currentToken:
-            "वर्तमान टोकन",
-
-        tokensBefore:
-            "आपसे पहले टोकन",
-
-        waitingTime:
-            "अनुमानित प्रतीक्षा समय",
-
-        queueStatus:
-            "कतार स्थिति",
-
-        processing:
-            "प्रक्रिया में",
-
-        viewLocation:
-            "स्थान देखें",
-
-        back:
-            "वापस",
-
-        importantLinks:
-            "महत्वपूर्ण लिंक",
-
-        about:
-            "हमारे बारे में",
-
-        terms:
-            "नियम एवं शर्तें",
-
-        privacy:
-            "गोपनीयता नीति",
-
-        support:
-            "सहायता",
-
-        helpCenter:
-            "सहायता केंद्र",
-
-        faqs:
-            "सामान्य प्रश्न",
-
-        follow:
-            "हमें फॉलो करें",
-
-        download:
-            "हमारा ऐप डाउनलोड करें"
-
-    },
-
-
-    gu: {
-
-        government:
-            "ભારત સરકાર",
-
-        tagline:
-            "સરળ. ઝડપી. પારદર્શક.",
-
-        searchPlaceholder:
-            "સેવાઓ, દસ્તાવેજો, કચેરીઓ શોધો...",
-
-        notifications:
-            "સૂચનાઓ",
-
-        notification1:
-            "તમારી અરજીની સ્થિતિ અપડેટ કરવામાં આવી છે.",
-
-        notification2:
-            "કચેરીની મુલાકાત પહેલાં કતારની પુષ્ટિ જરૂરી છે.",
-
-        notification3:
-            "ઉપલબ્ધ સરકારી સેવાઓ તપાસો.",
-
-        loginProfile:
-            " પ્રોફાઇલ",
-
-        home:
-            "હોમ",
-
-        services:
-            "સેવાઓ",
-
-        applications:
-            "મારી અરજીઓ",
-
-        queue:
-            "કતાર સ્થિતિ",
-
-        offices:
-            "કચેરીઓ",
-
-        help:
-            "મદદ",
-
-        officeInformation:
-            "કચેરીની માહિતી",
-
-        officeName:
-            "કચેરીનું નામ",
-
-        officeAddress:
-            "કચેરીનું સરનામું",
-
-        workingHours:
-            "કામકાજનો સમય",
-
-        contactNumber:
-            "સંપર્ક નંબર",
-
-        email:
-            "ઇમેઇલ",
-
-        holidays:
-            "રજાઓ",
-
-        location:
-            "ગૂગલ મેપ / સ્થાન",
-
-        officePhoto:
-            "સરકારી કચેરી",
-
-        queueInformation:
-            "વર્તમાન કતાર / રાહ જોવાની માહિતી",
-
-        currentToken:
-            "વર્તમાન ટોકન",
-
-        tokensBefore:
-            "તમારા પહેલાં ટોકન",
-
-        waitingTime:
-            "અંદાજિત રાહ સમય",
-
-        queueStatus:
-            "કતાર સ્થિતિ",
-
-        processing:
-            "પ્રક્રિયામાં",
-
-        viewLocation:
-            "સ્થાન જુઓ",
-
-        back:
-            "પાછા",
-
-        importantLinks:
-            "મહત્વપૂર્ણ લિંક્સ",
-
-        about:
-            "અમારા વિશે",
-
-        terms:
-            "નિયમો અને શરતો",
-
-        privacy:
-            "ગોપનીયતા નીતિ",
-
-        support:
-            "સહાય",
-
-        helpCenter:
-            "સહાય કેન્દ્ર",
-
-        faqs:
-            "વારંવાર પૂછાતા પ્રશ્નો",
-
-        follow:
-            "અમને ફોલો કરો",
-
-        download:
-            "અમારી એપ ડાઉનલોડ કરો"
-
-    }
-
+  en: {
+    government:"Government of India", brand:"Digital Queue", tagline:"Easy. Quick. Transparent.",
+    searchPlaceholder:"Search services, documents, offices...",
+    notifications:"Notifications",
+    notification1:"Your application status has been updated.",
+    notification2:"Queue confirmation is required before visiting the office.",
+    notification3:"Check your queue status for updates.",
+    loginProfile:"Profile",
+    home:"Home", services:"Services", applications:"My Applications",
+    queue:"Queue Status", offices:"Offices",
+    officeInformation:"Office Information", officeName:"Office Name",
+    officeAddress:"Office Address", workingHours:"Working Hours",
+    contactNumber:"Contact Number", email:"Email", holidays:"Holidays",
+    location:"Google Map / Location", officePhoto:"Government Office",
+    queueInformation:"Current Queue / Waiting Information",
+    currentToken:"Current Token", tokensBefore:"Tokens Before You",
+    waitingTime:"Estimated Waiting Time", queueStatus:"Queue Status",
+    processing:"Processing", viewLocation:"View Location", back:"Back",
+
+    footer:"A digital platform designed to make government services easier, faster and more transparent.",
+    quick:"Quick Links", service:"Services", support:"Support",
+    aadhaarFooter:"Aadhaar", panFooter:"PAN Card",
+    certificatesFooter:"Certificates", profileFooter:"Profile",
+    footerBottom:"© 2026 Digital Queue. All Rights Reserved.",
+
+    officeNameValue:"District Seva Sadan / Bahumali Bhavan",
+    officeAddressValue:"Bahumali Bhavan Campus,<br>Nanpura, Surat, Gujarat - 395001",
+    workingHoursValue:"Monday - Friday : 11:00 AM - 4:00 PM",
+    contactNumberValue:"0261-2460698",
+    emailValue:"Government Office, Surat",
+    holidaysValue:"Saturday, Sunday & Government Holidays"
+  },
+
+  hi: {
+    government:"भारत सरकार", brand:"डिजिटल क्यू",
+    tagline:"आसान। त्वरित। पारदर्शी।",
+    searchPlaceholder:"सेवाएँ, दस्तावेज़, कार्यालय खोजें...",
+    notifications:"सूचनाएँ",
+    notification1:"आपके आवेदन की स्थिति अपडेट की गई है।",
+    notification2:"कार्यालय जाने से पहले कतार की पुष्टि आवश्यक है।",
+    notification3:"अपनी कतार की स्थिति के अपडेट देखें।",
+    loginProfile:"प्रोफ़ाइल",
+    home:"होम", services:"सेवाएँ", applications:"मेरे आवेदन",
+    queue:"कतार की स्थिति", offices:"कार्यालय",
+    officeInformation:"कार्यालय की जानकारी", officeName:"कार्यालय का नाम",
+    officeAddress:"कार्यालय का पता", workingHours:"कार्य समय",
+    contactNumber:"संपर्क नंबर", email:"ईमेल", holidays:"छुट्टियाँ",
+    location:"गूगल मैप / स्थान", officePhoto:"सरकारी कार्यालय",
+    queueInformation:"वर्तमान कतार / प्रतीक्षा जानकारी",
+    currentToken:"वर्तमान टोकन", tokensBefore:"आपसे पहले टोकन",
+    waitingTime:"अनुमानित प्रतीक्षा समय", queueStatus:"कतार की स्थिति",
+    processing:"प्रक्रिया में", viewLocation:"स्थान देखें", back:"वापस",
+
+    footer:"सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए डिजिटल प्लेटफ़ॉर्म।",
+    quick:"त्वरित लिंक", service:"सेवाएँ", support:"सहायता",
+    aadhaarFooter:"आधार", panFooter:"पैन कार्ड",
+    certificatesFooter:"प्रमाणपत्र", profileFooter:"प्रोफ़ाइल",
+    footerBottom:"© 2026 डिजिटल क्यू। सर्वाधिकार सुरक्षित।",
+
+    officeNameValue:"जिला सेवा सदन / बहुमाली भवन",
+    officeAddressValue:"बहुमाली भवन परिसर,<br>नानपुरा, सूरत, गुजरात - 395001",
+    workingHoursValue:"सोमवार - शुक्रवार : सुबह 11:00 बजे - शाम 4:00 बजे",
+    contactNumberValue:"0261-2460698",
+    emailValue:"सरकारी कार्यालय, सूरत",
+    holidaysValue:"शनिवार, रविवार और सरकारी छुट्टियाँ"
+  },
+
+  gu: {
+    government:"ભારત સરકાર", brand:"ડિજિટલ ક્યુ",
+    tagline:"સરળ. ઝડપી. પારદર્શક.",
+    searchPlaceholder:"સેવાઓ, દસ્તાવેજો, કચેરીઓ શોધો...",
+    notifications:"સૂચનાઓ",
+    notification1:"તમારી અરજીની સ્થિતિ અપડેટ કરવામાં આવી છે.",
+    notification2:"કચેરીની મુલાકાત પહેલાં કતારની પુષ્ટિ જરૂરી છે.",
+    notification3:"તમારી કતારની સ્થિતિના અપડેટ્સ તપાસો.",
+    loginProfile:"પ્રોફાઇલ",
+    home:"હોમ", services:"સેવાઓ", applications:"મારી અરજીઓ",
+    queue:"કતારની સ્થિતિ", offices:"કચેરીઓ",
+    officeInformation:"કચેરીની માહિતી", officeName:"કચેરીનું નામ",
+    officeAddress:"કચેરીનું સરનામું", workingHours:"કામકાજનો સમય",
+    contactNumber:"સંપર્ક નંબર", email:"ઈમેલ", holidays:"રજાઓ",
+    location:"ગૂગલ મેપ / સ્થાન", officePhoto:"સરકારી કચેરી",
+    queueInformation:"વર્તમાન કતાર / રાહ જોવાની માહિતી",
+    currentToken:"વર્તમાન ટોકન", tokensBefore:"તમારા પહેલાં ટોકન",
+    waitingTime:"અંદાજિત રાહ જોવાનો સમય", queueStatus:"કતારની સ્થિતિ",
+    processing:"પ્રક્રિયામાં", viewLocation:"સ્થાન જુઓ", back:"પાછળ",
+
+    footer:"સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ.",
+    quick:"ઝડપી લિંક્સ", service:"સેવાઓ", support:"સહાય",
+    aadhaarFooter:"આધાર", panFooter:"પાન કાર્ડ",
+    certificatesFooter:"પ્રમાણપત્રો", profileFooter:"પ્રોફાઇલ",
+    footerBottom:"© 2026 ડિજિટલ ક્યુ. સર્વાધિકાર સુરક્ષિત.",
+
+    officeNameValue:"જિલ્લા સેવા સદન / બહુમાળી ભવન",
+    officeAddressValue:"બહુમાળી ભવન કેમ્પસ,<br>નાનપુરા, સુરત, ગુજરાત - 395001",
+    workingHoursValue:"સોમવાર - શુક્રવાર : સવારે 11:00 - સાંજે 4:00 વાગ્યા સુધી",
+    contactNumberValue:"0261-2460698",
+    emailValue:"સરકારી કચેરી, સુરત",
+    holidaysValue:"શનિવાર, રવિવાર અને સરકારી રજાઓ"
+  }
 };
 
+function applyLanguage(lang){
+  const t = translations[lang] || translations.en;
 
-/* =====================================================
-   LANGUAGE FUNCTION
-===================================================== */
-
-function changeLanguage(language) {
-
-    localStorage.setItem(
-        "selectedLanguage",
-        language
-    );
-
-    applyLanguage(language);
-
-}
-
-
-function applyLanguage(language) {
-
-    const data =
-        translations[language];
-
-    if (!data) return;
-
-
-    document
-        .querySelectorAll("[data-key]")
-        .forEach(function(element) {
-
-            const key =
-                element.getAttribute(
-                    "data-key"
-                );
-
-            if (data[key] !== undefined) {
-
-                element.textContent =
-                    data[key];
-
-            }
-
-        });
-
-
-    document
-        .querySelectorAll("[data-placeholder]")
-        .forEach(function(element) {
-
-            const key =
-                element.getAttribute(
-                    "data-placeholder"
-                );
-
-            if (data[key] !== undefined) {
-
-                element.placeholder =
-                    data[key];
-
-            }
-
-        });
-
-}
-
-
-/* =====================================================
-   LOAD SAVED LANGUAGE
-===================================================== */
-
-const savedLanguage =
-    localStorage.getItem(
-        "selectedLanguage"
-    ) || "en";
-
-
-document.getElementById(
-    "languageSelect"
-).value = savedLanguage;
-
-
-applyLanguage(savedLanguage);
-
-
-/* =====================================================
-   NOTIFICATIONS
-===================================================== */
-
-function toggleNotifications() {
-
-    document
-        .getElementById(
-            "notificationPanel"
-        )
-        .classList.toggle("show");
-
-}
-
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        const wrapper =
-            document.querySelector(
-                ".notification-wrapper"
-            );
-
-        const panel =
-            document.getElementById(
-                "notificationPanel"
-            );
-
-        if (
-            !wrapper.contains(
-                event.target
-            )
-        ) {
-
-            panel.classList.remove(
-                "show"
-            );
-
-        }
-
+  document.querySelectorAll("[data-key]").forEach(el=>{
+    const key = el.dataset.key;
+    if(t[key] !== undefined){
+      // Keep HTML only where explicitly needed (the address line break).
+      el.innerHTML = t[key];
     }
-);
+  });
 
+  document.querySelectorAll("[data-placeholder]").forEach(el=>{
+    const key = el.dataset.placeholder;
+    if(t[key] !== undefined) el.placeholder = t[key];
+  });
 
-/* =====================================================
-   SEARCH
-===================================================== */
-
-function performSearch() {
-
-    const value =
-        document
-        .getElementById(
-            "searchInput"
-        )
-        .value
-        .trim();
-
-    if (value === "") {
-
-        return;
-
-    }
-
-
-    window.location.href =
-        "service.html?search=" +
-        encodeURIComponent(
-            value
-        );
-
+  const select = document.getElementById("languageSelect");
+  if(select) select.value = lang;
 }
 
-
-document.getElementById(
-    "searchInput"
-).addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Enter"
-        ) {
-
-            performSearch();
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   PROFILE
-===================================================== */
-
-function openProfile() {
-
-    const loggedIn =
-        localStorage.getItem(
-            "isLoggedIn"
-        );
-
-
-    if (
-        loggedIn === "true"
-    ) {
-
-        window.location.href =
-            "profile.html";
-
-    } else {
-
-        window.location.href =
-            "login.html";
-
-    }
-
+function changeLanguage(lang){
+  localStorage.setItem("selectedLanguage", lang);
+  applyLanguage(lang);
 }
 
-</script>
+function toggleNotifications(event){
+  if(event) event.stopPropagation();
+  const panel = document.getElementById("notificationPanel");
+  if(panel) panel.classList.toggle("show");
+}
 
+document.addEventListener("click", event=>{
+  const wrapper = document.querySelector(".notification-wrapper");
+  const panel = document.getElementById("notificationPanel");
+  if(wrapper && panel && !wrapper.contains(event.target)){
+    panel.classList.remove("show");
+  }
+});
 
-</body>
+function performSearch(){
+  const input = document.getElementById("searchInput");
+  if(!input) return;
 
+  const q = input.value.trim().toLowerCase();
+  if(!q){ input.focus(); return; }
+
+  document.querySelectorAll(".search-hit").forEach(el=>{
+    el.classList.remove("search-hit");
+  });
+
+  const main = document.querySelector("main");
+  const elements = main ? Array.from(main.querySelectorAll("h1,h2,h3,h4,p,span,button,li,label")) : [];
+  const found = elements.find(el => (el.innerText || el.textContent || "").toLowerCase().includes(q));
+
+  if(found){
+    found.classList.add("search-hit");
+    found.scrollIntoView({behavior:"smooth", block:"center"});
+    setTimeout(()=>found.classList.remove("search-hit"),2500);
+  }else{
+    alert("No matching information found on this page.");
+  }
+}
+
+function openProfile(){
+  const loggedIn = localStorage.getItem("isLoggedIn");
+  window.location.href = loggedIn === "true" ? "profile.html" : "login.html";
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+  const saved = localStorage.getItem("selectedLanguage") || "en";
+  applyLanguage(saved);
+
+  const search = document.getElementById("searchInput");
+  if(search){
+    search.addEventListener("keydown", e=>{
+      if(e.key === "Enter") performSearch();
+    });
+  }
+});
+</script></body>
 </html>

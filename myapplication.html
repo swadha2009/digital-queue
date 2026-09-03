@@ -997,12 +997,138 @@ header {
 
 </style>
 
+<style id="shared-site-style">
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f5f7fa;color:#14213d;min-height:100vh}
+a{text-decoration:none;color:inherit}
+
+/* HEADER */
+header{background:#0d47a1;color:white;min-height:100px;padding:12px 35px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:white}
+.logo{width:62px;height:68px;object-fit:contain}
+.brand h2{font-size:20px}.brand h3{font-size:17px;margin-top:3px}.brand p{font-size:12px;margin-top:3px}
+.header-right{display:flex;align-items:center;gap:10px}
+.search-box{width:310px;height:40px;background:white;border-radius:6px;display:flex;align-items:center;padding:0 10px}
+.search-box input{border:0;outline:0;width:100%;font-size:14px}
+.search-box button{border:0;background:none;cursor:pointer;font-size:18px}
+.language-select{height:40px;border:none;border-radius:6px;padding:0 10px;cursor:pointer}
+.notification-wrapper{position:relative}
+.notification-btn{width:42px;height:40px;border:none;border-radius:6px;background:white;color:#0d47a1;cursor:pointer;font-size:18px;position:relative}
+.badge{position:absolute;top:-5px;right:-4px;width:18px;height:18px;border-radius:50%;background:#d32f2f;color:white;display:grid;place-items:center;font-size:10px}
+.notification-panel{display:none;position:absolute;right:0;top:48px;width:310px;background:white;color:#14213d;border-radius:8px;box-shadow:0 8px 25px rgba(0,0,0,.2);z-index:100}
+.notification-panel.show{display:block}
+.notification-header{padding:14px;font-weight:bold;border-bottom:1px solid #eee}
+.notification-item{padding:13px;border-bottom:1px solid #eee;font-size:13px;line-height:1.5}
+.profile-btn{height:40px;border:none;border-radius:6px;background:white;color:#0d47a1;padding:0 14px;font-weight:bold;cursor:pointer}
+.profile-btn:hover{background:#e8f1ff}
+
+/* NAV */
+nav{background:white;box-shadow:0 2px 7px rgba(0,0,0,.08);display:flex;overflow-x:auto}
+nav a{color:#14213d;text-decoration:none;padding:17px 20px;white-space:nowrap;font-size:14px}
+nav a:hover,nav a.active{color:#0d47a1;background:#f5f8ff;font-weight:bold;border-bottom:3px solid #0d47a1}
+
+/* HOME */
+main{max-width:1200px;margin:auto;padding:35px 22px 55px}
+.hero{background:linear-gradient(135deg,#0d47a1,#1565c0);color:white;border-radius:16px;padding:58px 45px;display:flex;align-items:center;justify-content:space-between;gap:35px;box-shadow:0 7px 20px rgba(13,71,161,.18)}
+.hero-content{max-width:700px}
+.hero h1{font-size:38px;line-height:1.2;margin-bottom:14px}
+.hero p{font-size:17px;line-height:1.7;color:#eaf2ff}
+.hero-buttons{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;border:none;border-radius:7px;padding:13px 20px;font-weight:bold;cursor:pointer;font-size:14px}
+.btn-white{background:white;color:#0d47a1}
+.btn-outline{background:transparent;color:white;border:1px solid white}
+.hero-icon{font-size:90px;opacity:.95}
+
+/* SECTION */
+.section{margin-top:38px}
+.section-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:17px}
+.section-heading h2{font-size:24px;color:#14213d}
+.view-link{color:#0d47a1;font-weight:bold;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:white;border:1px solid #e1e6ee;border-radius:12px;padding:23px;box-shadow:0 3px 12px rgba(0,0,0,.05)}
+.service-icon{width:50px;height:50px;border-radius:10px;background:#e8f1ff;color:#0d47a1;display:grid;place-items:center;font-size:24px;margin-bottom:14px}
+.card h3{font-size:18px;margin-bottom:8px}
+.card p{color:#667085;font-size:14px;line-height:1.6}
+.card .btn{margin-top:15px;background:#0d47a1;color:white}
+
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.step{text-align:center;background:white;border:1px solid #e1e6ee;border-radius:12px;padding:25px 18px}
+.step-number{width:45px;height:45px;border-radius:50%;background:#0d47a1;color:white;display:grid;place-items:center;font-weight:bold;margin:0 auto 14px}
+.step h3{font-size:16px;margin-bottom:8px}
+.step p{color:#667085;font-size:13px;line-height:1.5}
+
+/* QUICK CARDS */
+.quick-card{display:flex;align-items:center;gap:18px}
+.quick-icon{width:55px;height:55px;border-radius:50%;background:#e8f1ff;color:#0d47a1;display:grid;place-items:center;font-size:24px;flex:none}
+.quick-card .btn{margin-top:12px}
+
+/* FOOTER */
+footer{background:#0d47a1;color:white;padding:35px 7% 18px}
+.footer-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px}
+.footer-column h3{font-size:15px;margin-bottom:10px}
+.footer-column p,.footer-column a{color:#dce8fa;font-size:13px;line-height:1.9;text-decoration:none;display:block}
+.footer-column a:hover{text-decoration:underline}
+.footer-bottom{max-width:1200px;margin:25px auto 0;padding-top:15px;border-top:1px solid rgba(255,255,255,.3);text-align:center;font-size:12px}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+header{flex-direction:column;align-items:stretch}
+.brand{justify-content:center}
+.header-right{justify-content:center;flex-wrap:wrap}
+.search-box{width:100%}
+.hero{flex-direction:column;text-align:center}
+.hero-buttons{justify-content:center}
+.grid{grid-template-columns:1fr 1fr}
+.steps{grid-template-columns:1fr 1fr}
+.footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+main{padding:22px 15px 45px}
+.hero{padding:40px 22px}
+.hero h1{font-size:29px}
+.hero-icon{font-size:65px}
+.grid,.steps,.footer-grid{grid-template-columns:1fr}
+.notification-panel{position:fixed;left:15px;right:15px;top:115px;width:auto}
+}
+
+
+.student-project-notice{
+    width:100%;
+    box-sizing:border-box;
+    background:#fff3cd;
+    border-bottom:1px solid #f0cf68;
+    color:#5f4700;
+    padding:10px 18px;
+    text-align:center;
+    font-size:13px;
+    line-height:1.5;
+}
+.student-project-notice strong{
+    display:inline-block;
+    margin-right:8px;
+}
+.student-project-notice span{
+    display:inline;
+}
+@media(max-width:700px){
+    .student-project-notice strong{
+        display:block;
+        margin:0 0 3px;
+    }
+    .student-project-notice span{
+        display:block;
+    }
+}
+
+/* Shared-page compatibility */
+.header-right{display:flex;align-items:center;gap:10px}
+.profile-btn{white-space:nowrap}
+</style>
 </head>
 
 
 <body>
-
-
 <!-- =====================================================
      HEADER
 ===================================================== -->
@@ -1011,84 +1137,88 @@ header {
 
     <a href="index.html" class="brand">
         <img
-            class="emblem"
-            src="https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg"
-            alt="State Emblem of India"
-        >
+            src="digital-queue-logo.png"
+            class="logo"
+            alt="Digital Queue Logo"
+            onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/5/55/Emblem_of_India.svg';">
 
-        <div class="gov-text">
-            <h2>Government of India</h2>
-            <h3>DIGITAL QUEUE</h3>
-            <p>Easy. Quick. Transparent.</p>
+        <div>
+            <h2 id="governmentText">Government of India</h2>
+            <h3 id="brandText">Digital Queue</h3>
+            <p id="taglineText">Easy. Quick. Transparent.</p>
         </div>
     </a>
 
-    <div class="header-actions">
+    <div class="header-right">
 
         <div class="search-box">
             <input
                 id="searchInput"
                 type="text"
                 placeholder="Search services, documents, offices..."
-                aria-label="Search"
-            >
+                autocomplete="off">
             <button
                 type="button"
-                class="search-icon"
                 onclick="performSearch()"
-                aria-label="Search"
-            >🔍</button>
+                aria-label="Search">🔍</button>
         </div>
 
         <div class="notification-wrapper">
+
             <button
-                type="button"
                 class="notification-btn"
+                type="button"
                 onclick="toggleNotifications(event)"
-                aria-label="Notifications"
-            >
+                aria-label="Notifications">
                 🔔
                 <span class="badge">3</span>
             </button>
 
             <div class="notification-panel" id="notificationPanel">
-                <div class="notification-header">Notifications</div>
 
-                <div class="notification-item">
-                    🔔 Your application status has been updated.
+                <div class="notification-header" id="notificationTitle">
+                    Notifications
                 </div>
 
                 <div class="notification-item">
-                    📍 Queue confirmation is required before visiting the office.
+                    🔔 <span id="notification1">
+                        Your application status has been updated.
+                    </span>
                 </div>
 
                 <div class="notification-item">
-                    ℹ️ Check your queue status for updates.
+                    📍 <span id="notification2">
+                        Queue confirmation is required before visiting the office.
+                    </span>
                 </div>
+
+                <div class="notification-item">
+                    ℹ️ <span id="notification3">
+                        Check your queue status for updates.
+                    </span>
+                </div>
+
             </div>
         </div>
 
         <select
             id="languageSelect"
             class="language-select"
-            aria-label="Language"
             onchange="changeLanguage(this.value)"
-        >
+            aria-label="Language">
             <option value="en">English</option>
             <option value="hi">हिन्दी</option>
             <option value="gu">ગુજરાતી</option>
         </select>
 
         <button
+            class="profile-btn"
             type="button"
-            class="profile"
-            onclick="goToProfile()"
-        >
-            👤 &nbsp; <span id="profileText">Profile</span>
+            onclick="openProfile()">
+            👤 <span id="profileButtonText">Profile</span>
         </button>
 
     </div>
-
 </header>
 
 
@@ -1098,56 +1228,11 @@ header {
 ===================================================== -->
 
 <nav>
-
-
-    <!-- HOME -->
-
-    <a href="index.html">
-
-        ⌂ &nbsp; Home
-
-    </a>
-
-
-    <!-- SERVICES -->
-
-    <a href="service.html">
-
-        ▣ &nbsp; Services ▾
-
-    </a>
-
-
-    <!-- MY APPLICATIONS - ACTIVE -->
-
-    <a
-        href="myapplication.html"
-        class="active"
-    >
-
-        ▣ &nbsp; My Applications
-
-    </a>
-
-
-    <!-- QUEUE STATUS -->
-
-    <a href="queue.html">
-
-        ☷ &nbsp; Queue Status
-
-    </a>
-
-
-    <!-- OFFICES -->
-
-    <a href="offinfo.html">
-
-        🏛 &nbsp; Offices
-
-    </a>
-
-
+    <a href="index.html" id="navHome">⌂ &nbsp; Home</a>
+    <a href="service.html" id="navServices">▣ &nbsp; Services</a>
+    <a href="myapplication.html" id="navApplications">▤ &nbsp; My Applications</a>
+    <a href="queue.html" id="navQueue">☷ &nbsp; Queue Status</a>
+    <a href="offinfo.html" id="navOffices">🏛 &nbsp; Offices</a>
 </nav>
 
 
@@ -1163,13 +1248,12 @@ header {
 
     <section class="page-heading">
 
-        <h1>
+        <h1 id="pageTitle">
             My Applications
         </h1>
 
-        <p>
-            View and track all your previous service
-            applications and queue bookings.
+        <p id="pageDescription">
+            View and track all your previous service applications and queue bookings.
         </p>
 
     </section>
@@ -1187,7 +1271,7 @@ header {
 
         <div class="summary-card">
 
-            <div class="summary-label">
+            <div class="summary-label" id="totalLabel">
                 Total Applications
             </div>
 
@@ -1210,7 +1294,7 @@ header {
 
         <div class="summary-card">
 
-            <div class="summary-label">
+            <div class="summary-label" id="completedLabel">
                 Completed
             </div>
 
@@ -1233,7 +1317,7 @@ header {
 
         <div class="summary-card">
 
-            <div class="summary-label">
+            <div class="summary-label" id="cancelledLabel">
                 Cancelled
             </div>
 
@@ -1269,11 +1353,11 @@ header {
 
             <div class="history-title">
 
-                <h2>
+                <h2 id="historyTitle">
                     Application History
                 </h2>
 
-                <p>
+                <p id="historyDescription">
                     Your previous applications and queue bookings
                 </p>
 
@@ -1285,7 +1369,7 @@ header {
 
             <div class="filter-area">
 
-                <label>
+                <label id="filterLabel">
                     Filter:
                 </label>
 
@@ -1294,25 +1378,15 @@ header {
                     onchange="filterApplications()"
                 >
 
-                    <option value="ALL">
-                        All
-                    </option>
+                    <option value="ALL" id="filterAll">All</option>
 
-                    <option value="COMPLETED">
-                        Completed
-                    </option>
+                    <option value="COMPLETED" id="filterCompleted">Completed</option>
 
-                    <option value="WAITING">
-                        Waiting
-                    </option>
+                    <option value="WAITING" id="filterWaiting">Waiting</option>
 
-                    <option value="CANCELLED">
-                        Cancelled
-                    </option>
+                    <option value="CANCELLED" id="filterCancelled">Cancelled</option>
 
-                    <option value="SUBMITTED">
-                        Submitted
-                    </option>
+                    <option value="SUBMITTED" id="filterSubmitted">Submitted</option>
 
                 </select>
 
@@ -1333,33 +1407,19 @@ header {
 
                     <tr>
 
-                        <th>
-                            TOKEN
-                        </th>
+                        <th id="thToken">TOKEN</th>
 
-                        <th>
-                            OFFICE
-                        </th>
+                        <th id="thOffice">OFFICE</th>
 
-                        <th>
-                            SERVICE
-                        </th>
+                        <th id="thService">SERVICE</th>
 
-                        <th>
-                            DATE
-                        </th>
+                        <th id="thDate">DATE</th>
 
-                        <th>
-                            TIME
-                        </th>
+                        <th id="thTime">TIME</th>
 
-                        <th>
-                            STATUS
-                        </th>
+                        <th id="thStatus">STATUS</th>
 
-                        <th>
-                            ACTION
-                        </th>
+                        <th id="thAction">ACTION</th>
 
                     </tr>
 
@@ -1386,13 +1446,12 @@ header {
                 📋
             </div>
 
-            <div class="empty-title">
+            <div class="empty-title" id="emptyTitle">
                 No Applications Found
             </div>
 
-            <p>
-                There are no applications for
-                the selected status.
+            <p id="emptyDescription">
+                There are no applications for the selected status.
             </p>
 
         </div>
@@ -1417,13 +1476,9 @@ header {
 
             <div>
 
-                <div class="feature-title">
-                    Secure & Trusted
-                </div>
+                <div class="feature-title" id="feature1Title">Secure & Trusted</div>
 
-                <div class="feature-text">
-                    Your data is safe with us
-                </div>
+                <div class="feature-text" id="feature1Text">Your data is safe with us</div>
 
             </div>
 
@@ -1439,13 +1494,9 @@ header {
 
             <div>
 
-                <div class="feature-title">
-                    Transparent Process
-                </div>
+                <div class="feature-title" id="feature2Title">Transparent Process</div>
 
-                <div class="feature-text">
-                    Track every step online
-                </div>
+                <div class="feature-text" id="feature2Text">Track every step online</div>
 
             </div>
 
@@ -1461,13 +1512,9 @@ header {
 
             <div>
 
-                <div class="feature-title">
-                    Save Time
-                </div>
+                <div class="feature-title" id="feature3Title">Save Time</div>
 
-                <div class="feature-text">
-                    No more long queues
-                </div>
+                <div class="feature-text" id="feature3Text">No more long queues</div>
 
             </div>
 
@@ -1483,13 +1530,9 @@ header {
 
             <div>
 
-                <div class="feature-title">
-                    Anywhere Access
-                </div>
+                <div class="feature-title" id="feature4Title">Anywhere Access</div>
 
-                <div class="feature-text">
-                    Access services anytime
-                </div>
+                <div class="feature-text" id="feature4Text">Access services anytime</div>
 
             </div>
 
@@ -1509,126 +1552,62 @@ header {
 
 <footer>
 
-
-    <div class="footer-content">
-
-
-        <!-- BRAND -->
+    <div class="footer-grid">
 
         <div class="footer-column">
 
-            <div class="footer-logo">
-                Government of India
-            </div>
+            <h3 id="footerBrandTitle">Digital Queue</h3>
 
-            <p>
-                e-Q Service Portal
-            </p>
-
-            <p>
-                © 2026 All Rights Reserved
+            <p id="footerDescription">
+                A digital platform designed to make government
+                services easier, faster and more transparent.
             </p>
 
         </div>
 
 
-
-        <!-- IMPORTANT LINKS -->
-
         <div class="footer-column">
 
-            <h3>
-                Important Links
+            <h3 id="quickTitle">
+                Quick Links
             </h3>
 
-            <a href="#">
-                About Us
-            </a>
-
-            <a href="#">
-                Terms & Conditions
-            </a>
-
-            <a href="#">
-                Privacy Policy
-            </a>
+            <a href="index.html" id="footerHome">Home</a>
+            <a href="service.html" id="footerServices">Services</a>
+            <a href="myapplication.html" id="footerApplications">My Applications</a>
+            <a href="queue.html" id="footerQueue">Queue Status</a>
 
         </div>
 
 
+        <div class="footer-column">
 
-        <!-- SUPPORT -->
+            <h3 id="serviceFooterTitle">
+                Services
+            </h3>
+
+            <a href="service.html" id="footerAadhaar">Aadhaar</a>
+            <a href="service.html" id="footerPan">PAN Card</a>
+            <a href="service.html" id="footerCertificates">Certificates</a>
+
+        </div>
+
 
         <div class="footer-column">
 
-            <h3>
+            <h3 id="supportTitle">
                 Support
             </h3>
 
-            <a href="#">
-                Help Center
-            </a>
-
-        
+            <a href="offinfo.html" id="footerOffices">Offices</a>
+            <a href="profile.html" id="footerProfile">Profile</a>
 
         </div>
-
-
-
-        <!-- FOLLOW -->
-
-        <div class="footer-column">
-
-            <h3>
-                Follow Us
-            </h3>
-
-            <p>
-                Facebook
-            </p>
-
-            <p>
-                Twitter
-            </p>
-
-            <p>
-                YouTube
-            </p>
-
-        </div>
-
-
-
-        <!-- APP -->
-
-        <div class="footer-column">
-
-            <h3>
-                Download Our App
-            </h3>
-
-            <p>
-                Google Play
-            </p>
-
-            <p>
-                App Store
-            </p>
-
-        </div>
-
 
     </div>
 
 
-
-    <div class="footer-bottom">
-
-        © 2026 e-Q Service Portal.
-        All Rights Reserved.
-
-    </div>
-
+    <div class="footer-bottom" id="footerBottom">© 2026 Digital Queue. All Rights Reserved.</div>
 
 </footer>
 
@@ -1957,7 +1936,7 @@ function updateApplications() {
                     class="view-button"
                     onclick="viewApplication('${escapeJS(application.applicationId)}')"
                 >
-                    VIEW
+                    <span class="view-text">VIEW</span>
                 </button>
             </td>
         `;
@@ -2165,6 +2144,423 @@ function escapeJS(value) {
 
 </script>
 
+
+<script id="shared-site-script">
+(function(){
+    const sharedTranslations = {
+        en:{government:"Government of India",brand:"Digital Queue",tagline:"Easy. Quick. Transparent.",search:"Search services, documents, offices...",notifications:"Notifications",n1:"Your application status has been updated.",n2:"Queue confirmation is required before visiting the office.",n3:"Check your queue status for updates.",home:"Home",services:"Services",apps:"My Applications",queue:"Queue Status",offices:"Offices",profile:"Profile",quick:"Quick Links",service:"Services",support:"Support",footer:"A digital platform designed to make government services easier, faster and more transparent."},
+        hi:{government:"भारत सरकार",brand:"डिजिटल क्यू",tagline:"आसान। तेज़। पारदर्शी।",search:"सेवाएँ, दस्तावेज़, कार्यालय खोजें...",notifications:"सूचनाएँ",n1:"आपके आवेदन की स्थिति अपडेट की गई है।",n2:"कार्यालय जाने से पहले कतार की पुष्टि आवश्यक है।",n3:"अपनी कतार स्थिति के अपडेट देखें।",home:"होम",services:"सेवाएँ",apps:"मेरे आवेदन",queue:"कतार स्थिति",offices:"कार्यालय",profile:"प्रोफ़ाइल",quick:"त्वरित लिंक",service:"सेवाएँ",support:"सहायता",footer:"सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए एक डिजिटल प्लेटफॉर्म।"},
+        gu:{government:"ભારત સરકાર",brand:"ડિજિટલ કતાર",tagline:"સરળ. ઝડપી. પારદર્શક.",search:"સેવાઓ, દસ્તાવેજો, કચેરીઓ શોધો...",notifications:"સૂચનાઓ",n1:"તમારી અરજીની સ્થિતિ અપડેટ કરવામાં આવી છે.",n2:"કચેરીની મુલાકાત પહેલાં કતારની પુષ્ટિ જરૂરી છે.",n3:"તમારી કતાર સ્થિતિના અપડેટ્સ જુઓ.",home:"હોમ",services:"સેવાઓ",apps:"મારી અરજીઓ",queue:"કતાર સ્થિતિ",offices:"કચેરીઓ",profile:"પ્રોફાઇલ",quick:"ઝડપી લિંક્સ",service:"સેવાઓ",support:"સહાય",footer:"સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ."}
+    };
+
+    const t = lang => sharedTranslations[lang] || sharedTranslations.en;
+    const setText = (id, value) => { const el=document.getElementById(id); if(el) el.textContent=value; };
+
+    window.applySharedLanguage = function(lang){
+        lang = lang || localStorage.getItem("selectedLanguage") || "en";
+        localStorage.setItem("selectedLanguage", lang);
+        document.documentElement.lang = lang;
+        const d=t(lang);
+        const select=document.getElementById("languageSelect");
+        if(select) select.value=lang;
+        setText("governmentText",d.government);
+        setText("brandText",d.brand);
+        setText("taglineText",d.tagline);
+        const search=document.getElementById("searchInput");
+        if(search) search.placeholder=d.search;
+        setText("notificationTitle",d.notifications);
+        setText("notification1",d.n1);
+        setText("notification2",d.n2);
+        setText("notification3",d.n3);
+        setText("navHome","⌂  "+d.home);
+        setText("navServices","▣  "+d.services);
+        setText("navApplications","▤  "+d.apps);
+        setText("navQueue","☷  "+d.queue);
+        setText("navOffices","🏛  "+d.offices);
+        setText("profileButtonText",d.profile);
+        setText("quickTitle",d.quick);
+        setText("serviceFooterTitle",d.service);
+        setText("supportTitle",d.support);
+        setText("footerDescription",d.footer);
+
+        const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+        document.querySelectorAll('nav a').forEach(a=>{
+            const href=(a.getAttribute('href')||'').split('?')[0].toLowerCase();
+            a.classList.toggle('active', href===path || (path==='' && href==='index.html'));
+        });
+    };
+
+    const oldChangeLanguage = window.changeLanguage;
+    window.changeLanguage = function(lang){
+        localStorage.setItem("selectedLanguage",lang);
+        try{
+            if(typeof oldChangeLanguage === "function") oldChangeLanguage(lang);
+            else if(typeof window.setLanguage === "function") window.setLanguage(lang);
+        }catch(e){ console.warn("Page language handler error:",e); }
+        window.applySharedLanguage(lang);
+    };
+
+    window.performSearch = function(){
+        const input=document.getElementById("searchInput");
+        if(!input) return;
+        const query=input.value.trim().toLowerCase();
+        if(!query){ input.focus(); return; }
+
+        document.querySelectorAll("[data-search-highlight]").forEach(el=>{
+            el.style.outline="";
+            el.removeAttribute("data-search-highlight");
+        });
+
+        const selectors="main h1, main h2, main h3, main h4, main p, main li, main td, main th, main label, main button, main a, main .card, main .section, main .info-card";
+        const candidates=Array.from(document.querySelectorAll(selectors));
+        const found=candidates.find(el=>{
+            const text=(el.innerText||el.textContent||"").toLowerCase();
+            return text.includes(query);
+        });
+
+        if(found){
+            found.setAttribute("data-search-highlight","true");
+            found.style.outline="3px solid #1565c0";
+            found.style.outlineOffset="4px";
+            found.scrollIntoView({behavior:"smooth",block:"center"});
+            setTimeout(()=>{
+                found.style.outline="";
+                found.removeAttribute("data-search-highlight");
+            },2500);
+        }else{
+            alert("No matching information found on this page.");
+        }
+    };
+
+    window.toggleNotifications = function(event){
+        if(event) event.stopPropagation();
+        const panel=document.getElementById("notificationPanel");
+        if(panel) panel.classList.toggle("show");
+    };
+
+    window.openProfile = function(){
+        if(localStorage.getItem("isLoggedIn")==="true") window.location.href="profile.html";
+        else window.location.href="register.html";
+    };
+    window.goToProfile = window.openProfile;
+
+    document.addEventListener("DOMContentLoaded",function(){
+        const input=document.getElementById("searchInput");
+        if(input) input.addEventListener("keydown",function(e){ if(e.key==="Enter") window.performSearch(); });
+        const wrapper=document.querySelector(".notification-wrapper");
+        const panel=document.getElementById("notificationPanel");
+        document.addEventListener("click",function(e){
+            if(panel && wrapper && !wrapper.contains(e.target)) panel.classList.remove("show");
+        });
+        window.applySharedLanguage(localStorage.getItem("selectedLanguage")||"en");
+    });
+})();
+</script>
+
+<script>
+/* =====================================================
+   MY APPLICATIONS - COMPLETE ENGLISH / HINDI / GUJARATI
+   Translates fixed page text, filters, table headings,
+   empty state, feature strip and footer.
+===================================================== */
+(function () {
+    const pageTranslations = {
+        en: {
+            pageTitle: "My Applications",
+            pageDescription: "View and track all your previous service applications and queue bookings.",
+            total: "Total Applications",
+            completed: "Completed",
+            cancelled: "Cancelled",
+            history: "Application History",
+            historyDesc: "Your previous applications and queue bookings",
+            filter: "Filter:",
+            all: "All",
+            waiting: "Waiting",
+            submitted: "Submitted",
+            token: "TOKEN",
+            office: "OFFICE",
+            service: "SERVICE",
+            date: "DATE",
+            time: "TIME",
+            status: "STATUS",
+            action: "ACTION",
+            view: "VIEW",
+            noApps: "No Applications Found",
+            noAppsDesc: "There are no applications for the selected status.",
+            secure: "Secure & Trusted",
+            secureText: "Your data is safe with us",
+            transparent: "Transparent Process",
+            transparentText: "Track every step online",
+            saveTime: "Save Time",
+            saveTimeText: "No more long queues",
+            anywhere: "Anywhere Access",
+            anywhereText: "Access services anytime",
+            footerDesc: "A digital platform designed to make government services easier, faster and more transparent.",
+            quick: "Quick Links",
+            services: "Services",
+            support: "Support",
+            home: "Home",
+            apps: "My Applications",
+            queue: "Queue Status",
+            offices: "Offices",
+            profile: "Profile",
+            aadhaar: "Aadhaar",
+            pan: "PAN Card",
+            certificates: "Certificates",
+            footerBottom: "© 2026 Digital Queue. All Rights Reserved."
+        },
+        hi: {
+            pageTitle: "मेरी अर्ज़ियाँ",
+            pageDescription: "अपनी पिछली सभी सेवा अर्ज़ियों और कतार बुकिंग को देखें और ट्रैक करें।",
+            total: "कुल अर्ज़ियाँ",
+            completed: "पूर्ण",
+            cancelled: "रद्द",
+            history: "अर्ज़ी इतिहास",
+            historyDesc: "आपकी पिछली अर्ज़ियाँ और कतार बुकिंग",
+            filter: "फ़िल्टर:",
+            all: "सभी",
+            waiting: "प्रतीक्षा में",
+            submitted: "जमा की गई",
+            token: "टोकन",
+            office: "कार्यालय",
+            service: "सेवा",
+            date: "दिनांक",
+            time: "समय",
+            status: "स्थिति",
+            action: "कार्रवाई",
+            view: "देखें",
+            noApps: "कोई अर्ज़ी नहीं मिली",
+            noAppsDesc: "चयनित स्थिति के लिए कोई अर्ज़ी नहीं है।",
+            secure: "सुरक्षित और विश्वसनीय",
+            secureText: "आपका डेटा हमारे साथ सुरक्षित है",
+            transparent: "पारदर्शी प्रक्रिया",
+            transparentText: "हर चरण को ऑनलाइन ट्रैक करें",
+            saveTime: "समय बचाएँ",
+            saveTimeText: "लंबी कतारों से बचें",
+            anywhere: "कहीं से भी पहुँच",
+            anywhereText: "कभी भी सेवाओं का उपयोग करें",
+            footerDesc: "सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए बनाया गया डिजिटल प्लेटफ़ॉर्म।",
+            quick: "त्वरित लिंक",
+            services: "सेवाएँ",
+            support: "सहायता",
+            home: "होम",
+            apps: "मेरी अर्ज़ियाँ",
+            queue: "कतार स्थिति",
+            offices: "कार्यालय",
+            profile: "प्रोफ़ाइल",
+            aadhaar: "आधार",
+            pan: "पैन कार्ड",
+            certificates: "प्रमाणपत्र",
+            footerBottom: "© 2026 डिजिटल क्यू. सर्वाधिकार सुरक्षित।"
+        },
+        gu: {
+            pageTitle: "મારી અરજીઓ",
+            pageDescription: "તમારી અગાઉની તમામ સેવા અરજીઓ અને કતાર બુકિંગ જુઓ અને ટ્રેક કરો.",
+            total: "કુલ અરજીઓ",
+            completed: "પૂર્ણ",
+            cancelled: "રદ",
+            history: "અરજી ઇતિહાસ",
+            historyDesc: "તમારી અગાઉની અરજીઓ અને કતાર બુકિંગ",
+            filter: "ફિલ્ટર:",
+            all: "બધી",
+            waiting: "પ્રતીક્ષામાં",
+            submitted: "સબમિટ કરેલ",
+            token: "ટોકન",
+            office: "કચેરી",
+            service: "સેવા",
+            date: "તારીખ",
+            time: "સમય",
+            status: "સ્થિતિ",
+            action: "કાર્ય",
+            view: "જુઓ",
+            noApps: "કોઈ અરજી મળી નથી",
+            noAppsDesc: "પસંદ કરેલી સ્થિતિ માટે કોઈ અરજી નથી.",
+            secure: "સુરક્ષિત અને વિશ્વસનીય",
+            secureText: "તમારો ડેટા અમારી સાથે સુરક્ષિત છે",
+            transparent: "પારદર્શક પ્રક્રિયા",
+            transparentText: "દરેક પગલું ઓનલાઇન ટ્રેક કરો",
+            saveTime: "સમય બચાવો",
+            saveTimeText: "લાંબી કતારો હવે નહીં",
+            anywhere: "ક્યાંયથી પણ ઍક્સેસ",
+            anywhereText: "કોઈપણ સમયે સેવાઓનો ઉપયોગ કરો",
+            footerDesc: "સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ.",
+            quick: "ઝડપી લિંક્સ",
+            services: "સેવાઓ",
+            support: "સહાય",
+            home: "હોમ",
+            apps: "મારી અરજીઓ",
+            queue: "કતાર સ્થિતિ",
+            offices: "કચેરીઓ",
+            profile: "પ્રોફાઇલ",
+            aadhaar: "આધાર",
+            pan: "પાન કાર્ડ",
+            certificates: "પ્રમાણપત્રો",
+            footerBottom: "© 2026 ડિજિટલ ક્યુ. સર્વાધિકાર સુરક્ષિત."
+        }
+    };
+
+    function setText(id, value) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+    }
+
+    function setViewButtons(t) {
+        document.querySelectorAll(".view-text").forEach(el => {
+            el.textContent = t.view;
+        });
+    }
+
+    function applyMyApplicationLanguage(lang) {
+        if (!pageTranslations[lang]) lang = "en";
+        const t = pageTranslations[lang];
+
+        localStorage.setItem("selectedLanguage", lang);
+        document.documentElement.lang = lang;
+
+        // Header + navigation
+        setText("governmentText",
+            lang === "hi" ? "भारत सरकार" :
+            lang === "gu" ? "ભારત સરકાર" : "Government of India");
+        setText("brandText", "Digital Queue");
+        setText("taglineText",
+            lang === "hi" ? "आसान। तेज़। पारदर्शी।" :
+            lang === "gu" ? "સરળ. ઝડપી. પારદર્શક." : "Easy. Quick. Transparent.");
+        const search = document.getElementById("searchInput");
+        if (search) {
+            search.placeholder =
+                lang === "hi" ? "सेवाएँ, दस्तावेज़, कार्यालय खोजें..." :
+                lang === "gu" ? "સેવાઓ, દસ્તાવેજો, કચેરીઓ શોધો..." :
+                "Search services, documents, offices...";
+        }
+        setText("notificationTitle",
+            lang === "hi" ? "सूचनाएँ" :
+            lang === "gu" ? "સૂચનાઓ" : "Notifications");
+        setText("notification1",
+            lang === "hi" ? "आपकी आवेदन स्थिति अपडेट की गई है." :
+            lang === "gu" ? "તમારી અરજીની સ્થિતિ અપડેટ કરવામાં આવી છે." :
+            "Your application status has been updated.");
+        setText("notification2",
+            lang === "hi" ? "कार्यालय जाने से पहले कतार की पुष्टि आवश्यक है." :
+            lang === "gu" ? "કચેરીની મુલાકાત પહેલાં કતારની પુષ્ટિ જરૂરી છે." :
+            "Queue confirmation is required before visiting the office.");
+        setText("notification3",
+            lang === "hi" ? "अपडेट के लिए अपनी कतार स्थिति देखें." :
+            lang === "gu" ? "અપડેટ માટે તમારી કતાર સ્થિતિ તપાસો." :
+            "Check your queue status for updates.");
+
+        setText("navHome", "⌂  " + t.home);
+        setText("navServices", "▣  " + t.services);
+        setText("navApplications", "▤  " + t.apps);
+        setText("navQueue", "☷  " + t.queue);
+        setText("navOffices", "🏛  " + t.offices);
+        setText("profileButtonText", t.profile);
+
+        // Main page
+        setText("pageTitle", t.pageTitle);
+        setText("pageDescription", t.pageDescription);
+        setText("totalLabel", t.total);
+        setText("completedLabel", t.completed);
+        setText("cancelledLabel", t.cancelled);
+        setText("historyTitle", t.history);
+        setText("historyDescription", t.historyDesc);
+        setText("filterLabel", t.filter);
+        setText("filterAll", t.all);
+        setText("filterCompleted", t.completed);
+        setText("filterWaiting", t.waiting);
+        setText("filterCancelled", t.cancelled);
+        setText("filterSubmitted", t.submitted);
+
+        setText("thToken", t.token);
+        setText("thOffice", t.office);
+        setText("thService", t.service);
+        setText("thDate", t.date);
+        setText("thTime", t.time);
+        setText("thStatus", t.status);
+        setText("thAction", t.action);
+
+        setText("emptyTitle", t.noApps);
+        setText("emptyDescription", t.noAppsDesc);
+
+        setText("feature1Title", t.secure);
+        setText("feature1Text", t.secureText);
+        setText("feature2Title", t.transparent);
+        setText("feature2Text", t.transparentText);
+        setText("feature3Title", t.saveTime);
+        setText("feature3Text", t.saveTimeText);
+        setText("feature4Title", t.anywhere);
+        setText("feature4Text", t.anywhereText);
+
+        // Footer
+        setText("footerBrandTitle", "Digital Queue");
+        setText("footerDescription", t.footerDesc);
+        setText("quickTitle", t.quick);
+        setText("serviceFooterTitle", t.services);
+        setText("supportTitle", t.support);
+        setText("footerHome", t.home);
+        setText("footerServices", t.services);
+        setText("footerApplications", t.apps);
+        setText("footerQueue", t.queue);
+        setText("footerAadhaar", t.aadhaar);
+        setText("footerPan", t.pan);
+        setText("footerCertificates", t.certificates);
+        setText("footerOffices", t.offices);
+        setText("footerProfile", t.profile);
+        setText("footerBottom", t.footerBottom);
+
+        setViewButtons(t);
+    }
+
+    // Override the page's old language function.
+    window.changeLanguage = applyMyApplicationLanguage;
+
+    // Keep the page functional, but search stays on this page.
+    window.performSearch = function () {
+        const input = document.getElementById("searchInput");
+        const value = input ? input.value.trim().toLowerCase() : "";
+        if (!value) {
+            if (input) input.focus();
+            return;
+        }
+
+        document.querySelectorAll(".search-highlight").forEach(el => {
+            el.classList.remove("search-highlight");
+        });
+
+        const selectors = "main h1, main h2, main h3, main p, main label, main th, main td, main button, main .feature-title, main .feature-text";
+        const elements = Array.from(document.querySelectorAll(selectors));
+        const found = elements.find(el => (el.textContent || "").toLowerCase().includes(value));
+
+        if (found) {
+            found.classList.add("search-highlight");
+            found.scrollIntoView({ behavior: "smooth", block: "center" });
+        } else {
+            const old = document.getElementById("searchMessage");
+            if (old) old.remove();
+            const msg = document.createElement("div");
+            msg.id = "searchMessage";
+            msg.textContent = langMessage();
+            msg.style.cssText = "position:fixed;top:110px;right:20px;background:#0d47a1;color:#fff;padding:10px 14px;border-radius:6px;z-index:9999;font-size:13px;box-shadow:0 4px 14px rgba(0,0,0,.2)";
+            document.body.appendChild(msg);
+            setTimeout(() => msg.remove(), 1800);
+        }
+    };
+
+    function langMessage() {
+        const lang = localStorage.getItem("selectedLanguage") || "en";
+        return lang === "hi" ? "इस पेज पर कुछ नहीं मिला।" :
+               lang === "gu" ? "આ પેજ પર કંઈ મળ્યું નથી." :
+               "Nothing found on this page.";
+    }
+
+    const style = document.createElement("style");
+    style.textContent = ".search-highlight{outline:3px solid #ffb300!important;border-radius:5px;background:#fff8df!important}";
+    document.head.appendChild(style);
+
+    window.addEventListener("load", function () {
+        applyMyApplicationLanguage(localStorage.getItem("selectedLanguage") || "en");
+    });
+})();
+</script>
 
 </body>
 

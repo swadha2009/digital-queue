@@ -522,16 +522,142 @@ footer{
     }
 }
 </style>
+<style id="shared-site-style">
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#f5f7fa;color:#14213d;min-height:100vh}
+a{text-decoration:none;color:inherit}
+
+/* HEADER */
+header{background:#0d47a1;color:white;min-height:100px;padding:12px 35px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:white}
+.logo{width:62px;height:68px;object-fit:contain}
+.brand h2{font-size:20px}.brand h3{font-size:17px;margin-top:3px}.brand p{font-size:12px;margin-top:3px}
+.header-right{display:flex;align-items:center;gap:10px}
+.search-box{width:310px;height:40px;background:white;border-radius:6px;display:flex;align-items:center;padding:0 10px}
+.search-box input{border:0;outline:0;width:100%;font-size:14px}
+.search-box button{border:0;background:none;cursor:pointer;font-size:18px}
+.language-select{height:40px;border:none;border-radius:6px;padding:0 10px;cursor:pointer}
+.notification-wrapper{position:relative}
+.notification-btn{width:42px;height:40px;border:none;border-radius:6px;background:white;color:#0d47a1;cursor:pointer;font-size:18px;position:relative}
+.badge{position:absolute;top:-5px;right:-4px;width:18px;height:18px;border-radius:50%;background:#d32f2f;color:white;display:grid;place-items:center;font-size:10px}
+.notification-panel{display:none;position:absolute;right:0;top:48px;width:310px;background:white;color:#14213d;border-radius:8px;box-shadow:0 8px 25px rgba(0,0,0,.2);z-index:100}
+.notification-panel.show{display:block}
+.notification-header{padding:14px;font-weight:bold;border-bottom:1px solid #eee}
+.notification-item{padding:13px;border-bottom:1px solid #eee;font-size:13px;line-height:1.5}
+.profile-btn{height:40px;border:none;border-radius:6px;background:white;color:#0d47a1;padding:0 14px;font-weight:bold;cursor:pointer}
+.profile-btn:hover{background:#e8f1ff}
+
+/* NAV */
+nav{background:white;box-shadow:0 2px 7px rgba(0,0,0,.08);display:flex;overflow-x:auto}
+nav a{color:#14213d;text-decoration:none;padding:17px 20px;white-space:nowrap;font-size:14px}
+nav a:hover,nav a.active{color:#0d47a1;background:#f5f8ff;font-weight:bold;border-bottom:3px solid #0d47a1}
+
+/* HOME */
+main{max-width:1200px;margin:auto;padding:35px 22px 55px}
+.hero{background:linear-gradient(135deg,#0d47a1,#1565c0);color:white;border-radius:16px;padding:58px 45px;display:flex;align-items:center;justify-content:space-between;gap:35px;box-shadow:0 7px 20px rgba(13,71,161,.18)}
+.hero-content{max-width:700px}
+.hero h1{font-size:38px;line-height:1.2;margin-bottom:14px}
+.hero p{font-size:17px;line-height:1.7;color:#eaf2ff}
+.hero-buttons{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-block;border:none;border-radius:7px;padding:13px 20px;font-weight:bold;cursor:pointer;font-size:14px}
+.btn-white{background:white;color:#0d47a1}
+.btn-outline{background:transparent;color:white;border:1px solid white}
+.hero-icon{font-size:90px;opacity:.95}
+
+/* SECTION */
+.section{margin-top:38px}
+.section-heading{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:17px}
+.section-heading h2{font-size:24px;color:#14213d}
+.view-link{color:#0d47a1;font-weight:bold;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:white;border:1px solid #e1e6ee;border-radius:12px;padding:23px;box-shadow:0 3px 12px rgba(0,0,0,.05)}
+.service-icon{width:50px;height:50px;border-radius:10px;background:#e8f1ff;color:#0d47a1;display:grid;place-items:center;font-size:24px;margin-bottom:14px}
+.card h3{font-size:18px;margin-bottom:8px}
+.card p{color:#667085;font-size:14px;line-height:1.6}
+.card .btn{margin-top:15px;background:#0d47a1;color:white}
+
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.step{text-align:center;background:white;border:1px solid #e1e6ee;border-radius:12px;padding:25px 18px}
+.step-number{width:45px;height:45px;border-radius:50%;background:#0d47a1;color:white;display:grid;place-items:center;font-weight:bold;margin:0 auto 14px}
+.step h3{font-size:16px;margin-bottom:8px}
+.step p{color:#667085;font-size:13px;line-height:1.5}
+
+/* QUICK CARDS */
+.quick-card{display:flex;align-items:center;gap:18px}
+.quick-icon{width:55px;height:55px;border-radius:50%;background:#e8f1ff;color:#0d47a1;display:grid;place-items:center;font-size:24px;flex:none}
+.quick-card .btn{margin-top:12px}
+
+/* FOOTER */
+footer{background:#0d47a1;color:white;padding:35px 7% 18px}
+.footer-grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px}
+.footer-column h3{font-size:15px;margin-bottom:10px}
+.footer-column p,.footer-column a{color:#dce8fa;font-size:13px;line-height:1.9;text-decoration:none;display:block}
+.footer-column a:hover{text-decoration:underline}
+.footer-bottom{max-width:1200px;margin:25px auto 0;padding-top:15px;border-top:1px solid rgba(255,255,255,.3);text-align:center;font-size:12px}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+header{flex-direction:column;align-items:stretch}
+.brand{justify-content:center}
+.header-right{justify-content:center;flex-wrap:wrap}
+.search-box{width:100%}
+.hero{flex-direction:column;text-align:center}
+.hero-buttons{justify-content:center}
+.grid{grid-template-columns:1fr 1fr}
+.steps{grid-template-columns:1fr 1fr}
+.footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+main{padding:22px 15px 45px}
+.hero{padding:40px 22px}
+.hero h1{font-size:29px}
+.hero-icon{font-size:65px}
+.grid,.steps,.footer-grid{grid-template-columns:1fr}
+.notification-panel{position:fixed;left:15px;right:15px;top:115px;width:auto}
+}
+
+
+.student-project-notice{
+    width:100%;
+    box-sizing:border-box;
+    background:#fff3cd;
+    border-bottom:1px solid #f0cf68;
+    color:#5f4700;
+    padding:10px 18px;
+    text-align:center;
+    font-size:13px;
+    line-height:1.5;
+}
+.student-project-notice strong{
+    display:inline-block;
+    margin-right:8px;
+}
+.student-project-notice span{
+    display:inline;
+}
+@media(max-width:700px){
+    .student-project-notice strong{
+        display:block;
+        margin:0 0 3px;
+    }
+    .student-project-notice span{
+        display:block;
+    }
+}
+
+/* Shared-page compatibility */
+.header-right{display:flex;align-items:center;gap:10px}
+.profile-btn{white-space:nowrap}
+</style>
 </head>
 
 <body>
-
 <!-- ================= HEADER ================= -->
 
 <header>
 
     <a href="index.html" class="brand">
-
         <img
             src="digital-queue-logo.png"
             class="logo"
@@ -543,35 +669,21 @@ footer{
             <h3 id="brandText">Digital Queue</h3>
             <p id="taglineText">Easy. Quick. Transparent.</p>
         </div>
-
     </a>
-
 
     <div class="header-right">
 
-        <!-- SEARCH -->
-
         <div class="search-box">
-
             <input
                 id="searchInput"
                 type="text"
                 placeholder="Search services, documents, offices..."
                 autocomplete="off">
-
             <button
                 type="button"
                 onclick="performSearch()"
-                aria-label="Search">
-
-                🔍
-
-            </button>
-
+                aria-label="Search">🔍</button>
         </div>
-
-
-        <!-- NOTIFICATIONS -->
 
         <div class="notification-wrapper">
 
@@ -580,110 +692,66 @@ footer{
                 type="button"
                 onclick="toggleNotifications(event)"
                 aria-label="Notifications">
-
                 🔔
-
-                <span class="badge">
-                    3
-                </span>
-
+                <span class="badge">3</span>
             </button>
 
+            <div class="notification-panel" id="notificationPanel">
 
-            <div
-                class="notification-panel"
-                id="notificationPanel">
-
-                <div
-                    class="notification-header"
-                    id="notificationTitle">
+                <div class="notification-header" id="notificationTitle">
                     Notifications
                 </div>
 
                 <div class="notification-item">
-                    🔔
-                    <span id="notification1">
+                    🔔 <span id="notification1">
                         Your application status has been updated.
                     </span>
                 </div>
 
                 <div class="notification-item">
-                    📍
-                    <span id="notification2">
+                    📍 <span id="notification2">
                         Queue confirmation is required before visiting the office.
                     </span>
                 </div>
 
                 <div class="notification-item">
-                    ℹ️
-                    <span id="notification3">
+                    ℹ️ <span id="notification3">
                         Check your queue status for updates.
                     </span>
                 </div>
 
             </div>
-
         </div>
-
-
-        <!-- LANGUAGE -->
 
         <select
             id="languageSelect"
             class="language-select"
             onchange="changeLanguage(this.value)"
             aria-label="Language">
-
             <option value="en">English</option>
             <option value="hi">हिन्दी</option>
             <option value="gu">ગુજરાતી</option>
-
         </select>
-
-
-        <!-- PROFILE -->
 
         <button
             class="profile-btn"
             type="button"
             onclick="openProfile()">
-
-            👤
-            <span id="profileButtonText">
-                Profile
-            </span>
-
+            👤 <span id="profileButtonText">Profile</span>
         </button>
 
     </div>
-
 </header>
 
 
 <!-- ================= NAVIGATION ================= -->
 
 <nav>
-
-    <a href="index.html" id="navHome">
-        ⌂ &nbsp; Home
-    </a>
-
-    <a href="service.html" id="navServices">
-        ▣ &nbsp; Services
-    </a>
-
-    <a href="myapplication.html" id="navApplications">
-        ▤ &nbsp; My Applications
-    </a>
-
-    <a href="queue.html" id="navQueue">
-        ☷ &nbsp; Queue Status
-    </a>
-
-    <a href="offinfo.html" id="navOffices">
-        🏛 &nbsp; Offices
-    </a>
-
+    <a href="index.html" id="navHome">⌂ &nbsp; Home</a>
+    <a href="service.html" id="navServices">▣ &nbsp; Services</a>
+    <a href="myapplication.html" id="navApplications">▤ &nbsp; My Applications</a>
+    <a href="queue.html" id="navQueue">☷ &nbsp; Queue Status</a>
+    <a href="offinfo.html" id="navOffices">🏛 &nbsp; Offices</a>
 </nav>
 
 
@@ -942,14 +1010,11 @@ footer{
 
         <div class="footer-column">
 
-            <h3>
-                Digital Queue
-            </h3>
+            <h3>Digital Queue</h3>
 
             <p id="footerDescription">
-                A digital platform designed to make
-                government services easier, faster
-                and more transparent.
+                A digital platform designed to make government
+                services easier, faster and more transparent.
             </p>
 
         </div>
@@ -961,42 +1026,23 @@ footer{
                 Quick Links
             </h3>
 
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="service.html">
-                Services
-            </a>
-
-            <a href="myapplication.html">
-                My Applications
-            </a>
-
-            <a href="queue.html">
-                Queue Status
-            </a>
+            <a href="index.html">Home</a>
+            <a href="service.html">Services</a>
+            <a href="myapplication.html">My Applications</a>
+            <a href="queue.html">Queue Status</a>
 
         </div>
 
 
         <div class="footer-column">
 
-            <h3 id="serviceTitle">
+            <h3 id="serviceFooterTitle">
                 Services
             </h3>
 
-            <a href="service.html">
-                Aadhaar
-            </a>
-
-            <a href="service.html">
-                PAN Card
-            </a>
-
-            <a href="service.html">
-                Certificates
-            </a>
+            <a href="service.html">Aadhaar</a>
+            <a href="service.html">PAN Card</a>
+            <a href="service.html">Certificates</a>
 
         </div>
 
@@ -1007,13 +1053,8 @@ footer{
                 Support
             </h3>
 
-            <a href="offinfo.html">
-                Offices
-            </a>
-
-            <a href="profile.html">
-                Profile
-            </a>
+            <a href="offinfo.html">Offices</a>
+            <a href="profile.html">Profile</a>
 
         </div>
 
@@ -1264,10 +1305,8 @@ function editProfile(){
 
 function changePassword(){
 
-    showMessage(
-        "Password change will be connected to the backend.",
-        false
-    );
+    window.location.href =
+        "forgot.html";
 
 }
 
@@ -1794,5 +1833,116 @@ document.addEventListener(
 
 </script>
 
+<script id="shared-site-script">
+(function(){
+    const sharedTranslations = {
+        en:{government:"Government of India",brand:"Digital Queue",tagline:"Easy. Quick. Transparent.",search:"Search services, documents, offices...",notifications:"Notifications",n1:"Your application status has been updated.",n2:"Queue confirmation is required before visiting the office.",n3:"Check your queue status for updates.",home:"Home",services:"Services",apps:"My Applications",queue:"Queue Status",offices:"Offices",profile:"Profile",quick:"Quick Links",service:"Services",support:"Support",footer:"A digital platform designed to make government services easier, faster and more transparent."},
+        hi:{government:"भारत सरकार",brand:"डिजिटल क्यू",tagline:"आसान। तेज़। पारदर्शी।",search:"सेवाएँ, दस्तावेज़, कार्यालय खोजें...",notifications:"सूचनाएँ",n1:"आपके आवेदन की स्थिति अपडेट की गई है।",n2:"कार्यालय जाने से पहले कतार की पुष्टि आवश्यक है।",n3:"अपनी कतार स्थिति के अपडेट देखें।",home:"होम",services:"सेवाएँ",apps:"मेरे आवेदन",queue:"कतार स्थिति",offices:"कार्यालय",profile:"प्रोफ़ाइल",quick:"त्वरित लिंक",service:"सेवाएँ",support:"सहायता",footer:"सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए एक डिजिटल प्लेटफॉर्म।"},
+        gu:{government:"ભારત સરકાર",brand:"ડિજિટલ કતાર",tagline:"સરળ. ઝડપી. પારદર્શક.",search:"સેવાઓ, દસ્તાવેજો, કચેરીઓ શોધો...",notifications:"સૂચનાઓ",n1:"તમારી અરજીની સ્થિતિ અપડેટ કરવામાં આવી છે.",n2:"કચેરીની મુલાકાત પહેલાં કતારની પુષ્ટિ જરૂરી છે.",n3:"તમારી કતાર સ્થિતિના અપડેટ્સ જુઓ.",home:"હોમ",services:"સેવાઓ",apps:"મારી અરજીઓ",queue:"કતાર સ્થિતિ",offices:"કચેરીઓ",profile:"પ્રોફાઇલ",quick:"ઝડપી લિંક્સ",service:"સેવાઓ",support:"સહાય",footer:"સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ."}
+    };
+
+    const t = lang => sharedTranslations[lang] || sharedTranslations.en;
+    const setText = (id, value) => { const el=document.getElementById(id); if(el) el.textContent=value; };
+
+    window.applySharedLanguage = function(lang){
+        lang = lang || localStorage.getItem("selectedLanguage") || "en";
+        localStorage.setItem("selectedLanguage", lang);
+        document.documentElement.lang = lang;
+        const d=t(lang);
+        const select=document.getElementById("languageSelect");
+        if(select) select.value=lang;
+        setText("governmentText",d.government);
+        setText("brandText",d.brand);
+        setText("taglineText",d.tagline);
+        const search=document.getElementById("searchInput");
+        if(search) search.placeholder=d.search;
+        setText("notificationTitle",d.notifications);
+        setText("notification1",d.n1);
+        setText("notification2",d.n2);
+        setText("notification3",d.n3);
+        setText("navHome","⌂  "+d.home);
+        setText("navServices","▣  "+d.services);
+        setText("navApplications","▤  "+d.apps);
+        setText("navQueue","☷  "+d.queue);
+        setText("navOffices","🏛  "+d.offices);
+        setText("profileButtonText",d.profile);
+        setText("quickTitle",d.quick);
+        setText("serviceFooterTitle",d.service);
+        setText("supportTitle",d.support);
+        setText("footerDescription",d.footer);
+
+        const path=(location.pathname.split('/').pop()||'index.html').toLowerCase();
+        document.querySelectorAll('nav a').forEach(a=>{
+            const href=(a.getAttribute('href')||'').split('?')[0].toLowerCase();
+            a.classList.toggle('active', href===path || (path==='' && href==='index.html'));
+        });
+    };
+
+    const oldChangeLanguage = window.changeLanguage;
+    window.changeLanguage = function(lang){
+        localStorage.setItem("selectedLanguage",lang);
+        try{
+            if(typeof oldChangeLanguage === "function") oldChangeLanguage(lang);
+            else if(typeof window.setLanguage === "function") window.setLanguage(lang);
+        }catch(e){ console.warn("Page language handler error:",e); }
+        window.applySharedLanguage(lang);
+    };
+
+    window.performSearch = function(){
+        const input=document.getElementById("searchInput");
+        if(!input) return;
+        const query=input.value.trim().toLowerCase();
+        if(!query){ input.focus(); return; }
+
+        document.querySelectorAll("[data-search-highlight]").forEach(el=>{
+            el.style.outline="";
+            el.removeAttribute("data-search-highlight");
+        });
+
+        const selectors="main h1, main h2, main h3, main h4, main p, main li, main td, main th, main label, main button, main a, main .card, main .section, main .info-card";
+        const candidates=Array.from(document.querySelectorAll(selectors));
+        const found=candidates.find(el=>{
+            const text=(el.innerText||el.textContent||"").toLowerCase();
+            return text.includes(query);
+        });
+
+        if(found){
+            found.setAttribute("data-search-highlight","true");
+            found.style.outline="3px solid #1565c0";
+            found.style.outlineOffset="4px";
+            found.scrollIntoView({behavior:"smooth",block:"center"});
+            setTimeout(()=>{
+                found.style.outline="";
+                found.removeAttribute("data-search-highlight");
+            },2500);
+        }else{
+            alert("No matching information found on this page.");
+        }
+    };
+
+    window.toggleNotifications = function(event){
+        if(event) event.stopPropagation();
+        const panel=document.getElementById("notificationPanel");
+        if(panel) panel.classList.toggle("show");
+    };
+
+    window.openProfile = function(){
+        if(localStorage.getItem("isLoggedIn")==="true") window.location.href="profile.html";
+        else window.location.href="register.html";
+    };
+    window.goToProfile = window.openProfile;
+
+    document.addEventListener("DOMContentLoaded",function(){
+        const input=document.getElementById("searchInput");
+        if(input) input.addEventListener("keydown",function(e){ if(e.key==="Enter") window.performSearch(); });
+        const wrapper=document.querySelector(".notification-wrapper");
+        const panel=document.getElementById("notificationPanel");
+        document.addEventListener("click",function(e){
+            if(panel && wrapper && !wrapper.contains(e.target)) panel.classList.remove("show");
+        });
+        window.applySharedLanguage(localStorage.getItem("selectedLanguage")||"en");
+    });
+})();
+</script>
 </body>
 </html>

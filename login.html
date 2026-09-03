@@ -40,7 +40,7 @@ main{max-width:1150px;margin:auto;padding:45px 22px 60px}
 .login-btn{width:100%;border:none;border-radius:7px;background:#0d47a1;color:#fff;padding:14px;font-size:15px;font-weight:bold;cursor:pointer;margin-top:5px}
 .login-btn:hover{background:#1565c0}
 
-.register-note{text-align:center;margin-top:20px;color:#667085;font-size:13px}
+.register-note{text-align:center;margin-top:20px;color:#667085;font-size:13px}.forgot-note{text-align:right;margin-top:-8px;margin-bottom:18px;font-size:13px}.forgot-note a{color:#0d47a1;font-weight:bold}
 .register-note a{color:#0d47a1;font-weight:bold}
 
 .message{display:none;margin-top:16px;padding:12px;border-radius:7px;text-align:center;font-size:13px;line-height:1.5}
@@ -156,6 +156,10 @@ onclick="togglePassword()" aria-label="Show password">
 </div>
 </div>
 
+<div class="forgot-note">
+<a href="forgot.html" id="forgotLink">Forgot Password?</a>
+</div>
+
 <button type="submit" class="login-btn" id="loginButton">
 Login
 </button>
@@ -218,7 +222,7 @@ feature1:"Access government services",feature2:"Submit applications online",feat
 title:"Login",subtitle:"Enter your registered mobile number and password to continue.",
 mobile:"Mobile Number",mobilePh:"Enter registered mobile number",
 password:"Password",passwordPh:"Enter your password",
-login:"Login",newUser:"New user?",register:" Register here",
+login:"Login",forgot:"Forgot Password?",newUser:"New user?",register:" Register here",
 footer:"A digital platform designed to make government services easier, faster and more transparent.",
 quick:"Quick Links",service:"Services",support:"Support",home:"Home",loginFooter:"Login",office:"Offices",
 invalidMobile:"Please enter a valid 10-digit mobile number.",
@@ -236,7 +240,7 @@ feature1:"सरकारी सेवाओं तक पहुँच",feature2
 title:"लॉगिन",subtitle:"जारी रखने के लिए अपना पंजीकृत मोबाइल नंबर और पासवर्ड दर्ज करें।",
 mobile:"मोबाइल नंबर",mobilePh:"पंजीकृत मोबाइल नंबर दर्ज करें",
 password:"पासवर्ड",passwordPh:"अपना पासवर्ड दर्ज करें",
-login:"लॉगिन",newUser:"नए उपयोगकर्ता हैं?",register:" यहाँ पंजीकरण करें",
+login:"लॉगिन",forgot:"पासवर्ड भूल गए?",newUser:"नए उपयोगकर्ता हैं?",register:" यहाँ पंजीकरण करें",
 footer:"सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए एक डिजिटल प्लेटफॉर्म।",
 quick:"त्वरित लिंक",service:"सेवाएँ",support:"सहायता",home:"होम",loginFooter:"लॉगिन",office:"कार्यालय",
 invalidMobile:"कृपया मान्य 10 अंकों का मोबाइल नंबर दर्ज करें।",
@@ -254,7 +258,7 @@ feature1:"સરકારી સેવાઓનો ઉપયોગ કરો",fe
 title:"લૉગિન",subtitle:"ચાલુ રાખવા માટે તમારો નોંધાયેલ મોબાઇલ નંબર અને પાસવર્ડ દાખલ કરો.",
 mobile:"મોબાઇલ નંબર",mobilePh:"નોંધાયેલ મોબાઇલ નંબર દાખલ કરો",
 password:"પાસવર્ડ",passwordPh:"તમારો પાસવર્ડ દાખલ કરો",
-login:"લૉગિન",newUser:"નવા વપરાશકર્તા છો?",register:" અહીં નોંધણી કરો",
+login:"લૉગિન",forgot:"પાસવર્ડ ભૂલી ગયા?",newUser:"નવા વપરાશકર્તા છો?",register:" અહીં નોંધણી કરો",
 footer:"સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ.",
 quick:"ઝડપી લિંક્સ",service:"સેવાઓ",support:"સહાય",home:"હોમ",loginFooter:"લૉગિન",office:"કચેરીઓ",
 invalidMobile:"કૃપા કરીને માન્ય 10 અંકનો મોબાઇલ નંબર દાખલ કરો.",
@@ -300,6 +304,7 @@ set("loginSubtitle",t.subtitle);
 set("mobileLabel",t.mobile);
 set("passwordLabel",t.password);
 set("loginButton",t.login);
+set("forgotLink",t.forgot);
 set("newUser",t.newUser);
 set("registerLink",t.register);
 set("footerDescription",t.footer);
