@@ -859,6 +859,17 @@ footer{
                 Allow Location
             </button>
 
+            <div id="testLocationWrap" style="margin-top:14px;">
+                <button type="button" id="testLocationButton"
+                    onclick="setCurrentLocationAsOffice()"
+                    style="border:1px solid #0D47A1;background:white;color:#0D47A1;border-radius:7px;padding:10px 18px;font-size:13px;font-weight:bold;cursor:pointer;">
+                    🧪 Use My Current Location for Testing
+                </button>
+                <p id="testLocationNote" style="margin-top:9px!important;font-size:11px!important;color:#667085!important;">
+                    Temporary testing only. This uses your current GPS position as the office location.
+                </p>
+            </div>
+
 
 
         </div>
@@ -1105,6 +1116,8 @@ const OFFICE_LONGITUDE = 72.8196;
 
 const MAX_DISTANCE_METERS = 100;
 
+let testOfficeLocation = null;
+
 
 /* =====================================================
    STATE
@@ -1183,6 +1196,53 @@ function activateStep(step){
 
 
 /* =====================================================
+   TEMPORARY TEST LOCATION
+===================================================== */
+
+function setCurrentLocationAsOffice(){
+    if(!navigator.geolocation){
+        showStatus(getTranslation("unsupported"), "error");
+        return;
+    }
+
+    const button = document.getElementById("testLocationButton");
+    if(button) button.disabled = true;
+
+    showStatus(getTranslation("testGetting"), "processing");
+
+    navigator.geolocation.getCurrentPosition(
+        function(position){
+            testOfficeLocation = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            };
+
+            if(button) button.disabled = false;
+
+            showStatus(getTranslation("testSaved"), "success");
+        },
+        function(error){
+            if(button) button.disabled = false;
+
+            if(error.code === 1)
+                showStatus(getTranslation("denied"), "error");
+            else if(error.code === 2)
+                showStatus(getTranslation("gps"), "error");
+            else if(error.code === 3)
+                showStatus(getTranslation("timeout"), "error");
+            else
+                showStatus("Unable to access your location. Please try again.", "error");
+        },
+        {
+            enableHighAccuracy:true,
+            timeout:15000,
+            maximumAge:0
+        }
+    );
+}
+
+
+/* =====================================================
    LOCATION CHECK
 ===================================================== */
 
@@ -1226,8 +1286,13 @@ function checkLocation(){
                 position.coords.longitude;
 
 
-            const officeLat = OFFICE_LATITUDE;
-            const officeLng = OFFICE_LONGITUDE;
+            const officeLat = testOfficeLocation
+                ? testOfficeLocation.latitude
+                : OFFICE_LATITUDE;
+
+            const officeLng = testOfficeLocation
+                ? testOfficeLocation.longitude
+                : OFFICE_LONGITUDE;
 
             const distance =
                 calculateDistance(
@@ -1273,7 +1338,9 @@ function checkLocation(){
 
 
                 showStatus(
-                    getTranslation("withinMsg"),
+                    testOfficeLocation
+                        ? "Location verified using your current location for testing. QR scanner is now available."
+                        : getTranslation("withinMsg"),
                     "success"
                 );
 
@@ -1872,133 +1939,76 @@ function changeLanguage(language){
 
 
 <script>
-/* ================= COMPLETE WORKING LANGUAGE SYSTEM ================= */
+/* ================= WORKING LANGUAGE SYSTEM ================= */
 (function(){
-
     const T = {
         en: {
-            gov:"Government of India",
-            brand:"Digital Queue",
-            tagline:"Easy. Quick. Transparent.",
-            home:"⌂ Home",
-            services:"▣ Services",
-            applications:"▤ My Applications",
-            queue:"☷ Queue Status",
-            offices:"🏛 Offices",
-            search:"Search services, documents, offices...",
-            profile:"👤 Profile",
+            home:"⌂ Home", services:"▣ Services", applications:"▤ My Applications",
+            queue:"☷ Queue Status", offices:"🏛 Offices",
+            search:"Search services, documents, offices...", profile:"👤 Profile",
             notifications:"Notifications",
-            notice1:"🔔 Your application status has been updated.",
-            notice2:"📍 Confirm your queue only after reaching the office.",
-            notice3:"ℹ️ Your queue number will be generated after confirmation.",
             pageTitle:"Location & QR Verification",
             pageSubtitle:"Confirm your queue only after reaching the office.",
-            stepLocation:"Location Permission",
-            stepQR:"QR Scanner",
-            stepConfirm:"Confirm Queue",
+            stepLocation:"Location Permission", stepQR:"QR Scanner", stepConfirm:"Confirm Queue",
             step1:"Step 1: Location Permission",
             locationNote:"Allow location access so we can check whether you are within 100 metres of Bahumali office.",
             allowTitle:"Allow Location Access",
             allowText:"Location access is required before the QR scanner can be opened. You must be within 100 metres of the office to continue.",
-            allow:"Allow Location",
-            distance:"Distance From Office",
-            locationStatus:"Location Status",
+            allow:"Allow Location", distance:"Distance From Office", locationStatus:"Location Status",
             step2:"Step 2: Scan Office QR Code",
             qrNote:"You are within the allowed 100 metre area. Scan the office QR code displayed at Bahumali office.",
             scan:"Scan the Bahumali office QR code.",
-            verified:"✓ QR Code Verified",
-            officeName:"Office Name",
-            officeId:"Office ID",
-            qrStatus:"QR Status",
-            qrVerified:"VERIFIED",
+            verified:"✓ QR Code Verified", officeName:"Office Name", officeId:"Office ID",
+            qrStatus:"QR Status", qrVerified:"VERIFIED",
             confirmText:"QR code verified successfully. You can now confirm your queue.",
             confirm:"✓ Confirm Queue",
-            footerText:"A digital platform designed to make government services easier, faster and more transparent.",
-            quick:"Quick Links",
-            serviceTitle:"Services",
-            support:"Support",
-            footHome:"Home",
-            footServices:"Services",
-            footApplications:"My Applications",
-            footQueue:"Queue Status",
-            footAadhaar:"Aadhaar",
-            footPAN:"PAN Card",
-            footCertificates:"Certificates",
-            footOffices:"Offices",
-            footProfile:"Profile",
-            copyright:"© 2026 Digital Queue. All Rights Reserved.",
-            locationPermission:"Requesting your location permission...",
+            footerText:"A digital platform designed to make services easier, faster and more transparent.",
+            quick:"Quick Links", support:"Support", serviceTitle:"Services",
+            locationPermission:"Location permission is being requested...",
             within:"Within 100 metres",
             outside:"Outside 100 metres",
-            withinMsg:"Location permission granted. You are within 100 metres of Bahumali office. QR scanner is now available.",
-            outsideMsg:"You are outside 100 metres of Bahumali office. Please reach Bahumali office and allow location again. The QR scanner opens only within 100 metres.",
-            denied:"Location permission was denied. Please allow location permission and try again.",
+            withinMsg:"Location permission granted. You are within 100 metres of Bahumali office. The QR scanner is now available.",
+            outsideMsg:"You are outside 100 metres of Bahumali office. Please reach the office and try again. The QR scanner opens only within 100 metres.",
+            denied:"Location permission was denied. Please allow location access and try again.",
             gps:"Your location could not be determined. Please turn on GPS/location services and try again.",
-            timeout:"Location request timed out. Please try again.",
+            timeout:"The location request timed out. Please try again.",
             unsupported:"Location service is not available in this browser.",
             invalidQR:"Invalid QR code. Please scan the Bahumali office QR code.",
             qrSuccess:"QR code verified successfully. You can now confirm your queue.",
             needLocation:"Location verification is required first.",
             needQR:"Please scan the Bahumali office QR code first.",
-            confirmed:"Queue confirmed successfully."
+            confirmed:"Queue confirmed successfully.",
+            testLocation:"🧪 Use My Current Location for Testing",
+            testGetting:"Getting your current location for testing...",
+            testSaved:"Test location saved. Your current location is now being used as the office location. Click Allow Location to test the 100 metre check."
         },
-
         hi: {
-            gov:"भारत सरकार",
-            brand:"डिजिटल कतार",
-            tagline:"आसान। त्वरित। पारदर्शी।",
-            home:"⌂ होम",
-            services:"▣ सेवाएँ",
-            applications:"▤ मेरे आवेदन",
-            queue:"☷ कतार स्थिति",
-            offices:"🏛 कार्यालय",
-            search:"सेवाएँ, दस्तावेज़, कार्यालय खोजें...",
-            profile:"👤 प्रोफ़ाइल",
+            home:"⌂ होम", services:"▣ सेवाएँ", applications:"▤ मेरे आवेदन",
+            queue:"☷ कतार स्थिति", offices:"🏛 कार्यालय",
+            search:"सेवाएँ, दस्तावेज़, कार्यालय खोजें...", profile:"👤 प्रोफ़ाइल",
             notifications:"सूचनाएँ",
-            notice1:"🔔 आपके आवेदन की स्थिति अपडेट कर दी गई है।",
-            notice2:"📍 कार्यालय पहुँचने के बाद ही अपनी कतार की पुष्टि करें।",
-            notice3:"ℹ️ पुष्टि के बाद आपका कतार नंबर जनरेट किया जाएगा।",
             pageTitle:"स्थान और QR सत्यापन",
             pageSubtitle:"कार्यालय पहुँचने के बाद ही अपनी कतार की पुष्टि करें।",
-            stepLocation:"स्थान अनुमति",
-            stepQR:"QR स्कैनर",
-            stepConfirm:"कतार की पुष्टि",
+            stepLocation:"स्थान अनुमति", stepQR:"QR स्कैनर", stepConfirm:"कतार की पुष्टि",
             step1:"चरण 1: स्थान अनुमति",
             locationNote:"यह जाँचने के लिए स्थान की अनुमति दें कि आप बहुमाली कार्यालय से 100 मीटर के भीतर हैं या नहीं।",
             allowTitle:"स्थान की अनुमति दें",
             allowText:"QR स्कैनर खोलने से पहले स्थान की अनुमति आवश्यक है। आगे बढ़ने के लिए आपको कार्यालय से 100 मीटर के भीतर होना चाहिए।",
-            allow:"स्थान की अनुमति दें",
-            distance:"कार्यालय से दूरी",
-            locationStatus:"स्थान स्थिति",
+            allow:"स्थान की अनुमति दें", distance:"कार्यालय से दूरी", locationStatus:"स्थान स्थिति",
             step2:"चरण 2: कार्यालय QR कोड स्कैन करें",
             qrNote:"आप 100 मीटर की अनुमति वाली सीमा के भीतर हैं। बहुमाली कार्यालय पर प्रदर्शित QR कोड स्कैन करें।",
             scan:"बहुमाली कार्यालय का QR कोड स्कैन करें।",
-            verified:"✓ QR कोड सत्यापित",
-            officeName:"कार्यालय का नाम",
-            officeId:"कार्यालय ID",
-            qrStatus:"QR स्थिति",
-            qrVerified:"सत्यापित",
+            verified:"✓ QR कोड सत्यापित", officeName:"कार्यालय का नाम", officeId:"कार्यालय ID",
+            qrStatus:"QR स्थिति", qrVerified:"सत्यापित",
             confirmText:"QR कोड सफलतापूर्वक सत्यापित हो गया है। अब आप अपनी कतार की पुष्टि कर सकते हैं।",
             confirm:"✓ कतार की पुष्टि करें",
-            footerText:"सरकारी सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए एक डिजिटल प्लेटफ़ॉर्म।",
-            quick:"त्वरित लिंक",
-            serviceTitle:"सेवाएँ",
-            support:"सहायता",
-            footHome:"होम",
-            footServices:"सेवाएँ",
-            footApplications:"मेरे आवेदन",
-            footQueue:"कतार स्थिति",
-            footAadhaar:"आधार",
-            footPAN:"पैन कार्ड",
-            footCertificates:"प्रमाणपत्र",
-            footOffices:"कार्यालय",
-            footProfile:"प्रोफ़ाइल",
-            copyright:"© 2026 डिजिटल कतार। सर्वाधिकार सुरक्षित।",
+            footerText:"सेवाओं को आसान, तेज़ और अधिक पारदर्शी बनाने के लिए एक डिजिटल प्लेटफ़ॉर्म।",
+            quick:"त्वरित लिंक", support:"सहायता", serviceTitle:"सेवाएँ",
             locationPermission:"आपके स्थान की अनुमति माँगी जा रही है...",
             within:"100 मीटर के भीतर",
             outside:"100 मीटर के बाहर",
             withinMsg:"स्थान की अनुमति मिल गई है। आप बहुमाली कार्यालय से 100 मीटर के भीतर हैं। QR स्कैनर अब उपलब्ध है।",
-            outsideMsg:"आप बहुमाली कार्यालय से 100 मीटर के बाहर हैं। कृपया बहुमाली कार्यालय पहुँचें और फिर से स्थान की अनुमति दें। QR स्कैनर केवल 100 मीटर के भीतर होने पर ही खुलेगा।",
+            outsideMsg:"आप बहुमाली कार्यालय से 100 मीटर के बाहर हैं। कृपया बहुमाली कार्यालय पहुँचें और फिर से स्थान की अनुमति दें। QR स्कैनर केवल 100 मीटर के भीतर होने पर खुलेगा।",
             denied:"स्थान की अनुमति अस्वीकार कर दी गई। कृपया स्थान की अनुमति दें और फिर प्रयास करें।",
             gps:"आपका स्थान निर्धारित नहीं हो सका। कृपया GPS/स्थान सेवा चालू करके फिर प्रयास करें।",
             timeout:"स्थान अनुरोध का समय समाप्त हो गया। कृपया फिर से प्रयास करें।",
@@ -2007,60 +2017,33 @@ function changeLanguage(language){
             qrSuccess:"QR कोड सफलतापूर्वक सत्यापित हो गया है। अब आप अपनी कतार की पुष्टि कर सकते हैं।",
             needLocation:"पहले स्थान सत्यापन आवश्यक है।",
             needQR:"कृपया पहले बहुमाली कार्यालय का QR कोड स्कैन करें।",
-            confirmed:"कतार सफलतापूर्वक पुष्टि हो गई।"
+            confirmed:"कतार सफलतापूर्वक पुष्टि हो गई।",
+            testLocation:"🧪 परीक्षण के लिए मेरे वर्तमान स्थान का उपयोग करें",
+            testGetting:"परीक्षण के लिए आपका वर्तमान स्थान प्राप्त किया जा रहा है...",
+            testSaved:"परीक्षण स्थान सहेज लिया गया है। अब आपके वर्तमान स्थान को कार्यालय स्थान के रूप में उपयोग किया जा रहा है। 100 मीटर की जाँच के लिए स्थान की अनुमति दें पर क्लिक करें।"
         },
-
         gu: {
-            gov:"ભારત સરકાર",
-            brand:"ડિજિટલ કતાર",
-            tagline:"સરળ. ઝડપી. પારદર્શક.",
-            home:"⌂ હોમ",
-            services:"▣ સેવાઓ",
-            applications:"▤ મારી અરજીઓ",
-            queue:"☷ કતાર સ્થિતિ",
-            offices:"🏛 કચેરીઓ",
-            search:"સેવાઓ, દસ્તાવેજો, કચેરીઓ શોધો...",
-            profile:"👤 પ્રોફાઇલ",
+            home:"⌂ હોમ", services:"▣ સેવાઓ", applications:"▤ મારી અરજીઓ",
+            queue:"☷ કતાર સ્થિતિ", offices:"🏛 કચેરીઓ",
+            search:"સેવાઓ, દસ્તાવેજો, કચેરીઓ શોધો...", profile:"👤 પ્રોફાઇલ",
             notifications:"સૂચનાઓ",
-            notice1:"🔔 તમારી અરજીની સ્થિતિ અપડેટ કરવામાં આવી છે.",
-            notice2:"📍 કચેરી પહોંચ્યા પછી જ તમારી કતારની પુષ્ટિ કરો.",
-            notice3:"ℹ️ પુષ્ટિ પછી તમારો કતાર નંબર જનરેટ કરવામાં આવશે.",
             pageTitle:"સ્થાન અને QR ચકાસણી",
             pageSubtitle:"કચેરી પહોંચ્યા પછી જ તમારી કતારની પુષ્ટિ કરો.",
-            stepLocation:"સ્થાનની પરવાનગી",
-            stepQR:"QR સ્કેનર",
-            stepConfirm:"કતારની પુષ્ટિ",
+            stepLocation:"સ્થાનની પરવાનગી", stepQR:"QR સ્કેનર", stepConfirm:"કતારની પુષ્ટિ",
             step1:"પગલું 1: સ્થાનની પરવાનગી",
             locationNote:"તમે બહુમાળી કચેરીથી 100 મીટરની અંદર છો કે નહીં તે ચકાસવા માટે સ્થાનની પરવાનગી આપો.",
             allowTitle:"સ્થાનની પરવાનગી આપો",
             allowText:"QR સ્કેનર ખોલતા પહેલાં સ્થાનની પરવાનગી જરૂરી છે. આગળ વધવા માટે તમે કચેરીથી 100 મીટરની અંદર હોવા જોઈએ.",
-            allow:"સ્થાનની પરવાનગી આપો",
-            distance:"કચેરીથી અંતર",
-            locationStatus:"સ્થાન સ્થિતિ",
+            allow:"સ્થાનની પરવાનગી આપો", distance:"કચેરીથી અંતર", locationStatus:"સ્થાન સ્થિતિ",
             step2:"પગલું 2: કચેરીનો QR કોડ સ્કેન કરો",
             qrNote:"તમે 100 મીટરની મંજૂર સીમાની અંદર છો. બહુમાળી કચેરીમાં દર્શાવેલ QR કોડ સ્કેન કરો.",
             scan:"બહુમાળી કચેરીનો QR કોડ સ્કેન કરો.",
-            verified:"✓ QR કોડ ચકાસાયેલ",
-            officeName:"કચેરીનું નામ",
-            officeId:"કચેરી ID",
-            qrStatus:"QR સ્થિતિ",
-            qrVerified:"ચકાસાયેલ",
+            verified:"✓ QR કોડ ચકાસાયેલ", officeName:"કચેરીનું નામ", officeId:"કચેરી ID",
+            qrStatus:"QR સ્થિતિ", qrVerified:"ચકાસાયેલ",
             confirmText:"QR કોડ સફળતાપૂર્વક ચકાસાઈ ગયો છે. હવે તમે તમારી કતારની પુષ્ટિ કરી શકો છો.",
             confirm:"✓ કતારની પુષ્ટિ કરો",
-            footerText:"સરકારી સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ.",
-            quick:"ઝડપી લિંક્સ",
-            serviceTitle:"સેવાઓ",
-            support:"સહાય",
-            footHome:"હોમ",
-            footServices:"સેવાઓ",
-            footApplications:"મારી અરજીઓ",
-            footQueue:"કતાર સ્થિતિ",
-            footAadhaar:"આધાર",
-            footPAN:"પાન કાર્ડ",
-            footCertificates:"પ્રમાણપત્રો",
-            footOffices:"કચેરીઓ",
-            footProfile:"પ્રોફાઇલ",
-            copyright:"© 2026 ડિજિટલ કતાર. સર્વાધિકાર સુરક્ષિત.",
+            footerText:"સેવાઓને સરળ, ઝડપી અને વધુ પારદર્શક બનાવવા માટેનું ડિજિટલ પ્લેટફોર્મ.",
+            quick:"ઝડપી લિંક્સ", support:"સહાય", serviceTitle:"સેવાઓ",
             locationPermission:"તમારા સ્થાનની પરવાનગી માંગવામાં આવી રહી છે...",
             within:"100 મીટરની અંદર",
             outside:"100 મીટરની બહાર",
@@ -2074,18 +2057,11 @@ function changeLanguage(language){
             qrSuccess:"QR કોડ સફળતાપૂર્વક ચકાસાઈ ગયો છે. હવે તમે તમારી કતારની પુષ્ટિ કરી શકો છો.",
             needLocation:"પહેલા સ્થાન ચકાસણી જરૂરી છે.",
             needQR:"કૃપા કરીને પહેલા બહુમાળી કચેરીનો QR કોડ સ્કેન કરો.",
-            confirmed:"કતારની સફળતાપૂર્વક પુષ્ટિ થઈ ગઈ."
+            confirmed:"કતારની સફળતાપૂર્વક પુષ્ટિ થઈ ગઈ.",
+            testLocation:"🧪 પરીક્ષણ માટે મારા વર્તમાન સ્થાનનો ઉપયોગ કરો",
+            testGetting:"પરીક્ષણ માટે તમારું વર્તમાન સ્થાન મેળવવામાં આવી રહ્યું છે...",
+            testSaved:"પરીક્ષણ સ્થાન સાચવવામાં આવ્યું છે. હવે તમારા વર્તમાન સ્થાનનો ઉપયોગ કચેરીના સ્થાન તરીકે થશે. 100 મીટરની ચકાસણી માટે સ્થાનની પરવાનગી આપો પર ક્લિક કરો."
         }
-    };
-
-    function getT(){
-        const lang = localStorage.getItem("selectedLanguage") || "en";
-        return T[lang] || T.en;
-    }
-
-    window.getTranslation = function(key){
-        const t = getT();
-        return t[key] !== undefined ? t[key] : (T.en[key] !== undefined ? T.en[key] : key);
     };
 
     function applyLanguage(lang){
@@ -2093,37 +2069,18 @@ function changeLanguage(language){
         localStorage.setItem("selectedLanguage", lang);
         const t = T[lang];
 
-        const gov = document.querySelector(".gov-text h2");
-        const brand = document.querySelector(".gov-text h3");
-        const tagline = document.querySelector(".gov-text p");
-        if(gov) gov.textContent = t.gov;
-        if(brand) brand.textContent = t.brand;
-        if(tagline) tagline.textContent = t.tagline;
-
         const nav = document.querySelectorAll(".navigation a");
         if(nav.length >= 5){
-            nav[0].textContent=t.home;
-            nav[1].textContent=t.services;
-            nav[2].textContent=t.applications;
-            nav[3].textContent=t.queue;
-            nav[4].textContent=t.offices;
+            nav[0].textContent=t.home; nav[1].textContent=t.services;
+            nav[2].textContent=t.applications; nav[3].textContent=t.queue; nav[4].textContent=t.offices;
         }
 
         const search=document.getElementById("searchInput");
         if(search) search.placeholder=t.search;
-
         const profile=document.querySelector(".profile");
         if(profile) profile.textContent=t.profile;
-
         const nh=document.querySelector(".notification-header");
         if(nh) nh.textContent=t.notifications;
-
-        const ni=document.querySelectorAll(".notification-item");
-        if(ni.length>=3){
-            ni[0].textContent=t.notice1;
-            ni[1].textContent=t.notice2;
-            ni[2].textContent=t.notice3;
-        }
 
         const title=document.querySelector(".page-title h1");
         if(title) title.textContent=t.pageTitle;
@@ -2132,106 +2089,67 @@ function changeLanguage(language){
 
         const labels=document.querySelectorAll(".step-label");
         if(labels.length>=3){
-            labels[0].textContent=t.stepLocation;
-            labels[1].textContent=t.stepQR;
-            labels[2].textContent=t.stepConfirm;
+            labels[0].textContent=t.stepLocation; labels[1].textContent=t.stepQR; labels[2].textContent=t.stepConfirm;
         }
 
         const h2=document.querySelector("#locationPanel h2");
         if(h2) h2.textContent=t.step1;
-
         const note=document.querySelector("#locationPanel .card-note");
         if(note) note.textContent=t.locationNote;
-
         const ah3=document.querySelector("#locationPanel .panel-box h3");
         if(ah3) ah3.textContent=t.allowTitle;
-
         const ap=document.querySelector("#locationPanel .panel-box p");
         if(ap) ap.textContent=t.allowText;
-
         const ab=document.getElementById("locationButton");
         if(ab) ab.textContent=t.allow;
+        const tb=document.getElementById("testLocationButton");
+        if(tb) tb.textContent=t.testLocation;
 
         const rlabels=document.querySelectorAll("#locationResult .result-label");
-        if(rlabels.length>=2){
-            rlabels[0].textContent=t.distance;
-            rlabels[1].textContent=t.locationStatus;
-        }
+        if(rlabels.length>=2){ rlabels[0].textContent=t.distance; rlabels[1].textContent=t.locationStatus; }
 
         const qh2=document.querySelector("#qrPanel h2");
         if(qh2) qh2.textContent=t.step2;
-
         const qnote=document.querySelector("#qrPanel .card-note");
         if(qnote) qnote.textContent=t.qrNote;
-
         const sn=document.getElementById("scanNote");
         if(sn && !qrVerified) sn.textContent=t.scan;
 
         const qrh3=document.querySelector("#qrResult h3");
         if(qrh3) qrh3.textContent=t.verified;
-
         const qitems=document.querySelectorAll("#qrResult .qr-item span");
-        if(qitems.length>=3){
-            qitems[0].textContent=t.officeName;
-            qitems[1].textContent=t.officeId;
-            qitems[2].textContent=t.qrStatus;
-        }
-
+        if(qitems.length>=3){ qitems[0].textContent=t.officeName; qitems[1].textContent=t.officeId; qitems[2].textContent=t.qrStatus; }
         const qs=document.getElementById("qrStatus");
         if(qs && qrVerified) qs.textContent=t.qrVerified;
 
         const fp=document.querySelector("#finalPanel p");
         if(fp) fp.textContent=t.confirmText;
-
         const cb=document.querySelector(".confirm-btn");
         if(cb) cb.textContent=t.confirm;
 
         const fcols=document.querySelectorAll(".footer-column");
         if(fcols.length>=4){
-            const p=fcols[0].querySelector("p");
-            if(p) p.textContent=t.footerText;
-
+            fcols[0].querySelector("p").textContent=t.footerText;
             fcols[1].querySelector("h3").textContent=t.quick;
             fcols[2].querySelector("h3").textContent=t.serviceTitle;
             fcols[3].querySelector("h3").textContent=t.support;
-
-            const links1=fcols[1].querySelectorAll("a");
-            if(links1.length>=4){
-                links1[0].textContent=t.footHome;
-                links1[1].textContent=t.footServices;
-                links1[2].textContent=t.footApplications;
-                links1[3].textContent=t.footQueue;
-            }
-
-            const links2=fcols[2].querySelectorAll("a");
-            if(links2.length>=3){
-                links2[0].textContent=t.footAadhaar;
-                links2[1].textContent=t.footPAN;
-                links2[2].textContent=t.footCertificates;
-            }
-
-            const links3=fcols[3].querySelectorAll("a");
-            if(links3.length>=2){
-                links3[0].textContent=t.footOffices;
-                links3[1].textContent=t.footProfile;
-            }
         }
-
-        const bottom=document.querySelector(".footer-bottom");
-        if(bottom) bottom.textContent=t.copyright;
     }
 
     window.changeLanguage=function(lang){
         applyLanguage(lang);
     };
+    window.getTranslation=function(key){
+        const lang=localStorage.getItem("selectedLanguage")||"en";
+        return (T[lang] && T[lang][key]) || T.en[key] || key;
+    };
 
     document.addEventListener("DOMContentLoaded",function(){
         const select=document.getElementById("languageSelect");
-        const lang=localStorage.getItem("selectedLanguage") || "en";
+        const lang=localStorage.getItem("selectedLanguage")||"en";
         if(select) select.value=lang;
         applyLanguage(lang);
     });
-
 })();
 </script>
 
