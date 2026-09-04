@@ -1045,6 +1045,45 @@ footer {
     }
 }
 
+
+/* =====================================================
+   NO ACTIVE APPLICATION STATE
+===================================================== */
+.no-active-application {
+    text-align: center;
+    padding: 55px 25px;
+}
+
+.no-active-application h2 {
+    margin-bottom: 12px;
+    color: #14213D;
+}
+
+.no-active-application p {
+    color: #667788;
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.no-active-application .apply-service-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #0D47A1;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.queue-card.no-active .queue-top,
+.queue-card.no-active .office-status,
+.queue-card.no-active .info-grid,
+.queue-card.no-active .progress-area,
+.queue-card.no-active .steps,
+.queue-card.no-active .live-status,
+.queue-card.no-active .confirm-section {
+    display: none;
+}
 </style>
 
 <style id="shared-site-style">
@@ -1304,6 +1343,19 @@ main{padding:22px 15px 45px}
     <div class="queue-card">
 
 
+        <!-- NO ACTIVE APPLICATION -->
+
+        <div class="no-active-application" id="noActiveApplication" style="display:none;">
+
+            <h2 id="noActiveApplicationTitle">No Active Application</h2>
+
+            <p id="noActiveApplicationMessage">You don't have an active application or queue token yet.</p>
+
+            <a href="service.html" class="apply-service-btn" id="applyServiceButton">Apply for a Service</a>
+
+        </div>
+
+
         <!-- =================================================
              TOP AREA
         ================================================== -->
@@ -1380,7 +1432,7 @@ main{padding:22px 15px 45px}
 
             <p>
 
-                <span id="officeOpenText">Opens tomorrow at 8:30 AM</span>
+                <span id="officeOpenText">Opens tomorrow at 11:00 AM</span>
 
             </p>
 
@@ -1694,10 +1746,13 @@ const queueTranslations = {
         office: "Bahumali Bhavan,<br>Nanpura, Surat",
         waiting: "Waiting in Queue",
         activeQueue: "Your queue is active.<br>Please wait for your turn.",
+        noActiveApplication: "No Active Application",
+        noActiveApplicationMessage: "You don't have an active application or queue token yet.",
+        applyService: "Apply for a Service",
 
         tokenLabel: "YOUR TOKEN",
         officeClosed: "Office Closed",
-        officeOpen: "Opens tomorrow at 8:30 AM",
+        officeOpen: "Working hours: 11:00 AM – 4:00 PM.",
 
         currentServing: "Current Serving",
         peopleAhead: "People Ahead",
@@ -1763,10 +1818,13 @@ const queueTranslations = {
         office: "बहुमाली भवन,<br>नानपुरा, सूरत",
         waiting: "कतार में प्रतीक्षा",
         activeQueue: "आपकी कतार सक्रिय है।<br>कृपया अपनी बारी की प्रतीक्षा करें।",
+        noActiveApplication: "कोई सक्रिय आवेदन नहीं है",
+        noActiveApplicationMessage: "आपके पास अभी कोई सक्रिय आवेदन या कतार टोकन नहीं है।",
+        applyService: "सेवा के लिए आवेदन करें",
 
         tokenLabel: "आपका टोकन",
         officeClosed: "कार्यालय बंद है",
-        officeOpen: "कल सुबह 8:30 बजे खुलेगा",
+        officeOpen: "कार्य समय: सुबह 11:00 बजे से शाम 4:00 बजे तक।",
 
         currentServing: "वर्तमान टोकन",
         peopleAhead: "आगे लोग",
@@ -1835,7 +1893,7 @@ const queueTranslations = {
 
         tokenLabel: "તમારો ટોકન",
         officeClosed: "કચેરી બંધ છે",
-        officeOpen: "કાલે સવારે 8:30 વાગ્યે ખુલશે",
+        officeOpen: "કાર્ય સમય: સવારે 11:00 વાગ્યાથી સાંજે 4:00 વાગ્યા સુધી.",
 
         currentServing: "હાલમાં સેવા આપતો ટોકન",
         peopleAhead: "આગળના લોકો",
@@ -1911,6 +1969,9 @@ function setLanguage(lang) {
     setText("officeNameText", t.office);
     setText("queueStatusText", t.waiting);
     setText("queueActiveText", t.activeQueue);
+    setText("noActiveApplicationTitle", t.noActiveApplication);
+    setText("noActiveApplicationMessage", t.noActiveApplicationMessage);
+    setText("applyServiceButton", t.applyService);
 
     setText("tokenLabel", t.tokenLabel);
     setText("officeClosedText", t.officeClosed);
@@ -1963,6 +2024,7 @@ function setLanguage(lang) {
     if (search) search.placeholder = t.search;
 
     document.getElementById("languageMenu")?.classList.remove("show");
+    updateOfficeStatus();
 }
 
 function toggleLanguageMenu(event) {
@@ -1990,6 +2052,27 @@ window.addEventListener("load", function() {
 ===================================================== */
 
 function confirmQueue() {
+
+    const savedApplication = localStorage.getItem("currentApplication");
+    const token = localStorage.getItem("userToken");
+
+    let application = null;
+
+    if (savedApplication) {
+        try {
+            application = JSON.parse(savedApplication);
+        } catch (error) {
+            application = null;
+        }
+    }
+
+    if (localStorage.getItem("isLoggedIn") !== "true" ||
+        !application ||
+        !application.applicationId ||
+        !token) {
+        loadQueueForActiveApplication();
+        return;
+    }
 
 
     const alreadyConfirmed =
@@ -2259,19 +2342,29 @@ document
 const DEFAULT_OFFICE_SETTINGS={
     mode:"auto",
     open1:"11:00",
-    close1:"14:00",
-    lunchStart:"14:00",
-    lunchEnd:"14:40",
-    open2:"14:45",
+    close1:"16:00",
+    lunchStart:"16:00",
+    lunchEnd:"16:00",
+    open2:"16:00",
     close2:"16:00"
 };
 
 function getOfficeSettings(){
-    try{
-        return {...DEFAULT_OFFICE_SETTINGS,...JSON.parse(localStorage.getItem("officeSettings")||"{}")};
-    }catch(e){
-        return {...DEFAULT_OFFICE_SETTINGS};
-    }
+    let saved={};
+    try{ saved=JSON.parse(localStorage.getItem("officeSettings")||"{}"); }catch(e){}
+    // Office timing is fixed: 11:00 AM to 4:00 PM, with no lunch split.
+    const settings={
+        ...DEFAULT_OFFICE_SETTINGS,
+        ...saved,
+        open1:"11:00",
+        close1:"16:00",
+        lunchStart:"16:00",
+        lunchEnd:"16:00",
+        open2:"16:00",
+        close2:"16:00"
+    };
+    localStorage.setItem("officeSettings",JSON.stringify(settings));
+    return settings;
 }
 
 function timeToMinutes(value){
@@ -2287,12 +2380,10 @@ function getOfficeStatus(){
 
     const now=new Date();
     const current=now.getHours()*60+now.getMinutes();
+    const opening=timeToMinutes("11:00");
+    const closing=timeToMinutes("16:00");
 
-    if(current>=timeToMinutes(s.open1) && current<timeToMinutes(s.close1)) return "open";
-    if(current>=timeToMinutes(s.lunchStart) && current<timeToMinutes(s.lunchEnd)) return "lunch";
-    if(current>=timeToMinutes(s.open2) && current<timeToMinutes(s.close2)) return "open";
-
-    return "closed";
+    return (current>=opening && current<closing) ? "open" : "closed";
 }
 
 function formatTime(value){
@@ -2306,36 +2397,33 @@ function formatTime(value){
 }
 
 function updateOfficeStatus(){
-    const s=getOfficeSettings();
     const status=getOfficeStatus();
     const title=document.getElementById("officeClosedText");
     const message=document.getElementById("officeOpenText");
     const box=document.querySelector(".office-status");
     const live=document.getElementById("liveStatusText");
+    const lang=localStorage.getItem("selectedLanguage") || "en";
 
     if(!title || !message) return;
 
+    const text={
+        en:{open:"Office Open", closed:"Office Closed", openMsg:"Office is open from 11:00 AM to 4:00 PM.", closedMsg:"Office is currently closed. Working hours: 11:00 AM–4:00 PM.", liveOpen:"Live Status: Open", liveClosed:"Live Status: Closed"},
+        hi:{open:"कार्यालय खुला है", closed:"कार्यालय बंद है", openMsg:"कार्यालय सुबह 11:00 बजे से शाम 4:00 बजे तक खुला है।", closedMsg:"कार्यालय वर्तमान में बंद है। कार्य समय: सुबह 11:00 बजे से शाम 4:00 बजे तक।", liveOpen:"लाइव स्थिति: खुला", liveClosed:"लाइव स्थिति: बंद"},
+        gu:{open:"કચેરી ખુલ્લી છે", closed:"કચેરી બંધ છે", openMsg:"કચેરી સવારે 11:00 વાગ્યાથી સાંજે 4:00 વાગ્યા સુધી ખુલ્લી છે.", closedMsg:"કચેરી હાલમાં બંધ છે. કાર્ય સમય: સવારે 11:00 વાગ્યાથી સાંજે 4:00 વાગ્યા સુધી.", liveOpen:"લાઇવ સ્થિતિ: ખુલ્લી", liveClosed:"લાઇવ સ્થિતિ: બંધ"}
+    }[lang] || null;
+
+    const t=text || {open:"Office Open",closed:"Office Closed",openMsg:"Office is open from 11:00 AM to 4:00 PM.",closedMsg:"Office is currently closed. Working hours: 11:00 AM–4:00 PM.",liveOpen:"Live Status: Open",liveClosed:"Live Status: Closed"};
+
     if(status==="open"){
-        title.textContent="Office Open";
-        message.textContent=
-            "Office is open from "+formatTime(s.open1)+" to "+formatTime(s.close1)+
-            " and from "+formatTime(s.open2)+" to "+formatTime(s.close2)+".";
+        title.textContent=t.open;
+        message.textContent=t.openMsg;
         if(box){box.style.background="#E8F5E9";box.style.borderColor="#A5D6A7";}
-        if(live){live.textContent="Live Status: Open";live.style.color="#2E7D32";}
-    }else if(status==="lunch"){
-        title.textContent="Lunch Break";
-        message.textContent=
-            "Office is on lunch break from "+formatTime(s.lunchStart)+" to "+formatTime(s.lunchEnd)+".";
-        if(box){box.style.background="#FFF8E1";box.style.borderColor="#F0D98A";}
-        if(live){live.textContent="Live Status: Lunch Break";live.style.color="#8A6500";}
+        if(live){live.textContent=t.liveOpen;live.style.color="#2E7D32";}
     }else{
-        title.textContent="Office Closed";
-        message.textContent=
-            "Office is currently closed. Working hours: "+
-            formatTime(s.open1)+"–"+formatTime(s.close1)+" and "+
-            formatTime(s.open2)+"–"+formatTime(s.close2)+".";
+        title.textContent=t.closed;
+        message.textContent=t.closedMsg;
         if(box){box.style.background="#FFF8E1";box.style.borderColor="#F0D98A";}
-        if(live){live.textContent="Live Status: Closed";live.style.color="#B3261E";}
+        if(live){live.textContent=t.liveClosed;live.style.color="#B3261E";}
     }
 }
 
@@ -2358,12 +2446,12 @@ function saveAdminOfficeSettings(){
     const get=id=>document.getElementById(id)?.value;
     const settings={
         mode:get("adminStatus")||"auto",
-        open1:get("open1")||"11:00",
-        close1:get("close1")||"14:00",
-        lunchStart:get("lunchStart")||"14:00",
-        lunchEnd:get("lunchEnd")||"14:40",
-        open2:get("open2")||"14:45",
-        close2:get("close2")||"16:00"
+        open1:"11:00",
+        close1:"16:00",
+        lunchStart:"16:00",
+        lunchEnd:"16:00",
+        open2:"16:00",
+        close2:"16:00"
     };
 
     localStorage.setItem("officeSettings",JSON.stringify(settings));
@@ -2393,27 +2481,59 @@ window.addEventListener("load",function(){
 
 
 /* =====================================================
-   TOKEN DATA
+   ACTIVE APPLICATION / TOKEN DATA
 ===================================================== */
 
-const token =
-    localStorage.getItem(
-        "userToken"
+function loadQueueForActiveApplication() {
+
+    const queueCard = document.querySelector(".queue-card");
+    const noActive = document.getElementById("noActiveApplication");
+
+    if (!queueCard || !noActive) return;
+
+    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const savedApplication = localStorage.getItem("currentApplication");
+    const savedToken = localStorage.getItem("userToken");
+
+    let application = null;
+
+    if (savedApplication) {
+        try {
+            application = JSON.parse(savedApplication);
+        } catch (error) {
+            console.error("Invalid application data:", error);
+        }
+    }
+
+    const hasApplication = !!(
+        loggedIn &&
+        application &&
+        application.applicationId
     );
 
+    const token =
+        savedToken ||
+        (application && (application.tokenNumber || application.token)) ||
+        "";
 
-if (
-    token
-) {
+    const hasActiveQueue = hasApplication && !!token;
 
-    document
-        .getElementById(
-            "tokenNumber"
-        )
-        .textContent =
-        token;
+    if (!hasActiveQueue) {
+        queueCard.classList.add("no-active");
+        noActive.style.display = "block";
+        return;
+    }
 
+    queueCard.classList.remove("no-active");
+    noActive.style.display = "none";
+
+    const tokenElement = document.getElementById("tokenNumber");
+    if (tokenElement) {
+        tokenElement.textContent = token;
+    }
 }
+
+window.addEventListener("load", loadQueueForActiveApplication);
 
 </script>
 
@@ -2610,6 +2730,11 @@ if (
 })();
 </script>
 
+
+<script>
+window.addEventListener("pageshow", loadQueueForActiveApplication);
+window.addEventListener("storage", loadQueueForActiveApplication);
+</script>
 </body>
 
 </html>

@@ -834,6 +834,20 @@ function verifyOTP(){
             application.status =
                 "OTP Verified";
 
+            // Generate the queue token only after successful OTP verification.
+            const generatedToken =
+                application.tokenNumber ||
+                ("A-" + String(Math.floor(100 + Math.random() * 900)));
+
+            application.tokenNumber = generatedToken;
+
+            localStorage.setItem(
+                "userToken",
+                generatedToken
+            );
+
+            // A newly verified application starts with an unconfirmed queue.
+            localStorage.removeItem("queueConfirmed");
 
             localStorage.setItem(
                 "currentApplication",
